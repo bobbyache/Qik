@@ -85,6 +85,13 @@ dotnet test ./qiktests/qiktests.csproj
 ```
 Note that the tests can be run using CodeLens. In the NUnit test classes each test method will have a `Run Test` and a `Debug Test` above the method declaration.
 
+### Install Packages
+Here is an example of how to install a package to a project at the commandline. You need to navigate into the project folder so that the `csproj` file is in the same directory.
+```
+dotnet add package Newtonsoft.Json
+dotnet add package Newtonsoft.Json --version 12.0.1
+```
+
 ## Antlr
 
 ### ANTLR4 grammar syntax support VS Code Plugin

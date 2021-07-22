@@ -25,8 +25,8 @@ namespace QikProjectFileTests
             project.Processors.Add(new Processor { Id = "simple_processor", Type = "simple", InputFile = "key_value_pairs.txt", ScriptFile = "kv_script_file.qik" });
             project.Processors.Add(new Processor { Id = "matrix_processor", Type = "matrix", InputFile = "csv_data.csv", ScriptFile = "csv_script_file.qik" });
 
-            project.Documents.Add(new Document { Id = "document_A", Strategy = "partial_overwrite", OutputFilePath = "/documents/document1.txt", Line = 26 });
-            project.Documents.Add(new Document { Id = "document_B", Strategy = "full_replace", OutputFilePath = "/documents/document2.txt" });
+            project.Documents.Add(new Document { Id = "document_A", Properties = "strategy:partial_overwrite;startline:26;endline:26", OutputFilePath = "/documents/document1.txt" });
+            project.Documents.Add(new Document { Id = "document_B", Properties = "strategy:full_replace", OutputFilePath = "/documents/document2.txt" });
 
             var writer = new ProjectFile();
             writer.Write(project, FileHelpers.ResolvePath("project.json"));
@@ -75,16 +75,14 @@ namespace QikProjectFileTests
             var documentA = writtenProject.Documents[0];
 
             Assert.IsTrue(documentA.Id == "document_A", "Unexpected document id read from project file");
-            Assert.IsTrue(documentA.Strategy == "partial_overwrite", "Unexpected document strategy read from project file");
+            Assert.IsTrue(documentA.Properties == "strategy:partial_overwrite;startline:26;endline:26", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentA.OutputFilePath == "/documents/document1.txt", "Unexpected document output file read from project file");
-            Assert.IsTrue(documentA.Line == 26, "Unexpected Line no. read from project file");
 
             var documentB = writtenProject.Documents[1];
 
             Assert.IsTrue(documentB.Id == "document_B", "Unexpected document id read from project file");
-            Assert.IsTrue(documentB.Strategy == "full_replace", "Unexpected document strategy read from project file");
+            Assert.IsTrue(documentB.Properties == "strategy:full_replace", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentB.OutputFilePath == "/documents/document2.txt", "Unexpected document output file read from project file");
-            Assert.IsNull(documentB.Line, "Expected a null line number to be read from project file");
         }
     }
 }

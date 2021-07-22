@@ -30,8 +30,7 @@ namespace QikProjectFile
     public class Document
     {
         public string Id { get; set; }
-        public string Strategy { get; set; }
         public string OutputFilePath { get; set; }
-        public int? Line { get; set; }
+        public string Properties { get; set; }
     }
 }
