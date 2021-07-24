@@ -45,18 +45,6 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitInput([NotNull] QikTemplateParser.InputContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.ctrlDecl"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitTextBox([NotNull] QikTemplateParser.TextBoxContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

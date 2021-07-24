@@ -26,8 +26,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 
             Assert.AreEqual("@toProperCase", expressionSymbol.Symbol);
             Assert.AreEqual("@{toProperCase}", expressionSymbol.Placeholder);
-            Assert.AreEqual("Proper Case Function", expressionSymbol.Title);
-
             Assert.AreEqual("Literal Text", expressionSymbol.Value);
         }
 

@@ -8,53 +8,10 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
     public class TextInputSymbolTests
     {
         [Test]
-        public void TextInputSymbol_Cast_CanCastToIInputFieldInterface()
-        {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
-            Assert.That(textInputSymbol is IInputField);
-        }
-
-        [Test]
         public void TextInputSymbol_Initialize_InitializesPlaceholder()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
-            Assert.AreEqual("@{authorName}", textInputSymbol.Placeholder);
-        }
-
-        [Test]
-        public void TextInputSymbol_Initialize_InitializesSymbol()
-        {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
-
-            Assert.AreEqual("@authorName", textInputSymbol.Symbol);
-            Assert.AreEqual("Author Name", textInputSymbol.Title);
-        }
-
-        [Test]
-        public void TextInputSymbol_Initialized_WithDefaultValue_DefaultValueIsCorrect()
-        {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(defaultValue: "Rob Blake");
-            Assert.AreEqual("Rob Blake", textInputSymbol.DefaultValue);
-            Assert.AreEqual("Rob Blake", textInputSymbol.Value);
-        }
-
-        [Test]
-        public void TextInputSymbol_Initialized_WithoutDefaultValue_DefaultValueIsNull()
-        {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
-            Assert.AreEqual(null, textInputSymbol.DefaultValue);
-            Assert.AreEqual(null, textInputSymbol.Value);
-        }
-
-
-        [Test]
-        public void TextInputSymbol_Initialized_WithDefaultValueButChanged_ValueIsCorrect()
-        {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(defaultValue:"Rob Blake");
-
-            textInputSymbol.SetValue("Andrew Botha");
-            Assert.AreEqual("Andrew Botha", textInputSymbol.Value);
-            Assert.AreEqual("Rob Blake", textInputSymbol.DefaultValue);
+            InputSymbol inputSymbol = TestHelpers.CreateInputSymbol_Author();
+            Assert.AreEqual("@{authorName}", inputSymbol.Placeholder);
         }
     }
 }

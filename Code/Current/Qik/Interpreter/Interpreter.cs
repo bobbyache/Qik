@@ -17,7 +17,6 @@ namespace CygSoft.Qik
         public bool HasErrors => syntaxValidator.HasErrors || interpreterEngine.HasErrors;
         public string[] Symbols => interpreterEngine.Symbols;
         public string[] Placeholders => interpreterEngine.Placeholders;
-        public IInputField[] InputFields => interpreterEngine.InputFields;
         public IExpression[] Expressions => interpreterEngine.Expressions;
 
         // Default functionality
@@ -43,17 +42,6 @@ namespace CygSoft.Qik
             
         }
 
-        public void Input(string symbol, string value)
-        {
-            interpreterEngine.BeforeInput += interpreterEngine_BeforeInput;
-            interpreterEngine.AfterInput += interpreterEngine_AfterInput;
-
-            interpreterEngine.Input(symbol, value);
-
-            interpreterEngine.BeforeInput -= interpreterEngine_BeforeInput;
-            interpreterEngine.AfterInput -= interpreterEngine_AfterInput;
-        }
-
         public ISymbolInfo GetPlaceholderInfo(string placeholder) => interpreterEngine.GetPlaceholderInfo(placeholder);
 
         public ISymbolInfo GetSymbolInfo(string symbol) => interpreterEngine.GetSymbolInfo(symbol);
@@ -64,7 +52,6 @@ namespace CygSoft.Qik
 
         public string GetValueOfPlaceholder(string placeholder) => interpreterEngine.GetValueOfPlaceholder(placeholder);
 
-        public string GetTitleOfPlaceholder(string placeholder) => interpreterEngine.GetTitleOfPlaceholder(placeholder);
 
         private void InterpretInstructions(string scriptText)
         {

@@ -28,7 +28,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
 
             Assert.AreEqual("@concat", expressionSymbol.Symbol);
             Assert.AreEqual("@{concat}", expressionSymbol.Placeholder);
-            Assert.AreEqual("Concatenated String", expressionSymbol.Title);
 
             Assert.AreEqual("hello world", expressionSymbol.Value);
         }

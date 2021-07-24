@@ -3,7 +3,6 @@
     public interface ISymbol
     {
         string Symbol { get; }
-        string Title { get; }
         string Value { get; }
         string Placeholder { get; }
     }

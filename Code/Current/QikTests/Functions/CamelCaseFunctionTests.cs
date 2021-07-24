@@ -24,7 +24,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
             Assert.AreEqual("@{classInstance}", expressionSymbol.Placeholder);
-            Assert.AreEqual("Class Instance", expressionSymbol.Title);
 
             Assert.AreEqual("literalText", expressionSymbol.Value);
         }

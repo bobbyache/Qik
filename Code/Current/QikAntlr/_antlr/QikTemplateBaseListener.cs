@@ -60,30 +60,6 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitInput([NotNull] QikTemplateParser.InputContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.ctrlDecl"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.ctrlDecl"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterTextBox([NotNull] QikTemplateParser.TextBoxContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitTextBox([NotNull] QikTemplateParser.TextBoxContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

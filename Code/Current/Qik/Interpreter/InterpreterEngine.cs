@@ -7,8 +7,6 @@ namespace CygSoft.Qik
 {
     public class InterpreterEngine : IInterpreterEngine
     {
-        public event EventHandler BeforeInput;
-        public event EventHandler AfterInput;
         public event EventHandler BeforeInterpret;
         public event EventHandler AfterInterpret;
         public event EventHandler<InterpretErrorEventArgs> InterpretError;
@@ -20,7 +18,6 @@ namespace CygSoft.Qik
 
         public string[] Symbols => scopeTable.Symbols;
 
-        public IInputField[] InputFields => scopeTable.InputFields;
         public IExpression[] Expressions => scopeTable.Expressions;
 
         public string[] Placeholders => scopeTable.Placeholders;
@@ -29,25 +26,6 @@ namespace CygSoft.Qik
         {
             this.scopeTable = scopeTable ?? throw new ArgumentNullException($"{nameof(scopeTable)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
-        }
-
-        public void CreateFieldInput(string symbol, string fieldName)
-        {
-            var autoInputSymbol = new AutoInputSymbol(symbol, fieldName);
-
-            if (!scopeTable.Symbols.Contains(autoInputSymbol.Symbol))
-                scopeTable.AddSymbol(autoInputSymbol);
-        }
-
-        public void Input(string symbol, string value)
-        {
-            HasErrors = false;
-
-            BeforeInput?.Invoke(this, new EventArgs());
-
-            scopeTable.Input(symbol, value);
-
-            AfterInput?.Invoke(this, new EventArgs());
         }
 
         public void Interpret(string scriptText)
@@ -122,7 +100,5 @@ namespace CygSoft.Qik
         public string GetValueOfSymbol(string symbol) => scopeTable.GetValueOfSymbol(symbol);
 
         public string GetValueOfPlaceholder(string placeholder) => scopeTable.GetValueOfPlacholder(placeholder);
-
-        public string GetTitleOfPlaceholder(string placeholder) => scopeTable.GetTitleOfPlacholder(placeholder);
     }
 }

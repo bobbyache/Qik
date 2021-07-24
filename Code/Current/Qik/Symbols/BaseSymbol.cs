@@ -8,7 +8,6 @@
         private readonly string prefix = "@{";
         private readonly string postfix = "}";
 
-        public string Title { get; }
         public string Symbol { get; }
 
         public abstract string Value { get; }
@@ -24,19 +23,17 @@
             }
         }
 
-        public BaseSymbol(string symbol, string title)
+        public BaseSymbol(string symbol)
         {
             Symbol = symbol;
-            Title = title;
         }
 
-        public BaseSymbol(string symbol, string title, string prefix, string postfix)
+        public BaseSymbol(string symbol, string prefix, string postfix)
         {
             this.prefix = prefix;
             this.postfix = postfix;
 
             Symbol = symbol;
-            Title = title;
         }
     }
 }

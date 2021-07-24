@@ -10,13 +10,11 @@ namespace CygSoft.Qik
         {
             public string Symbol { get; }
             public string Placeholder { get; }
-            public string Title { get; }
 
-            public SymbolInfo(string placeholder, string symbol, string title)
+            public SymbolInfo(string placeholder, string symbol)
             {
                 Symbol = symbol;
                 Placeholder = placeholder;
-                Title = title;
             }
         }
 
@@ -44,7 +42,7 @@ namespace CygSoft.Qik
             }
         }
 
-        public IInputField[] InputFields => table.Values.OfType<IInputField>().ToArray();
+        // public IInputField[] InputFields => table.Values.OfType<IInputField>().ToArray();
         public IExpression[] Expressions => table.Values.OfType<IExpression>().ToArray();
 
         public void Clear()
@@ -58,25 +56,6 @@ namespace CygSoft.Qik
                 table.Add(symbol.Symbol, symbol);
         }
 
-        public void Input(string inputSymbol, string value)
-        {
-            if (table.ContainsKey(inputSymbol))
-            {
-                ISymbol symbol = table[inputSymbol];
-
-                if (symbol is AutoInputSymbol)
-                {
-                    AutoInputSymbol autoInputSymbol = table[inputSymbol] as AutoInputSymbol;
-                    autoInputSymbol.SetValue(value);
-                }
-                else if (symbol is TextInputSymbol)
-                {
-                    TextInputSymbol textInputSymbol = table[inputSymbol] as TextInputSymbol;
-                    textInputSymbol.SetValue(value);
-                }
-            }
-        }
-
         public ISymbolInfo GetPlaceholderInfo(string placeholder)
         {
             List<BaseSymbol> symbols = table.Values.Cast<BaseSymbol>().ToList();
@@ -85,7 +64,7 @@ namespace CygSoft.Qik
             {
                 BaseSymbol baseSymbol = symbols.Where(s => s.Placeholder == placeholder).SingleOrDefault() as BaseSymbol;
                 ISymbolInfo placeholderInfo =
-                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title);
+                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol);
                 return placeholderInfo;
             }
 
@@ -98,7 +77,7 @@ namespace CygSoft.Qik
             {
                 ISymbol baseSymbol = table[symbol];
                 ISymbolInfo symbolInfo =
-                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title);
+                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol);
                 return symbolInfo;
             }
             return null;
@@ -134,19 +113,6 @@ namespace CygSoft.Qik
             {
                 BaseSymbol baseSymbol = symbols.Where(s => s.Placeholder == placeholder).SingleOrDefault() as BaseSymbol;
                 return baseSymbol.Value;
-            }
-
-            return null;
-        }
-
-        public string GetTitleOfPlacholder(string placeholder)
-        {
-            List<BaseSymbol> symbols = table.Values.Cast<BaseSymbol>().ToList();
-
-            if (symbols.Any(s => s.Placeholder == placeholder))
-            {
-                BaseSymbol baseSymbol = symbols.Where(s => s.Placeholder == placeholder).SingleOrDefault() as BaseSymbol;
-                return baseSymbol.Title;
             }
 
             return null;

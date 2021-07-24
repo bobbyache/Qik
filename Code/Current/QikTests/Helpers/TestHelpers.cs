@@ -15,10 +15,10 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
             return val;
         }
 
-        internal static TextInputSymbol CreateTextInputSymbol_Author(string symbol = "@authorName", string title = "Author Name", string defaultValue = null)
+        internal static InputSymbol CreateInputSymbol_Author(string symbol = "@authorName")
         {
-            var textInputSymbol = new TextInputSymbol(symbol, title, defaultValue);
-            return textInputSymbol;
+            var inputSymbol = new InputSymbol(symbol);
+            return inputSymbol;
         }
 
         private static string BuildExpressionForFunction(string functionText)

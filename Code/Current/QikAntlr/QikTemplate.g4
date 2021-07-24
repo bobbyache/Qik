@@ -6,7 +6,7 @@ Complete Template
     - Derived Input (expression input derived from user input or system)
 *********************************************************************** */ 
 template		
-    :	(input|ctrlDecl|exprDecl)+ 
+    :	(input|exprDecl)+ 
     ;
 
 
@@ -16,14 +16,6 @@ Control Declarations
 input
     : VARIABLE '=' STRING ';'
     ;
-
-ctrlDecl
-    : textBox
-    ;
-
-textBox
-    : VARIABLE '=' 'text' '[' declArgs ']' ';'
-    ; 
 
 /* -----------------------------------------------------------------------
 Expression Declarations

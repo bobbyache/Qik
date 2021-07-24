@@ -52,26 +52,6 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitInput([NotNull] QikTemplateParser.InputContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.ctrlDecl"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.ctrlDecl"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterTextBox([NotNull] QikTemplateParser.TextBoxContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitTextBox([NotNull] QikTemplateParser.TextBoxContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

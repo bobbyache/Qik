@@ -20,8 +20,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             
             Assert.AreEqual("@authorName", expressionSymbol.Symbol);
             Assert.AreEqual("@{authorName}", expressionSymbol.Placeholder);
-            Assert.AreEqual("Author Name", expressionSymbol.Title);
-
             Assert.AreEqual("Rob Blake", expressionSymbol.Value);
         }
     }

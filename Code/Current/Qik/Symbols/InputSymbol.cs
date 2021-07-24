@@ -1,21 +1,23 @@
 ﻿
 namespace CygSoft.Qik
 {
-    public abstract class InputSymbol : BaseSymbol, IInputField
+    public class InputSymbol : BaseSymbol
     {
-        public string DefaultValue { get; }
 
-        public InputSymbol(string symbol, string title, string defaultValue)
-            : base(symbol, title)
+        private string value = null;
+
+        public override string Value => value;
+
+        public InputSymbol(string symbol)
+            : base(symbol)
         {
-            DefaultValue = Common.StripOuterQuotes(defaultValue);
         }
 
-        public InputSymbol(string symbol, string title, string defaultValue,  
-            string prefix, string postfix)
-            : base(symbol, title, prefix, postfix)
+        public InputSymbol(string symbol, string prefix, string postfix)
+            : base(symbol, prefix, postfix)
         {
-            DefaultValue = defaultValue;
         }
+
+        public void SetValue(string value) => this.value = value;
     }
 }

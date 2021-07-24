@@ -11,15 +11,15 @@ namespace CygSoft.Qik
 
         public ExpressionSymbol(IErrorReport errorReport, string symbol, string title,
             IFunction func)
-            : base(symbol, title)
+            : base(symbol)
         {
             this.func = func ?? throw new ArgumentNullException($"{nameof(func)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
-        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title,
+        public ExpressionSymbol(IErrorReport errorReport, string symbol,
             IFunction func, string prefix, string postfix)
-            : base(symbol, title, prefix, postfix)
+            : base(symbol, prefix, postfix)
         {
             this.func = func ?? throw new ArgumentNullException($"{nameof(func)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
