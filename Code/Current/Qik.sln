@@ -11,10 +11,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikTests", "QikTests\QikTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikAntlr", "QikAntlr\QikAntlr.csproj", "{B2C00AAD-C76A-4A74-9818-C30182EE2506}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikProjectFile", "QikProjectFile\QikProjectFile.csproj", "{3799787B-C6F1-413B-938E-26B81612A997}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikProjectFileTests", "QikProjectFileTests\QikProjectFileTests.csproj", "{7E41142A-E132-41FB-BD0F-A98F1770D641}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

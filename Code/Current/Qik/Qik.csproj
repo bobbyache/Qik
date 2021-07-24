@@ -11,4 +11,15 @@
   <ItemGroup>
     <ProjectReference Include="..\QikAntlr\QikAntlr.csproj" />
   </ItemGroup>
+
+<!-- 
+    Avoid
+    System.IO.FileNotFoundException: The configuration file 'appsettings.json' was not found and is not optional.
+ -->
+<ItemGroup>
+    <Content Update="appsettings.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+</ItemGroup>
+
 </Project>

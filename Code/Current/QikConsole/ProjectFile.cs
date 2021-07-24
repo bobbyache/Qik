@@ -2,9 +2,15 @@ using System.Text;
 using System.Text.Json;
 using System.IO;
 
-namespace QikProjectFile
+namespace CygSoft.Qik.Console
 {
-    public class ProjectFile
+    public interface IProjectFile
+    {
+        void Write(Project project, string path);
+        Project Read(string path);
+    }
+
+    public class ProjectFile : IProjectFile
     {
         public void Write(Project project, string path)
         {

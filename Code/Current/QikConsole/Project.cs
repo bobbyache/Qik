@@ -1,7 +1,7 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 
-namespace QikProjectFile
+namespace CygSoft.Qik.Console
 {
     public class Project
     {
@@ -16,6 +16,7 @@ namespace QikProjectFile
     public class Fragment
     {
         public string Id { get; set; }
+        public string Path { get; set; }
         public string[] Processors { get; set; }
     }
 
@@ -32,5 +33,6 @@ namespace QikProjectFile
         public string Id { get; set; }
         public string OutputFilePath { get; set; }
         public string Properties { get; set; }
+        public string[] Structure { get; set; }
     }
 }

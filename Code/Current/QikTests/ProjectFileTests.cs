@@ -1,17 +1,14 @@
-using System.Linq;
+using CygSoft.Qik.Console;
+using Qik.LanguageEngine.IntegrationTests.Helpers;
 using NUnit.Framework;
-using QikProjectFile;
-using QikProjectFileTests.Helpers;
+using System.Linq;
+using Moq;
 
-namespace QikProjectFileTests
+namespace Qik.LanguageEngine.UnitTests
 {
-    public class Tests
+    [TestFixture]
+    class ProjectFileTests
     {
-        [SetUp]
-        public void Setup()
-        {
-        }
-
         [Test]
         public void Should_Write_To_Project_File()
         {
@@ -19,14 +16,27 @@ namespace QikProjectFileTests
             project.PlaceholderPrefix = "{{";
             project.PlaceholderPostfix = "}}";
             
-            project.Fragments.Add(new Fragment { Id = "fragment_A", Processors = new string [2] {"simple_processor", "matrix_processor"} });
-            project.Fragments.Add(new Fragment { Id = "fragment_B", Processors = new string [0] });
+            project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt", Processors = new string [2] {"simple_processor", "matrix_processor"} });
+            project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt", Processors = new string [0] });
 
             project.Processors.Add(new Processor { Id = "simple_processor", Type = "simple", InputFile = "key_value_pairs.txt", ScriptFile = "kv_script_file.qik" });
             project.Processors.Add(new Processor { Id = "matrix_processor", Type = "matrix", InputFile = "csv_data.csv", ScriptFile = "csv_script_file.qik" });
 
-            project.Documents.Add(new Document { Id = "document_A", Properties = "strategy:partial_overwrite;startline:26;endline:26", OutputFilePath = "/documents/document1.txt" });
-            project.Documents.Add(new Document { Id = "document_B", Properties = "strategy:full_replace", OutputFilePath = "/documents/document2.txt" });
+            project.Documents.Add(new Document 
+            { 
+                Id = "document_A", 
+                Properties = "strategy:partial_overwrite;startline:26;endline:26", 
+                OutputFilePath = "/documents/document1.txt",
+                Structure = new string [1] { "fragment_A" }
+            });
+
+            project.Documents.Add(new Document 
+            { 
+                Id = "document_B", 
+                Properties = "strategy:full_replace", 
+                OutputFilePath = "/documents/document2.txt" ,
+                Structure = new string [2] {"fragment_A", "fragment_B" }
+            });
 
             var writer = new ProjectFile();
             writer.Write(project, FileHelpers.ResolvePath("project.json"));
@@ -45,6 +55,9 @@ namespace QikProjectFileTests
 
             Assert.IsTrue(fragmentA.Id == "fragment_A", "Unexpected fragment id read from project file");
             Assert.IsTrue(fragmentB.Id == "fragment_B", "Unexpected fragment id read from project file");
+
+            Assert.IsTrue(fragmentA.Path == "C:\\Users\\RobB\\Desktop\\fragment_A.txt", "Unexpected fragment path read from project file");
+            Assert.IsTrue(fragmentB.Path == "C:\\Users\\RobB\\Desktop\\fragment_B.txt", "Unexpected fragment path read from project file");
 
 
             Assert.IsTrue(fragmentA.Processors.Count() == 2, "Unexpected processor count read from project file");
@@ -78,11 +91,15 @@ namespace QikProjectFileTests
             Assert.IsTrue(documentA.Properties == "strategy:partial_overwrite;startline:26;endline:26", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentA.OutputFilePath == "/documents/document1.txt", "Unexpected document output file read from project file");
 
+            Assert.IsTrue(documentA.Structure[0] == "fragment_A", "Unexpected structure id read from project file");
+            
             var documentB = writtenProject.Documents[1];
 
             Assert.IsTrue(documentB.Id == "document_B", "Unexpected document id read from project file");
             Assert.IsTrue(documentB.Properties == "strategy:full_replace", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentB.OutputFilePath == "/documents/document2.txt", "Unexpected document output file read from project file");
-        }
+            Assert.IsTrue(documentB.Structure[0] == "fragment_A", "Unexpected structure id read from project file");
+            Assert.IsTrue(documentB.Structure[1] == "fragment_B", "Unexpected structure id read from project file");
+        }   
     }
 }

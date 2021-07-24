@@ -91,7 +91,7 @@ class Program
             }));
 
             var config = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
+                .SetBasePath(AppDomain.CurrentDomain.BaseDirectory /* Directory.GetCurrentDirectory() */)
                 .AddJsonFile("appsettings.json").Build();
 
             settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
@@ -106,7 +106,8 @@ class Program
                 .AddSingleton<IJsonFunctions, JsonFunctions>()
                 .AddSingleton<IInterpreter, Interpreter>()
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions(settings))
-                .AddSingleton<IAppHost, AppHost>()
+                .AddSingleton<IProjectFile, ProjectFile>()
+                .AddSingleton<IAppHost, MainHost>()
             ;
 
             serviceProvider = services.BuildServiceProvider();

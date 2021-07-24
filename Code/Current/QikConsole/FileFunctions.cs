@@ -48,6 +48,11 @@ namespace CygSoft.Qik.Console
 
         public void WriteTextFile(string path, string contents)
         {
+            if (!DirectoryExists(GetFileDirectory(path)))
+            {
+                CreateDirectory(GetFileDirectory(path));
+            }
+
             using (FileStream fileStream = new FileStream(path, FileMode.OpenOrCreate, FileAccess.Write))
             using (StreamWriter streamWriter = new StreamWriter(fileStream))
             {

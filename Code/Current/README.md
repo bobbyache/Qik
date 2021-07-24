@@ -29,7 +29,7 @@ dotnet run --project QikConsole/QikConsole.csproj
 ### Cmd Execution
 ```
 cd "C:\Code\you\Qik\Code\Current\QikConsole\bin\Debug\net5.0"
-qikconsole -i -p "C:\Users\RobB\Desktop\TestQik"
+qikconsole --path C:\Users\RobB\Desktop\TestQik
 ```
 
 ### Powershell Execution

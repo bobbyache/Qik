@@ -22,8 +22,8 @@
                 // ****************************************
                 // Prompt to Generate
                 // ****************************************
-                // "--path", 
-                // "C:\\Users\\RobB\\Desktop\\TestQik\\", 
+                "--path", 
+                "C:\\Users\\RobB\\Desktop\\qik\\projectA\\project.json", 
 
                 // "--path", 
                 // "C:\\Users\\RobB\\Desktop\\TestQik\\XD\\ApiServer\\Tests\\", 
