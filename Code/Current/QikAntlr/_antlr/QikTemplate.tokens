@@ -22,10 +22,10 @@ WS=21
 COMMENT=22
 LINE_COMMENT=23
 '='=1
-'text'=2
-'['=3
-']'=4
-';'=5
+';'=2
+'text'=3
+'['=4
+']'=5
 'expression'=6
 '{'=7
 'return'=8

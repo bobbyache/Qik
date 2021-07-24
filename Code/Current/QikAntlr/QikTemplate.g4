@@ -6,13 +6,17 @@ Complete Template
     - Derived Input (expression input derived from user input or system)
 *********************************************************************** */ 
 template		
-    :	(ctrlDecl|exprDecl)+ 
+    :	(input|ctrlDecl|exprDecl)+ 
     ;
 
 
 /* -----------------------------------------------------------------------
 Control Declarations
 ----------------------------------------------------------------------- */ 
+input
+    : VARIABLE '=' STRING ';'
+    ;
+
 ctrlDecl
     : textBox
     ;

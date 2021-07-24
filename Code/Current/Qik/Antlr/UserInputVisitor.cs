@@ -1,4 +1,5 @@
-﻿
+﻿using Antlr4.Runtime.Misc;
+
 namespace CygSoft.Qik.Antlr
 {
     internal class UserInputVisitor : QikTemplateBaseVisitor<string>
@@ -23,6 +24,17 @@ namespace CygSoft.Qik.Antlr
             scopeTable.AddSymbol(textInputSymbol);
 
             return base.VisitTextBox(context);
+        }
+
+        public override string VisitInput([NotNull] QikTemplateParser.InputContext context)
+        {
+            // int line = context.Start.Line;
+            // int column = context.Start.Column;
+
+            var textInputSymbol = new TextInputSymbol(context.VARIABLE().GetText(), "", Common.StripOuterQuotes(context.STRING().GetText()));
+            scopeTable.AddSymbol(textInputSymbol);
+            
+            return base.VisitInput(context);
         }
     }
 }
