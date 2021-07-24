@@ -114,6 +114,10 @@ Important that the settings are set up correctly or your grammar file will not g
 | outputDir | _antlr  |
 | package | CygSoft.Qik.Antlr  |
 
+There are a couple of reasons why your files aren't generating. In the past you've solved this by:
+- Ensuring that you've added the correcdt settings above for both user and workspace.
+- It is possible that there is a problem with your `*.g4` template file.
+
 ### Plugin Workspace Settings
 ```
 {

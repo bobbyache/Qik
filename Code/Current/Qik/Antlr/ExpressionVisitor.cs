@@ -26,54 +26,19 @@ namespace CygSoft.Qik.Antlr
             {
                 var concatenateFunc = GetConcatenateFunction(context.concatExpr());
                 var expression =
-                    new ExpressionSymbol(errorReport, id, symbolArguments.Title, symbolArguments.Description,
+                    new ExpressionSymbol(errorReport, id, symbolArguments.Title,
                         symbolArguments.IsPlaceholder, symbolArguments.IsVisibleToEditor, concatenateFunc);
-                scopeTable.AddSymbol(expression);
-            }
-            else if (context.optExpr() != null)
-            {
-                var ifFunc = VisitOptExpr(context.optExpr());
-
-                var expression = new ExpressionSymbol(errorReport, id, symbolArguments.Title, symbolArguments.Description,
-                    symbolArguments.IsPlaceholder, symbolArguments.IsVisibleToEditor, ifFunc);
                 scopeTable.AddSymbol(expression);
             }
             else if (context.expr() != null)
             {
                 var function = VisitExpr(context.expr());
-                var expression = new ExpressionSymbol(errorReport, id, symbolArguments.Title, symbolArguments.Description,
+                var expression = new ExpressionSymbol(errorReport, id, symbolArguments.Title,
                     symbolArguments.IsPlaceholder, symbolArguments.IsVisibleToEditor, function);
                 scopeTable.AddSymbol(expression);
             }
 
             return null;
-        }
-
-        public override IFunction VisitOptExpr(QikTemplateParser.OptExprContext context)
-        {
-            var line = context.Start.Line;
-            var column = context.Start.Column;
-
-            var id = context.VARIABLE().GetText();
-            var ifFunc = new IfDecissionFunction(new FuncInfo("Float", line, column), this.scopeTable, id);
-
-            foreach (var ifOptContext in context.ifOptExpr())
-            {
-                var text = ifOptContext.STRING().GetText();
-
-                if (ifOptContext.concatExpr() != null)
-                {
-                    var concatenateFunc = GetConcatenateFunction(ifOptContext.concatExpr());
-                    ifFunc.AddFunction(text, concatenateFunc);
-                }
-                else if (ifOptContext.expr() != null)
-                {
-                    var function = VisitExpr(ifOptContext.expr());
-                    ifFunc.AddFunction(text, function);
-                }
-            }
-
-            return ifFunc;
         }
 
         public override IFunction VisitFunc(QikTemplateParser.FuncContext context)

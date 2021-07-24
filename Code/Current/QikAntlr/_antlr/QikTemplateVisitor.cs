@@ -45,47 +45,17 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.optionBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOptionBox([NotNull] QikTemplateParser.OptionBoxContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitTextBox([NotNull] QikTemplateParser.TextBoxContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.optionsBody"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOptionsBody([NotNull] QikTemplateParser.OptionsBodyContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.singleOption"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitSingleOption([NotNull] QikTemplateParser.SingleOptionContext context);
-	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitExprDecl([NotNull] QikTemplateParser.ExprDeclContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.optExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitOptExpr([NotNull] QikTemplateParser.OptExprContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.ifOptExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitIfOptExpr([NotNull] QikTemplateParser.IfOptExprContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
 	/// </summary>

@@ -60,18 +60,6 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optionBox"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOptionBox([NotNull] QikTemplateParser.OptionBoxContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optionBox"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOptionBox([NotNull] QikTemplateParser.OptionBoxContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -84,30 +72,6 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTextBox([NotNull] QikTemplateParser.TextBoxContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optionsBody"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOptionsBody([NotNull] QikTemplateParser.OptionsBodyContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optionsBody"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOptionsBody([NotNull] QikTemplateParser.OptionsBodyContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.singleOption"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterSingleOption([NotNull] QikTemplateParser.SingleOptionContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.singleOption"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitSingleOption([NotNull] QikTemplateParser.SingleOptionContext context) { }
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -119,30 +83,6 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExprDecl([NotNull] QikTemplateParser.ExprDeclContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterOptExpr([NotNull] QikTemplateParser.OptExprContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitOptExpr([NotNull] QikTemplateParser.OptExprContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifOptExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterIfOptExpr([NotNull] QikTemplateParser.IfOptExprContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifOptExpr"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitIfOptExpr([NotNull] QikTemplateParser.IfOptExprContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
 	/// <para>The default implementation does nothing.</para>

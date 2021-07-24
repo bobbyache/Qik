@@ -10,14 +10,12 @@ namespace CygSoft.Qik
             public string Symbol { get; }
             public string Placeholder { get; }
             public string Title { get; }
-            public string Description { get; }
 
-            public SymbolInfo(string placeholder, string symbol, string title, string description)
+            public SymbolInfo(string placeholder, string symbol, string title)
             {
                 Symbol = symbol;
                 Placeholder = placeholder;
                 Title = title;
-                Description = description;
             }
         }
 
@@ -75,11 +73,6 @@ namespace CygSoft.Qik
                     TextInputSymbol textInputSymbol = table[inputSymbol] as TextInputSymbol;
                     textInputSymbol.SetValue(value);
                 }
-                else if (symbol is OptionInputSymbol)
-                {
-                    OptionInputSymbol optionInputSymbol = table[inputSymbol] as OptionInputSymbol;
-                    optionInputSymbol.SelectOption(value);
-                }
             }
         }
 
@@ -91,7 +84,7 @@ namespace CygSoft.Qik
             {
                 BaseSymbol baseSymbol = symbols.Where(s => s.Placeholder == placeholder).SingleOrDefault() as BaseSymbol;
                 ISymbolInfo placeholderInfo =
-                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title, baseSymbol.Description);
+                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title);
                 return placeholderInfo;
             }
 
@@ -104,7 +97,7 @@ namespace CygSoft.Qik
             {
                 ISymbol baseSymbol = table[symbol];
                 ISymbolInfo symbolInfo =
-                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title, baseSymbol.Description);
+                    new SymbolInfo(baseSymbol.Placeholder, baseSymbol.Symbol, baseSymbol.Title);
                 return symbolInfo;
             }
             return null;

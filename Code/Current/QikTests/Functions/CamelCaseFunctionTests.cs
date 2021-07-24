@@ -19,7 +19,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "LiteralText")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance", "Class Instance", "Description", true, true, 
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance", "Class Instance", true, true, 
                 new CamelCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);

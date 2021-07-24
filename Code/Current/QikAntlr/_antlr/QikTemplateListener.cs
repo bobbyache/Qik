@@ -52,16 +52,6 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitCtrlDecl([NotNull] QikTemplateParser.CtrlDeclContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optionBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterOptionBox([NotNull] QikTemplateParser.OptionBoxContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optionBox"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitOptionBox([NotNull] QikTemplateParser.OptionBoxContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.textBox"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -72,26 +62,6 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitTextBox([NotNull] QikTemplateParser.TextBoxContext context);
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optionsBody"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterOptionsBody([NotNull] QikTemplateParser.OptionsBodyContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optionsBody"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitOptionsBody([NotNull] QikTemplateParser.OptionsBodyContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.singleOption"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterSingleOption([NotNull] QikTemplateParser.SingleOptionContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.singleOption"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitSingleOption([NotNull] QikTemplateParser.SingleOptionContext context);
-	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -101,26 +71,6 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitExprDecl([NotNull] QikTemplateParser.ExprDeclContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.optExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterOptExpr([NotNull] QikTemplateParser.OptExprContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.optExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitOptExpr([NotNull] QikTemplateParser.OptExprContext context);
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifOptExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void EnterIfOptExpr([NotNull] QikTemplateParser.IfOptExprContext context);
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifOptExpr"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	void ExitIfOptExpr([NotNull] QikTemplateParser.IfOptExprContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
 	/// </summary>

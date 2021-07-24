@@ -31,9 +31,9 @@ namespace CygSoft.Qik
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
-        public void CreateFieldInput(string symbol, string fieldName, string description)
+        public void CreateFieldInput(string symbol, string fieldName)
         {
-            var autoInputSymbol = new AutoInputSymbol(symbol, fieldName, description);
+            var autoInputSymbol = new AutoInputSymbol(symbol, fieldName);
 
             if (!scopeTable.Symbols.Contains(autoInputSymbol.Symbol))
                 scopeTable.AddSymbol(autoInputSymbol);

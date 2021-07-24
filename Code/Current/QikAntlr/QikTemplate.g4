@@ -9,46 +9,23 @@ template
     :	(ctrlDecl|exprDecl)+ 
     ;
 
+
 /* -----------------------------------------------------------------------
 Control Declarations
 ----------------------------------------------------------------------- */ 
 ctrlDecl
-    : optionBox
-    | textBox
-    ;
-
-optionBox
-    : VARIABLE '=' 'options' '[' declArgs ']' '{' optionsBody '}' ';'
+    : textBox
     ;
 
 textBox
     : VARIABLE '=' 'text' '[' declArgs ']' ';'
     ; 
 
-optionsBody
-    : 'return' (singleOption ',')* (singleOption) ';'
-    ;
-
-singleOption
-    : 'option' STRING '[' declArgs ']'
-    ;
-
 /* -----------------------------------------------------------------------
 Expression Declarations
 ----------------------------------------------------------------------- */ 
 exprDecl
-    : VARIABLE '=' 'expression' '[' declArgs ']' '{' 'return' (concatExpr|expr|optExpr) ';'  '}' ';'
-    ;
-
-/* -----------------------------------------------------------------------
-Decision (if) Statement
------------------------------------------------------------------------ */ 
-optExpr
-    : 'with' 'options' VARIABLE (ifOptExpr ',')* ifOptExpr
-    ;
-
-ifOptExpr
-    : 'if' '(' STRING ')' 'return' (concatExpr|expr)
+    : VARIABLE '=' 'expression' '[' declArgs ']' '{' 'return' (concatExpr|expr) ';'  '}' ';'
     ;
 
 /* -----------------------------------------------------------------------

@@ -11,18 +11,18 @@ namespace CygSoft.Qik
         public bool IsVisibleToEditor { get; }
         private readonly IErrorReport errorReport;
 
-        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title, string description, 
+        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title,
             bool isPlaceholder, bool isVisibleToEditor, IFunction func)
-            : base(symbol, title, description, isPlaceholder)
+            : base(symbol, title, isPlaceholder)
         {
             this.func = func ?? throw new ArgumentNullException($"{nameof(func)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
             IsVisibleToEditor = isVisibleToEditor;
         }
 
-        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title, string description, 
+        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title,
             bool isPlaceholder, bool isVisibleToEditor, IFunction func, string prefix, string postfix)
-            : base(symbol, title, description, isPlaceholder, prefix, postfix)
+            : base(symbol, title, isPlaceholder, prefix, postfix)
         {
             this.func = func ?? throw new ArgumentNullException($"{nameof(func)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");

@@ -15,27 +15,9 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
             return val;
         }
 
-        internal static OptionInputSymbol CreateOptionInputSymbol_DatabaseOptions(string symbol = "@databaseOptions", string title = "Database Options", string description = null, string defaultValue = null, bool isPlaceholder = true)
+        internal static TextInputSymbol CreateTextInputSymbol_Author(string symbol = "@authorName", string title = "Author Name", string defaultValue = null, bool isPlaceholder = true)
         {
-            var optionInputSymbol = new OptionInputSymbol(symbol, title, description, defaultValue, isPlaceholder);
-            optionInputSymbol.AddOption("ADVWORKS", "Adventure Works Database");
-            optionInputSymbol.AddOption("PUBBOOKS", "Published Books Database");
-
-            return optionInputSymbol;
-        }
-
-        internal static IOptionsField CreateOptionInputSymbol_DatabaseOptions_AsInterface(string symbol = "@databaseOptions", string title = "Database Options", string description = null, string defaultValue = null, bool isPlaceholder = true)
-        {
-            var optionInputSymbol = new OptionInputSymbol(symbol, title, description, defaultValue, isPlaceholder);
-            optionInputSymbol.AddOption("ADVWORKS", "Adventure Works Database");
-            optionInputSymbol.AddOption("PUBBOOKS", "Published Books Database");
-
-            return optionInputSymbol as IOptionsField;
-        }
-
-        internal static TextInputSymbol CreateTextInputSymbol_Author(string symbol = "@authorName", string title = "Author Name", string description = null, string defaultValue = null, bool isPlaceholder = true)
-        {
-            var textInputSymbol = new TextInputSymbol(symbol, title, description, defaultValue, isPlaceholder);
+            var textInputSymbol = new TextInputSymbol(symbol, title, defaultValue, isPlaceholder);
             return textInputSymbol;
         }
 

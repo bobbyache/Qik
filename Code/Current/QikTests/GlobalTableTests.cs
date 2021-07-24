@@ -22,8 +22,8 @@ namespace LanguageEngine.Tests.UnitTests
             UpperCaseFunction upperCaseFunction = new UpperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments);
 
 
-            ExpressionSymbol expressionSymbol1 = new ExpressionSymbol(new ErrorReport(), "@currentDate", "Current Date", "Description", false, true, currentDateFunction);
-            ExpressionSymbol expressionSymbol2 = new ExpressionSymbol(new ErrorReport(), "@camelCase", "Camel Cased", "Description", true, true, upperCaseFunction);
+            ExpressionSymbol expressionSymbol1 = new ExpressionSymbol(new ErrorReport(), "@currentDate", "Current Date", false, true, currentDateFunction);
+            ExpressionSymbol expressionSymbol2 = new ExpressionSymbol(new ErrorReport(), "@camelCase", "Camel Cased", true, true, upperCaseFunction);
 
             globalTable.AddSymbol(expressionSymbol1);
             globalTable.AddSymbol(expressionSymbol2);
@@ -41,10 +41,10 @@ namespace LanguageEngine.Tests.UnitTests
         {
             GlobalTable globalTable = new GlobalTable();
 
-            TextInputSymbol textInputSymbol = new TextInputSymbol("@authorName", "Author Name", "Description", "Rob Blake", true);
+            TextInputSymbol textInputSymbol = new TextInputSymbol("@authorName", "Author Name", "Rob Blake", true);
 
             List<IFunction> functionArguments = new List<IFunction> { new VariableFunction(new FuncInfo("stub", 1, 1), globalTable, "@authorName") };
-            ExpressionSymbol expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@upperAuthorName", "Upper Author Name", "Description", true, true, new UpperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            ExpressionSymbol expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@upperAuthorName", "Upper Author Name", true, true, new UpperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
 
             globalTable.AddSymbol(textInputSymbol);
             globalTable.AddSymbol(expressionSymbol);

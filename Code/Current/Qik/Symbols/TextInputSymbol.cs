@@ -8,16 +8,16 @@ namespace CygSoft.Qik
 
         public override string Value => value;
 
-        public TextInputSymbol(string symbol, string title, string description, string defaultValue, 
+        public TextInputSymbol(string symbol, string title, string defaultValue, 
             bool isPlaceholder)
-            : base(symbol, title, description, defaultValue, isPlaceholder)
+            : base(symbol, title, defaultValue, isPlaceholder)
         {
             value = defaultValue;
         }
 
-        public TextInputSymbol(string symbol, string title, string description, string defaultValue, bool isPlaceholder,
+        public TextInputSymbol(string symbol, string title, string defaultValue, bool isPlaceholder,
             string prefix, string postfix)
-            : base(symbol, title, description, defaultValue, isPlaceholder, prefix, postfix)
+            : base(symbol, title, defaultValue, isPlaceholder, prefix, postfix)
         {
             value = defaultValue;
         }

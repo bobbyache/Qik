@@ -5,7 +5,6 @@ namespace CygSoft.Qik.Antlr
     internal class SymbolArguments
     {
         public string Title { get; private set; }
-        public string Description { get; private set; }
         public string Default { get; private set; }
         public bool IsVisibleToEditor { get; private set; }
         public bool IsPlaceholder { get; private set; }
@@ -32,9 +31,6 @@ namespace CygSoft.Qik.Antlr
                     {
                         case "Title":
                             this.Title = value;
-                            break;
-                        case "Description":
-                            this.Description = value;
                             break;
                         case "Default":
                             this.Default = value;

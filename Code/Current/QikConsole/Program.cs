@@ -94,7 +94,9 @@ class Program
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory /* Directory.GetCurrentDirectory() */)
                 .AddJsonFile("appsettings.json").Build();
 
-            settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
+            //
+            // Keep for now, since we may want to use configuration settings again!
+            // settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
 
             LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));
 
@@ -103,9 +105,8 @@ class Program
                                 .GetCurrentClassLogger();
             
             var services = new ServiceCollection()
-                .AddSingleton<IJsonFunctions, JsonFunctions>()
                 .AddSingleton<IInterpreter, Interpreter>()
-                .AddSingleton<IFileFunctions>(ah => new FileFunctions(settings))
+                .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
                 .AddSingleton<IAppHost, MainHost>()
             ;

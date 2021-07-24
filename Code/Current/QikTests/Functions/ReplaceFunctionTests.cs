@@ -21,7 +21,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, " "));
             functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "_"));
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance", "Class Instance", "Description", true, true, 
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance", "Class Instance", true, true, 
                 new ReplaceFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);

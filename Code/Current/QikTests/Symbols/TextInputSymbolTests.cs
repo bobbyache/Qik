@@ -17,14 +17,14 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
         [Test]
         public void TextInputSymbol_Initialize_InitializesPlaceholder()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(description: "Description");
+            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
             Assert.AreEqual("@{authorName}", textInputSymbol.Placeholder);
         }
 
         [Test]
         public void TextInputSymbol_Initialize_InitializesSymbol()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(description: "Description");
+            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
 
             Assert.AreEqual("@authorName", textInputSymbol.Symbol);
             Assert.AreEqual("Author Name", textInputSymbol.Title);
@@ -33,7 +33,7 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
         [Test]
         public void TextInputSymbol_Initialized_WithDefaultValue_DefaultValueIsCorrect()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(description: "Description", defaultValue: "Rob Blake");
+            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(defaultValue: "Rob Blake");
             Assert.AreEqual("Rob Blake", textInputSymbol.DefaultValue);
             Assert.AreEqual("Rob Blake", textInputSymbol.Value);
         }
@@ -41,7 +41,7 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
         [Test]
         public void TextInputSymbol_Initialized_WithoutDefaultValue_DefaultValueIsNull()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(description: "Description");
+            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author();
             Assert.AreEqual(null, textInputSymbol.DefaultValue);
             Assert.AreEqual(null, textInputSymbol.Value);
         }
@@ -50,7 +50,7 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
         [Test]
         public void TextInputSymbol_Initialized_WithDefaultValueButChanged_ValueIsCorrect()
         {
-            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(description: "Description", defaultValue:"Rob Blake");
+            TextInputSymbol textInputSymbol = TestHelpers.CreateTextInputSymbol_Author(defaultValue:"Rob Blake");
 
             textInputSymbol.SetValue("Andrew Botha");
             Assert.AreEqual("Andrew Botha", textInputSymbol.Value);

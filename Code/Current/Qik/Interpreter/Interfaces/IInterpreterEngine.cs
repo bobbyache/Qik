@@ -17,7 +17,7 @@ namespace CygSoft.Qik
 
         bool HasErrors { get; }
 
-        void CreateFieldInput(string symbol, string fieldName, string description);
+        void CreateFieldInput(string symbol, string fieldName);
 
         void Interpret(string scriptText);
         void Input(string symbol, string value);
