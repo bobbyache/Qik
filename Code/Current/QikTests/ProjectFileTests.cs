@@ -24,16 +24,12 @@ namespace Qik.LanguageEngine.UnitTests
 
             project.Documents.Add(new Document 
             { 
-                Id = "document_A", 
-                Properties = "strategy:partial_overwrite;startline:26;endline:26", 
                 OutputFilePath = "/documents/document1.txt",
                 Structure = new string [1] { "fragment_A" }
             });
 
             project.Documents.Add(new Document 
             { 
-                Id = "document_B", 
-                Properties = "strategy:full_replace", 
                 OutputFilePath = "/documents/document2.txt" ,
                 Structure = new string [2] {"fragment_A", "fragment_B" }
             });
@@ -87,16 +83,12 @@ namespace Qik.LanguageEngine.UnitTests
 
             var documentA = writtenProject.Documents[0];
 
-            Assert.IsTrue(documentA.Id == "document_A", "Unexpected document id read from project file");
-            Assert.IsTrue(documentA.Properties == "strategy:partial_overwrite;startline:26;endline:26", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentA.OutputFilePath == "/documents/document1.txt", "Unexpected document output file read from project file");
 
             Assert.IsTrue(documentA.Structure[0] == "fragment_A", "Unexpected structure id read from project file");
             
             var documentB = writtenProject.Documents[1];
 
-            Assert.IsTrue(documentB.Id == "document_B", "Unexpected document id read from project file");
-            Assert.IsTrue(documentB.Properties == "strategy:full_replace", "Unexpected document strategy read from project file");
             Assert.IsTrue(documentB.OutputFilePath == "/documents/document2.txt", "Unexpected document output file read from project file");
             Assert.IsTrue(documentB.Structure[0] == "fragment_A", "Unexpected structure id read from project file");
             Assert.IsTrue(documentB.Structure[1] == "fragment_B", "Unexpected structure id read from project file");
