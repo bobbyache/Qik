@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Antlr4.Runtime.Misc;
 using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik.Antlr
@@ -15,26 +16,21 @@ namespace CygSoft.Qik.Antlr
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
-        public override IFunction VisitExprDecl(QikTemplateParser.ExprDeclContext context)
+        public override IFunction VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context)
         {
             var id = context.VARIABLE().GetText();
-
-            var symbolArguments = new SymbolArguments(errorReport);
-            symbolArguments.Process(context.declArgs());
 
             if (context.concatExpr() != null)
             {
                 var concatenateFunc = GetConcatenateFunction(context.concatExpr());
                 var expression =
-                    new ExpressionSymbol(errorReport, id, symbolArguments.Title,
-                        concatenateFunc);
+                    new ExpressionSymbol(errorReport, id, concatenateFunc);
                 scopeTable.AddSymbol(expression);
             }
             else if (context.expr() != null)
             {
                 var function = VisitExpr(context.expr());
-                var expression = new ExpressionSymbol(errorReport, id, symbolArguments.Title,
-                    function);
+                var expression = new ExpressionSymbol(errorReport, id, function);
                 scopeTable.AddSymbol(expression);
             }
 

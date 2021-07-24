@@ -39,29 +39,17 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitTemplate([NotNull] QikTemplateParser.TemplateContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.input"/>.
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.inputDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitInput([NotNull] QikTemplateParser.InputContext context);
+	Result VisitInputDecl([NotNull] QikTemplateParser.InputDeclContext context);
 	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.funcDecl"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
-	Result VisitExprDecl([NotNull] QikTemplateParser.ExprDeclContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDeclArgs([NotNull] QikTemplateParser.DeclArgsContext context);
-	/// <summary>
-	/// Visit a parse tree produced by <see cref="QikTemplateParser.declArg"/>.
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	/// <return>The visitor result.</return>
-	Result VisitDeclArg([NotNull] QikTemplateParser.DeclArgContext context);
+	Result VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// </summary>

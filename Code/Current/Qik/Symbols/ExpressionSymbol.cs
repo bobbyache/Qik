@@ -9,7 +9,7 @@ namespace CygSoft.Qik
 
         private readonly IErrorReport errorReport;
 
-        public ExpressionSymbol(IErrorReport errorReport, string symbol, string title,
+        public ExpressionSymbol(IErrorReport errorReport, string symbol,
             IFunction func)
             : base(symbol)
         {

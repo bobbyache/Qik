@@ -48,53 +48,29 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitTemplate([NotNull] QikTemplateParser.TemplateContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.input"/>.
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.inputDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterInput([NotNull] QikTemplateParser.InputContext context) { }
+	public virtual void EnterInputDecl([NotNull] QikTemplateParser.InputDeclContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.input"/>.
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.inputDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitInput([NotNull] QikTemplateParser.InputContext context) { }
+	public virtual void ExitInputDecl([NotNull] QikTemplateParser.InputDeclContext context) { }
 	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.funcDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void EnterExprDecl([NotNull] QikTemplateParser.ExprDeclContext context) { }
+	public virtual void EnterFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context) { }
 	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.exprDecl"/>.
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.funcDecl"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
-	public virtual void ExitExprDecl([NotNull] QikTemplateParser.ExprDeclContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDeclArgs([NotNull] QikTemplateParser.DeclArgsContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.declArgs"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDeclArgs([NotNull] QikTemplateParser.DeclArgsContext context) { }
-	/// <summary>
-	/// Enter a parse tree produced by <see cref="QikTemplateParser.declArg"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void EnterDeclArg([NotNull] QikTemplateParser.DeclArgContext context) { }
-	/// <summary>
-	/// Exit a parse tree produced by <see cref="QikTemplateParser.declArg"/>.
-	/// <para>The default implementation does nothing.</para>
-	/// </summary>
-	/// <param name="context">The parse tree.</param>
-	public virtual void ExitDeclArg([NotNull] QikTemplateParser.DeclArgContext context) { }
+	public virtual void ExitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>

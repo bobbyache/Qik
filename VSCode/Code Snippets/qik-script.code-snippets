@@ -6,12 +6,18 @@
             "@{${0:symbol}}",
         ]
     },
-
+    "Qik Input": {
+        "prefix": "qinput",
+        "description": "Qik Input",
+        "body": [
+            "@${1:variable} = \"${0:content}\";",
+        ]
+    },
     "Qik Expression": {
-        "prefix": "qexp",
+        "prefix": "qexpression",
         "description": "Qik Expression",
         "body": [
-            "@${1:variable} = expression [Title=\"${2:title}\" ] { ${0:content} };",
+            "@${1:variable} => ${0:content};",
         ]
     },
     "Qik Return Statement": {

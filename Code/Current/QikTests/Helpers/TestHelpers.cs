@@ -23,7 +23,7 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
 
         private static string BuildExpressionForFunction(string functionText)
         {
-            return "@output = expression [Title=\"Expression Text\"] { return " + functionText + "; };";
+            return "@output => " + functionText + ";";
         }
     }
 }

@@ -6,34 +6,19 @@ Complete Template
     - Derived Input (expression input derived from user input or system)
 *********************************************************************** */ 
 template		
-    :	(input|exprDecl)+ 
+    :	(inputDecl|funcDecl)+ 
     ;
 
 
 /* -----------------------------------------------------------------------
 Control Declarations
 ----------------------------------------------------------------------- */ 
-input
+inputDecl
     : VARIABLE '=' STRING ';'
     ;
 
-/* -----------------------------------------------------------------------
-Expression Declarations
------------------------------------------------------------------------ */ 
-exprDecl
-    : VARIABLE '=' 'expression' '[' declArgs ']' '{' 'return' (concatExpr|expr) ';'  '}' ';'
-    ;
-
-/* -----------------------------------------------------------------------
-Control and Expression Arguments
------------------------------------------------------------------------ */ 
-
-declArgs
-    : declArg (',' declArg)*
-    ;
-
-declArg
-    : IDENTIFIER '=' STRING
+funcDecl
+    : VARIABLE '=>' (concatExpr|expr) ';'
     ;
 
 /* -----------------------------------------------------------------------

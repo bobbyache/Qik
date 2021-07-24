@@ -1,6 +1,5 @@
 ﻿
-@codeInput = expression [Title="Code Input"] {
-	return
+@codeInput =>
 		"{" + NEWLINE +
 			indentLine("int x = y;", TAB, 1) + NEWLINE +
 			indentLine("if (x == 2)", TAB, 1) + NEWLINE +
@@ -8,10 +7,8 @@
 			indentLine("else", TAB, 1) + NEWLINE +
 			indentLine("return x;", TAB, 2) + NEWLINE +
 		"}\n";
-};
 
-@displayEvents = expression[Title="Display Events"] {
-	return "events: {" + NEWLINE +
+@displayEvents =>
+	"events: {" + NEWLINE +
 		doubleQuotes("hello world") + NEWLINE +
 	"};";
-};

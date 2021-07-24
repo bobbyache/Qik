@@ -37,25 +37,22 @@ public partial class QikTemplateParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, T__8=9, 
-		T__9=10, T__10=11, T__11=12, T__12=13, CONST=14, STRING=15, IDENTIFIER=16, 
-		VARIABLE=17, FLOAT=18, INT=19, WS=20, COMMENT=21, LINE_COMMENT=22;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, CONST=9, 
+		STRING=10, IDENTIFIER=11, VARIABLE=12, FLOAT=13, INT=14, WS=15, COMMENT=16, 
+		LINE_COMMENT=17;
 	public const int
-		RULE_template = 0, RULE_input = 1, RULE_exprDecl = 2, RULE_declArgs = 3, 
-		RULE_declArg = 4, RULE_expr = 5, RULE_concatExpr = 6, RULE_func = 7, RULE_funcArg = 8;
+		RULE_template = 0, RULE_inputDecl = 1, RULE_funcDecl = 2, RULE_expr = 3, 
+		RULE_concatExpr = 4, RULE_func = 5, RULE_funcArg = 6;
 	public static readonly string[] ruleNames = {
-		"template", "input", "exprDecl", "declArgs", "declArg", "expr", "concatExpr", 
-		"func", "funcArg"
+		"template", "inputDecl", "funcDecl", "expr", "concatExpr", "func", "funcArg"
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'='", "';'", "'expression'", "'['", "']'", "'{'", "'return'", "'}'", 
-		"','", "'+'", "'()'", "'('", "')'"
+		null, "'='", "';'", "'=>'", "'+'", "'()'", "'('", "','", "')'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, null, null, null, 
-		null, null, "CONST", "STRING", "IDENTIFIER", "VARIABLE", "FLOAT", "INT", 
-		"WS", "COMMENT", "LINE_COMMENT"
+		null, null, null, null, null, null, null, null, null, "CONST", "STRING", 
+		"IDENTIFIER", "VARIABLE", "FLOAT", "INT", "WS", "COMMENT", "LINE_COMMENT"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -90,17 +87,17 @@ public partial class QikTemplateParser : Parser {
 	}
 
 	public partial class TemplateContext : ParserRuleContext {
-		public InputContext[] input() {
-			return GetRuleContexts<InputContext>();
+		public InputDeclContext[] inputDecl() {
+			return GetRuleContexts<InputDeclContext>();
 		}
-		public InputContext input(int i) {
-			return GetRuleContext<InputContext>(i);
+		public InputDeclContext inputDecl(int i) {
+			return GetRuleContext<InputDeclContext>(i);
 		}
-		public ExprDeclContext[] exprDecl() {
-			return GetRuleContexts<ExprDeclContext>();
+		public FuncDeclContext[] funcDecl() {
+			return GetRuleContexts<FuncDeclContext>();
 		}
-		public ExprDeclContext exprDecl(int i) {
-			return GetRuleContext<ExprDeclContext>(i);
+		public FuncDeclContext funcDecl(int i) {
+			return GetRuleContext<FuncDeclContext>(i);
 		}
 		public TemplateContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
@@ -130,27 +127,27 @@ public partial class QikTemplateParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 20;
+			State = 16;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
-				State = 20;
+				State = 16;
 				ErrorHandler.Sync(this);
 				switch ( Interpreter.AdaptivePredict(TokenStream,0,Context) ) {
 				case 1:
 					{
-					State = 18; input();
+					State = 14; inputDecl();
 					}
 					break;
 				case 2:
 					{
-					State = 19; exprDecl();
+					State = 15; funcDecl();
 					}
 					break;
 				}
 				}
-				State = 22;
+				State = 18;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 			} while ( _la==VARIABLE );
@@ -167,40 +164,40 @@ public partial class QikTemplateParser : Parser {
 		return _localctx;
 	}
 
-	public partial class InputContext : ParserRuleContext {
+	public partial class InputDeclContext : ParserRuleContext {
 		public ITerminalNode VARIABLE() { return GetToken(QikTemplateParser.VARIABLE, 0); }
 		public ITerminalNode STRING() { return GetToken(QikTemplateParser.STRING, 0); }
-		public InputContext(ParserRuleContext parent, int invokingState)
+		public InputDeclContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_input; } }
+		public override int RuleIndex { get { return RULE_inputDecl; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.EnterInput(this);
+			if (typedListener != null) typedListener.EnterInputDecl(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.ExitInput(this);
+			if (typedListener != null) typedListener.ExitInputDecl(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IQikTemplateVisitor<TResult> typedVisitor = visitor as IQikTemplateVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitInput(this);
+			if (typedVisitor != null) return typedVisitor.VisitInputDecl(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public InputContext input() {
-		InputContext _localctx = new InputContext(Context, State);
-		EnterRule(_localctx, 2, RULE_input);
+	public InputDeclContext inputDecl() {
+		InputDeclContext _localctx = new InputDeclContext(Context, State);
+		EnterRule(_localctx, 2, RULE_inputDecl);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 24; Match(VARIABLE);
-			State = 25; Match(T__0);
-			State = 26; Match(STRING);
-			State = 27; Match(T__1);
+			State = 20; Match(VARIABLE);
+			State = 21; Match(T__0);
+			State = 22; Match(STRING);
+			State = 23; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -214,178 +211,58 @@ public partial class QikTemplateParser : Parser {
 		return _localctx;
 	}
 
-	public partial class ExprDeclContext : ParserRuleContext {
+	public partial class FuncDeclContext : ParserRuleContext {
 		public ITerminalNode VARIABLE() { return GetToken(QikTemplateParser.VARIABLE, 0); }
-		public DeclArgsContext declArgs() {
-			return GetRuleContext<DeclArgsContext>(0);
-		}
 		public ConcatExprContext concatExpr() {
 			return GetRuleContext<ConcatExprContext>(0);
 		}
 		public ExprContext expr() {
 			return GetRuleContext<ExprContext>(0);
 		}
-		public ExprDeclContext(ParserRuleContext parent, int invokingState)
+		public FuncDeclContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
 		}
-		public override int RuleIndex { get { return RULE_exprDecl; } }
+		public override int RuleIndex { get { return RULE_funcDecl; } }
 		public override void EnterRule(IParseTreeListener listener) {
 			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.EnterExprDecl(this);
+			if (typedListener != null) typedListener.EnterFuncDecl(this);
 		}
 		public override void ExitRule(IParseTreeListener listener) {
 			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.ExitExprDecl(this);
+			if (typedListener != null) typedListener.ExitFuncDecl(this);
 		}
 		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
 			IQikTemplateVisitor<TResult> typedVisitor = visitor as IQikTemplateVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitExprDecl(this);
+			if (typedVisitor != null) return typedVisitor.VisitFuncDecl(this);
 			else return visitor.VisitChildren(this);
 		}
 	}
 
 	[RuleVersion(0)]
-	public ExprDeclContext exprDecl() {
-		ExprDeclContext _localctx = new ExprDeclContext(Context, State);
-		EnterRule(_localctx, 4, RULE_exprDecl);
+	public FuncDeclContext funcDecl() {
+		FuncDeclContext _localctx = new FuncDeclContext(Context, State);
+		EnterRule(_localctx, 4, RULE_funcDecl);
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 29; Match(VARIABLE);
-			State = 30; Match(T__0);
-			State = 31; Match(T__2);
-			State = 32; Match(T__3);
-			State = 33; declArgs();
-			State = 34; Match(T__4);
-			State = 35; Match(T__5);
-			State = 36; Match(T__6);
-			State = 39;
+			State = 25; Match(VARIABLE);
+			State = 26; Match(T__2);
+			State = 29;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
 			case 1:
 				{
-				State = 37; concatExpr();
+				State = 27; concatExpr();
 				}
 				break;
 			case 2:
 				{
-				State = 38; expr();
+				State = 28; expr();
 				}
 				break;
 			}
-			State = 41; Match(T__1);
-			State = 42; Match(T__7);
-			State = 43; Match(T__1);
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class DeclArgsContext : ParserRuleContext {
-		public DeclArgContext[] declArg() {
-			return GetRuleContexts<DeclArgContext>();
-		}
-		public DeclArgContext declArg(int i) {
-			return GetRuleContext<DeclArgContext>(i);
-		}
-		public DeclArgsContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_declArgs; } }
-		public override void EnterRule(IParseTreeListener listener) {
-			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.EnterDeclArgs(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.ExitDeclArgs(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IQikTemplateVisitor<TResult> typedVisitor = visitor as IQikTemplateVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDeclArgs(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public DeclArgsContext declArgs() {
-		DeclArgsContext _localctx = new DeclArgsContext(Context, State);
-		EnterRule(_localctx, 6, RULE_declArgs);
-		int _la;
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 45; declArg();
-			State = 50;
-			ErrorHandler.Sync(this);
-			_la = TokenStream.LA(1);
-			while (_la==T__8) {
-				{
-				{
-				State = 46; Match(T__8);
-				State = 47; declArg();
-				}
-				}
-				State = 52;
-				ErrorHandler.Sync(this);
-				_la = TokenStream.LA(1);
-			}
-			}
-		}
-		catch (RecognitionException re) {
-			_localctx.exception = re;
-			ErrorHandler.ReportError(this, re);
-			ErrorHandler.Recover(this, re);
-		}
-		finally {
-			ExitRule();
-		}
-		return _localctx;
-	}
-
-	public partial class DeclArgContext : ParserRuleContext {
-		public ITerminalNode IDENTIFIER() { return GetToken(QikTemplateParser.IDENTIFIER, 0); }
-		public ITerminalNode STRING() { return GetToken(QikTemplateParser.STRING, 0); }
-		public DeclArgContext(ParserRuleContext parent, int invokingState)
-			: base(parent, invokingState)
-		{
-		}
-		public override int RuleIndex { get { return RULE_declArg; } }
-		public override void EnterRule(IParseTreeListener listener) {
-			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.EnterDeclArg(this);
-		}
-		public override void ExitRule(IParseTreeListener listener) {
-			IQikTemplateListener typedListener = listener as IQikTemplateListener;
-			if (typedListener != null) typedListener.ExitDeclArg(this);
-		}
-		public override TResult Accept<TResult>(IParseTreeVisitor<TResult> visitor) {
-			IQikTemplateVisitor<TResult> typedVisitor = visitor as IQikTemplateVisitor<TResult>;
-			if (typedVisitor != null) return typedVisitor.VisitDeclArg(this);
-			else return visitor.VisitChildren(this);
-		}
-	}
-
-	[RuleVersion(0)]
-	public DeclArgContext declArg() {
-		DeclArgContext _localctx = new DeclArgContext(Context, State);
-		EnterRule(_localctx, 8, RULE_declArg);
-		try {
-			EnterOuterAlt(_localctx, 1);
-			{
-			State = 53; Match(IDENTIFIER);
-			State = 54; Match(T__0);
-			State = 55; Match(STRING);
+			State = 31; Match(T__1);
 			}
 		}
 		catch (RecognitionException re) {
@@ -431,45 +308,45 @@ public partial class QikTemplateParser : Parser {
 	[RuleVersion(0)]
 	public ExprContext expr() {
 		ExprContext _localctx = new ExprContext(Context, State);
-		EnterRule(_localctx, 10, RULE_expr);
+		EnterRule(_localctx, 6, RULE_expr);
 		try {
-			State = 63;
+			State = 39;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case IDENTIFIER:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 57; func();
+				State = 33; func();
 				}
 				break;
 			case STRING:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 58; Match(STRING);
+				State = 34; Match(STRING);
 				}
 				break;
 			case VARIABLE:
 				EnterOuterAlt(_localctx, 3);
 				{
-				State = 59; Match(VARIABLE);
+				State = 35; Match(VARIABLE);
 				}
 				break;
 			case INT:
 				EnterOuterAlt(_localctx, 4);
 				{
-				State = 60; Match(INT);
+				State = 36; Match(INT);
 				}
 				break;
 			case FLOAT:
 				EnterOuterAlt(_localctx, 5);
 				{
-				State = 61; Match(FLOAT);
+				State = 37; Match(FLOAT);
 				}
 				break;
 			case CONST:
 				EnterOuterAlt(_localctx, 6);
 				{
-				State = 62; Match(CONST);
+				State = 38; Match(CONST);
 				}
 				break;
 			default:
@@ -517,26 +394,26 @@ public partial class QikTemplateParser : Parser {
 	[RuleVersion(0)]
 	public ConcatExprContext concatExpr() {
 		ConcatExprContext _localctx = new ConcatExprContext(Context, State);
-		EnterRule(_localctx, 12, RULE_concatExpr);
+		EnterRule(_localctx, 8, RULE_concatExpr);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 65; expr();
-			State = 68;
+			State = 41; expr();
+			State = 44;
 			ErrorHandler.Sync(this);
 			_la = TokenStream.LA(1);
 			do {
 				{
 				{
-				State = 66; Match(T__9);
-				State = 67; expr();
+				State = 42; Match(T__3);
+				State = 43; expr();
 				}
 				}
-				State = 70;
+				State = 46;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( _la==T__9 );
+			} while ( _la==T__3 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -581,39 +458,39 @@ public partial class QikTemplateParser : Parser {
 	[RuleVersion(0)]
 	public FuncContext func() {
 		FuncContext _localctx = new FuncContext(Context, State);
-		EnterRule(_localctx, 14, RULE_func);
+		EnterRule(_localctx, 10, RULE_func);
 		int _la;
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 72; Match(IDENTIFIER);
-			State = 85;
+			State = 48; Match(IDENTIFIER);
+			State = 61;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
-			case T__10:
+			case T__4:
 				{
-				State = 73; Match(T__10);
+				State = 49; Match(T__4);
 				}
 				break;
-			case T__11:
+			case T__5:
 				{
-				State = 74; Match(T__11);
-				State = 75; funcArg();
-				State = 80;
+				State = 50; Match(T__5);
+				State = 51; funcArg();
+				State = 56;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				while (_la==T__8) {
+				while (_la==T__6) {
 					{
 					{
-					State = 76; Match(T__8);
-					State = 77; funcArg();
+					State = 52; Match(T__6);
+					State = 53; funcArg();
 					}
 					}
-					State = 82;
+					State = 58;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
-				State = 83; Match(T__12);
+				State = 59; Match(T__7);
 				}
 				break;
 			default:
@@ -662,21 +539,21 @@ public partial class QikTemplateParser : Parser {
 	[RuleVersion(0)]
 	public FuncArgContext funcArg() {
 		FuncArgContext _localctx = new FuncArgContext(Context, State);
-		EnterRule(_localctx, 16, RULE_funcArg);
+		EnterRule(_localctx, 12, RULE_funcArg);
 		try {
-			State = 89;
+			State = 65;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,8,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 87; expr();
+				State = 63; expr();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 88; concatExpr();
+				State = 64; concatExpr();
 				}
 				break;
 			}
@@ -694,79 +571,63 @@ public partial class QikTemplateParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\x18', '^', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\x13', '\x46', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
-		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x3', '\x2', '\x3', 
-		'\x2', '\x6', '\x2', '\x17', '\n', '\x2', '\r', '\x2', '\xE', '\x2', '\x18', 
-		'\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
-		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
-		'\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
-		'\x5', '\x4', '*', '\n', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', 
-		'\x3', '\x4', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\a', '\x5', '\x33', 
-		'\n', '\x5', '\f', '\x5', '\xE', '\x5', '\x36', '\v', '\x5', '\x3', '\x6', 
-		'\x3', '\x6', '\x3', '\x6', '\x3', '\x6', '\x3', '\a', '\x3', '\a', '\x3', 
-		'\a', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x5', '\a', '\x42', '\n', 
-		'\a', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x6', '\b', 'G', '\n', '\b', 
-		'\r', '\b', '\xE', '\b', 'H', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\x3', 
-		'\t', '\x3', '\t', '\x3', '\t', '\a', '\t', 'Q', '\n', '\t', '\f', '\t', 
-		'\xE', '\t', 'T', '\v', '\t', '\x3', '\t', '\x3', '\t', '\x5', '\t', 'X', 
-		'\n', '\t', '\x3', '\n', '\x3', '\n', '\x5', '\n', '\\', '\n', '\n', '\x3', 
-		'\n', '\x2', '\x2', '\v', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', 
-		'\x10', '\x12', '\x2', '\x2', '\x2', '\x61', '\x2', '\x16', '\x3', '\x2', 
-		'\x2', '\x2', '\x4', '\x1A', '\x3', '\x2', '\x2', '\x2', '\x6', '\x1F', 
-		'\x3', '\x2', '\x2', '\x2', '\b', '/', '\x3', '\x2', '\x2', '\x2', '\n', 
-		'\x37', '\x3', '\x2', '\x2', '\x2', '\f', '\x41', '\x3', '\x2', '\x2', 
-		'\x2', '\xE', '\x43', '\x3', '\x2', '\x2', '\x2', '\x10', 'J', '\x3', 
-		'\x2', '\x2', '\x2', '\x12', '[', '\x3', '\x2', '\x2', '\x2', '\x14', 
-		'\x17', '\x5', '\x4', '\x3', '\x2', '\x15', '\x17', '\x5', '\x6', '\x4', 
-		'\x2', '\x16', '\x14', '\x3', '\x2', '\x2', '\x2', '\x16', '\x15', '\x3', 
-		'\x2', '\x2', '\x2', '\x17', '\x18', '\x3', '\x2', '\x2', '\x2', '\x18', 
-		'\x16', '\x3', '\x2', '\x2', '\x2', '\x18', '\x19', '\x3', '\x2', '\x2', 
-		'\x2', '\x19', '\x3', '\x3', '\x2', '\x2', '\x2', '\x1A', '\x1B', '\a', 
-		'\x13', '\x2', '\x2', '\x1B', '\x1C', '\a', '\x3', '\x2', '\x2', '\x1C', 
-		'\x1D', '\a', '\x11', '\x2', '\x2', '\x1D', '\x1E', '\a', '\x4', '\x2', 
-		'\x2', '\x1E', '\x5', '\x3', '\x2', '\x2', '\x2', '\x1F', ' ', '\a', '\x13', 
-		'\x2', '\x2', ' ', '!', '\a', '\x3', '\x2', '\x2', '!', '\"', '\a', '\x5', 
-		'\x2', '\x2', '\"', '#', '\a', '\x6', '\x2', '\x2', '#', '$', '\x5', '\b', 
-		'\x5', '\x2', '$', '%', '\a', '\a', '\x2', '\x2', '%', '&', '\a', '\b', 
-		'\x2', '\x2', '&', ')', '\a', '\t', '\x2', '\x2', '\'', '*', '\x5', '\xE', 
-		'\b', '\x2', '(', '*', '\x5', '\f', '\a', '\x2', ')', '\'', '\x3', '\x2', 
-		'\x2', '\x2', ')', '(', '\x3', '\x2', '\x2', '\x2', '*', '+', '\x3', '\x2', 
-		'\x2', '\x2', '+', ',', '\a', '\x4', '\x2', '\x2', ',', '-', '\a', '\n', 
-		'\x2', '\x2', '-', '.', '\a', '\x4', '\x2', '\x2', '.', '\a', '\x3', '\x2', 
-		'\x2', '\x2', '/', '\x34', '\x5', '\n', '\x6', '\x2', '\x30', '\x31', 
-		'\a', '\v', '\x2', '\x2', '\x31', '\x33', '\x5', '\n', '\x6', '\x2', '\x32', 
-		'\x30', '\x3', '\x2', '\x2', '\x2', '\x33', '\x36', '\x3', '\x2', '\x2', 
-		'\x2', '\x34', '\x32', '\x3', '\x2', '\x2', '\x2', '\x34', '\x35', '\x3', 
-		'\x2', '\x2', '\x2', '\x35', '\t', '\x3', '\x2', '\x2', '\x2', '\x36', 
-		'\x34', '\x3', '\x2', '\x2', '\x2', '\x37', '\x38', '\a', '\x12', '\x2', 
-		'\x2', '\x38', '\x39', '\a', '\x3', '\x2', '\x2', '\x39', ':', '\a', '\x11', 
-		'\x2', '\x2', ':', '\v', '\x3', '\x2', '\x2', '\x2', ';', '\x42', '\x5', 
-		'\x10', '\t', '\x2', '<', '\x42', '\a', '\x11', '\x2', '\x2', '=', '\x42', 
-		'\a', '\x13', '\x2', '\x2', '>', '\x42', '\a', '\x15', '\x2', '\x2', '?', 
-		'\x42', '\a', '\x14', '\x2', '\x2', '@', '\x42', '\a', '\x10', '\x2', 
-		'\x2', '\x41', ';', '\x3', '\x2', '\x2', '\x2', '\x41', '<', '\x3', '\x2', 
-		'\x2', '\x2', '\x41', '=', '\x3', '\x2', '\x2', '\x2', '\x41', '>', '\x3', 
-		'\x2', '\x2', '\x2', '\x41', '?', '\x3', '\x2', '\x2', '\x2', '\x41', 
-		'@', '\x3', '\x2', '\x2', '\x2', '\x42', '\r', '\x3', '\x2', '\x2', '\x2', 
-		'\x43', '\x46', '\x5', '\f', '\a', '\x2', '\x44', '\x45', '\a', '\f', 
-		'\x2', '\x2', '\x45', 'G', '\x5', '\f', '\a', '\x2', '\x46', '\x44', '\x3', 
-		'\x2', '\x2', '\x2', 'G', 'H', '\x3', '\x2', '\x2', '\x2', 'H', '\x46', 
-		'\x3', '\x2', '\x2', '\x2', 'H', 'I', '\x3', '\x2', '\x2', '\x2', 'I', 
-		'\xF', '\x3', '\x2', '\x2', '\x2', 'J', 'W', '\a', '\x12', '\x2', '\x2', 
-		'K', 'X', '\a', '\r', '\x2', '\x2', 'L', 'M', '\a', '\xE', '\x2', '\x2', 
-		'M', 'R', '\x5', '\x12', '\n', '\x2', 'N', 'O', '\a', '\v', '\x2', '\x2', 
-		'O', 'Q', '\x5', '\x12', '\n', '\x2', 'P', 'N', '\x3', '\x2', '\x2', '\x2', 
-		'Q', 'T', '\x3', '\x2', '\x2', '\x2', 'R', 'P', '\x3', '\x2', '\x2', '\x2', 
-		'R', 'S', '\x3', '\x2', '\x2', '\x2', 'S', 'U', '\x3', '\x2', '\x2', '\x2', 
-		'T', 'R', '\x3', '\x2', '\x2', '\x2', 'U', 'V', '\a', '\xF', '\x2', '\x2', 
-		'V', 'X', '\x3', '\x2', '\x2', '\x2', 'W', 'K', '\x3', '\x2', '\x2', '\x2', 
-		'W', 'L', '\x3', '\x2', '\x2', '\x2', 'X', '\x11', '\x3', '\x2', '\x2', 
-		'\x2', 'Y', '\\', '\x5', '\f', '\a', '\x2', 'Z', '\\', '\x5', '\xE', '\b', 
-		'\x2', '[', 'Y', '\x3', '\x2', '\x2', '\x2', '[', 'Z', '\x3', '\x2', '\x2', 
-		'\x2', '\\', '\x13', '\x3', '\x2', '\x2', '\x2', '\v', '\x16', '\x18', 
-		')', '\x34', '\x41', 'H', 'R', 'W', '[',
+		'\x3', '\x2', '\x3', '\x2', '\x6', '\x2', '\x13', '\n', '\x2', '\r', '\x2', 
+		'\xE', '\x2', '\x14', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', '\x3', 
+		'\x3', '\x3', '\x3', '\x3', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x4', '\x5', '\x4', ' ', '\n', '\x4', '\x3', '\x4', '\x3', '\x4', '\x3', 
+		'\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', '\x5', '\x3', 
+		'\x5', '\x5', '\x5', '*', '\n', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', 
+		'\x6', '\x6', '\x6', '/', '\n', '\x6', '\r', '\x6', '\xE', '\x6', '\x30', 
+		'\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x3', 
+		'\a', '\a', '\a', '\x39', '\n', '\a', '\f', '\a', '\xE', '\a', '<', '\v', 
+		'\a', '\x3', '\a', '\x3', '\a', '\x5', '\a', '@', '\n', '\a', '\x3', '\b', 
+		'\x3', '\b', '\x5', '\b', '\x44', '\n', '\b', '\x3', '\b', '\x2', '\x2', 
+		'\t', '\x2', '\x4', '\x6', '\b', '\n', '\f', '\xE', '\x2', '\x2', '\x2', 
+		'J', '\x2', '\x12', '\x3', '\x2', '\x2', '\x2', '\x4', '\x16', '\x3', 
+		'\x2', '\x2', '\x2', '\x6', '\x1B', '\x3', '\x2', '\x2', '\x2', '\b', 
+		')', '\x3', '\x2', '\x2', '\x2', '\n', '+', '\x3', '\x2', '\x2', '\x2', 
+		'\f', '\x32', '\x3', '\x2', '\x2', '\x2', '\xE', '\x43', '\x3', '\x2', 
+		'\x2', '\x2', '\x10', '\x13', '\x5', '\x4', '\x3', '\x2', '\x11', '\x13', 
+		'\x5', '\x6', '\x4', '\x2', '\x12', '\x10', '\x3', '\x2', '\x2', '\x2', 
+		'\x12', '\x11', '\x3', '\x2', '\x2', '\x2', '\x13', '\x14', '\x3', '\x2', 
+		'\x2', '\x2', '\x14', '\x12', '\x3', '\x2', '\x2', '\x2', '\x14', '\x15', 
+		'\x3', '\x2', '\x2', '\x2', '\x15', '\x3', '\x3', '\x2', '\x2', '\x2', 
+		'\x16', '\x17', '\a', '\xE', '\x2', '\x2', '\x17', '\x18', '\a', '\x3', 
+		'\x2', '\x2', '\x18', '\x19', '\a', '\f', '\x2', '\x2', '\x19', '\x1A', 
+		'\a', '\x4', '\x2', '\x2', '\x1A', '\x5', '\x3', '\x2', '\x2', '\x2', 
+		'\x1B', '\x1C', '\a', '\xE', '\x2', '\x2', '\x1C', '\x1F', '\a', '\x5', 
+		'\x2', '\x2', '\x1D', ' ', '\x5', '\n', '\x6', '\x2', '\x1E', ' ', '\x5', 
+		'\b', '\x5', '\x2', '\x1F', '\x1D', '\x3', '\x2', '\x2', '\x2', '\x1F', 
+		'\x1E', '\x3', '\x2', '\x2', '\x2', ' ', '!', '\x3', '\x2', '\x2', '\x2', 
+		'!', '\"', '\a', '\x4', '\x2', '\x2', '\"', '\a', '\x3', '\x2', '\x2', 
+		'\x2', '#', '*', '\x5', '\f', '\a', '\x2', '$', '*', '\a', '\f', '\x2', 
+		'\x2', '%', '*', '\a', '\xE', '\x2', '\x2', '&', '*', '\a', '\x10', '\x2', 
+		'\x2', '\'', '*', '\a', '\xF', '\x2', '\x2', '(', '*', '\a', '\v', '\x2', 
+		'\x2', ')', '#', '\x3', '\x2', '\x2', '\x2', ')', '$', '\x3', '\x2', '\x2', 
+		'\x2', ')', '%', '\x3', '\x2', '\x2', '\x2', ')', '&', '\x3', '\x2', '\x2', 
+		'\x2', ')', '\'', '\x3', '\x2', '\x2', '\x2', ')', '(', '\x3', '\x2', 
+		'\x2', '\x2', '*', '\t', '\x3', '\x2', '\x2', '\x2', '+', '.', '\x5', 
+		'\b', '\x5', '\x2', ',', '-', '\a', '\x6', '\x2', '\x2', '-', '/', '\x5', 
+		'\b', '\x5', '\x2', '.', ',', '\x3', '\x2', '\x2', '\x2', '/', '\x30', 
+		'\x3', '\x2', '\x2', '\x2', '\x30', '.', '\x3', '\x2', '\x2', '\x2', '\x30', 
+		'\x31', '\x3', '\x2', '\x2', '\x2', '\x31', '\v', '\x3', '\x2', '\x2', 
+		'\x2', '\x32', '?', '\a', '\r', '\x2', '\x2', '\x33', '@', '\a', '\a', 
+		'\x2', '\x2', '\x34', '\x35', '\a', '\b', '\x2', '\x2', '\x35', ':', '\x5', 
+		'\xE', '\b', '\x2', '\x36', '\x37', '\a', '\t', '\x2', '\x2', '\x37', 
+		'\x39', '\x5', '\xE', '\b', '\x2', '\x38', '\x36', '\x3', '\x2', '\x2', 
+		'\x2', '\x39', '<', '\x3', '\x2', '\x2', '\x2', ':', '\x38', '\x3', '\x2', 
+		'\x2', '\x2', ':', ';', '\x3', '\x2', '\x2', '\x2', ';', '=', '\x3', '\x2', 
+		'\x2', '\x2', '<', ':', '\x3', '\x2', '\x2', '\x2', '=', '>', '\a', '\n', 
+		'\x2', '\x2', '>', '@', '\x3', '\x2', '\x2', '\x2', '?', '\x33', '\x3', 
+		'\x2', '\x2', '\x2', '?', '\x34', '\x3', '\x2', '\x2', '\x2', '@', '\r', 
+		'\x3', '\x2', '\x2', '\x2', '\x41', '\x44', '\x5', '\b', '\x5', '\x2', 
+		'\x42', '\x44', '\x5', '\n', '\x6', '\x2', '\x43', '\x41', '\x3', '\x2', 
+		'\x2', '\x2', '\x43', '\x42', '\x3', '\x2', '\x2', '\x2', '\x44', '\xF', 
+		'\x3', '\x2', '\x2', '\x2', '\n', '\x12', '\x14', '\x1F', ')', '\x30', 
+		':', '?', '\x43',
 	};
 
 	public static readonly ATN _ATN =

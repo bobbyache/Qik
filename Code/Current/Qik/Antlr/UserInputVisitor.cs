@@ -13,7 +13,7 @@ namespace CygSoft.Qik.Antlr
             this.errorReport = errorReport;
         }
 
-        public override string VisitInput([NotNull] QikTemplateParser.InputContext context)
+        public override string VisitInputDecl([NotNull] QikTemplateParser.InputDeclContext context)
         {
             // int line = context.Start.Line;
             // int column = context.Start.Column;
@@ -23,7 +23,7 @@ namespace CygSoft.Qik.Antlr
 
             scopeTable.AddSymbol(inputSymbol);
             
-            return base.VisitInput(context);
+            return base.VisitInputDecl(context);
         }
     }
 }

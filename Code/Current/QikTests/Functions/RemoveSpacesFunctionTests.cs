@@ -21,7 +21,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "literal text")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance", "Class Instance",  
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance",
                 new RemoveSpacesFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
