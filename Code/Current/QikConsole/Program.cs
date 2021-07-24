@@ -22,7 +22,7 @@ class Program
         {
             IAppHost appHost = null;
             NLog.ILogger logger = null;
-            FileSettings settings = null;
+            // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
 
             // TODO: Investigate why when you run after cd ~ with the *.exe fule path you get an error about a missing appsettings.json

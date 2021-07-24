@@ -9,7 +9,6 @@
         private readonly string postfix = "}";
 
         public string Title { get; }
-        public bool IsPlaceholder { get; }
         public string Symbol { get; }
 
         public abstract string Value { get; }
@@ -25,21 +24,19 @@
             }
         }
 
-        public BaseSymbol(string symbol, string title, bool isPlaceholder)
+        public BaseSymbol(string symbol, string title)
         {
             Symbol = symbol;
             Title = title;
-            IsPlaceholder = isPlaceholder;
         }
 
-        public BaseSymbol(string symbol, string title, bool isPlaceholder, string prefix, string postfix)
+        public BaseSymbol(string symbol, string title, string prefix, string postfix)
         {
             this.prefix = prefix;
             this.postfix = postfix;
 
             Symbol = symbol;
             Title = title;
-            IsPlaceholder = isPlaceholder;
         }
     }
 }

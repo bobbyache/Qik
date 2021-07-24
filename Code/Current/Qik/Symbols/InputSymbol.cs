@@ -5,16 +5,15 @@ namespace CygSoft.Qik
     {
         public string DefaultValue { get; }
 
-        public InputSymbol(string symbol, string title, string defaultValue, 
-            bool isPlaceholder)
-            : base(symbol, title, isPlaceholder)
+        public InputSymbol(string symbol, string title, string defaultValue)
+            : base(symbol, title)
         {
             DefaultValue = Common.StripOuterQuotes(defaultValue);
         }
 
-        public InputSymbol(string symbol, string title, string defaultValue, bool isPlaceholder,  
+        public InputSymbol(string symbol, string title, string defaultValue,  
             string prefix, string postfix)
-            : base(symbol, title, isPlaceholder, prefix, postfix)
+            : base(symbol, title, prefix, postfix)
         {
             DefaultValue = defaultValue;
         }

@@ -15,9 +15,9 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
             return val;
         }
 
-        internal static TextInputSymbol CreateTextInputSymbol_Author(string symbol = "@authorName", string title = "Author Name", string defaultValue = null, bool isPlaceholder = true)
+        internal static TextInputSymbol CreateTextInputSymbol_Author(string symbol = "@authorName", string title = "Author Name", string defaultValue = null)
         {
-            var textInputSymbol = new TextInputSymbol(symbol, title, defaultValue, isPlaceholder);
+            var textInputSymbol = new TextInputSymbol(symbol, title, defaultValue);
             return textInputSymbol;
         }
 

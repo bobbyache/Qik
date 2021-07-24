@@ -6,6 +6,5 @@
         string Title { get; }
         string Value { get; }
         string Placeholder { get; }
-        bool IsPlaceholder { get; }
     }
 }

@@ -21,7 +21,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "LITERAL TEXT")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@toProperCase", "Proper Case Function", true, true, 
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@toProperCase", "Proper Case Function",  
                 new ProperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
                 
             Assert.AreEqual("@toProperCase", expressionSymbol.Symbol);

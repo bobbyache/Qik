@@ -37,7 +37,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "dd/MM/yyyy")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@currentDate", "Current Date", true, true, new 
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@currentDate", "Current Date", new 
                 CurrentDateFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@currentDate", expressionSymbol.Symbol);

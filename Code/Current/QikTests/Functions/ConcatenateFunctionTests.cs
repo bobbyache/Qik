@@ -24,7 +24,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             concatFunc.AddFunction(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, " "));
             concatFunc.AddFunction(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "world"));
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@concat", "Concatenated String", true, true, concatFunc);
+            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@concat", "Concatenated String", concatFunc);
 
             Assert.AreEqual("@concat", expressionSymbol.Symbol);
             Assert.AreEqual("@{concat}", expressionSymbol.Placeholder);

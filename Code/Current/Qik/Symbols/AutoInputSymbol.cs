@@ -5,13 +5,13 @@ namespace CygSoft.Qik
     {
         private string value = null;
 
-        public AutoInputSymbol(string symbol, string title) : base(symbol, title, null, true)
+        public AutoInputSymbol(string symbol, string title) : base(symbol, title, null)
         {
             value = null;
         }
 
         public AutoInputSymbol(string symbol, string title, string prefix, string postfix)
-            : base(symbol, title, null, true, prefix, postfix)
+            : base(symbol, title, null, prefix, postfix)
         {
             value = null;
         }

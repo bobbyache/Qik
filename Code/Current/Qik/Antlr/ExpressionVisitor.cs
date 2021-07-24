@@ -27,14 +27,14 @@ namespace CygSoft.Qik.Antlr
                 var concatenateFunc = GetConcatenateFunction(context.concatExpr());
                 var expression =
                     new ExpressionSymbol(errorReport, id, symbolArguments.Title,
-                        symbolArguments.IsPlaceholder, symbolArguments.IsVisibleToEditor, concatenateFunc);
+                        concatenateFunc);
                 scopeTable.AddSymbol(expression);
             }
             else if (context.expr() != null)
             {
                 var function = VisitExpr(context.expr());
                 var expression = new ExpressionSymbol(errorReport, id, symbolArguments.Title,
-                    symbolArguments.IsPlaceholder, symbolArguments.IsVisibleToEditor, function);
+                    function);
                 scopeTable.AddSymbol(expression);
             }
 

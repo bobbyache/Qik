@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 
 namespace CygSoft.Qik
@@ -36,8 +37,8 @@ namespace CygSoft.Qik
         {
             get
             {
-                if (table.Values.Where(r => r.IsPlaceholder == true).Any())
-                    return table.Values.Where(r => r.IsPlaceholder == true).Select(r => r.Placeholder).ToArray();
+                if (table.Values.Select(r => r).Any())
+                    return table.Values.Select(r => r.Placeholder).ToArray();
                 else
                     return new string[0];
             }

@@ -19,7 +19,7 @@ namespace CygSoft.Qik.Antlr
             var symbolArguments = new SymbolArguments(errorReport);
             symbolArguments.Process(context.declArgs());
 
-            var textInputSymbol = new TextInputSymbol(controlId, symbolArguments.Title, symbolArguments.Default, symbolArguments.IsPlaceholder);
+            var textInputSymbol = new TextInputSymbol(controlId, symbolArguments.Title, symbolArguments.Default);
             scopeTable.AddSymbol(textInputSymbol);
 
             return base.VisitTextBox(context);
