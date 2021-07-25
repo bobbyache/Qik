@@ -14,7 +14,7 @@ template
 Control Declarations
 ----------------------------------------------------------------------- */ 
 inputDecl
-    : VARIABLE '=' STRING ';'
+    : VARIABLE '=>' STRING ';'
     ;
 
 funcDecl

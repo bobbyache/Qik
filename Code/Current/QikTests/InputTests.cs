@@ -13,7 +13,7 @@ namespace Qik.LanguageEngine.IntegrationTests
         {
             IInterpreter interpreter = new Interpreter();
 
-            interpreter.Interpret("@InputVar = \"Hello World\";");
+            interpreter.Interpret("@InputVar => \"Hello World\";");
             var value = interpreter.GetValueOfSymbol("@InputVar");
 
             Assert.AreEqual("Hello World", value);
@@ -24,7 +24,7 @@ namespace Qik.LanguageEngine.IntegrationTests
         {
             IInterpreter interpreter = new Interpreter();
 
-            interpreter.Interpret("@InputVar=\"Hello World\";");
+            interpreter.Interpret("@InputVar=>\"Hello World\";");
             var value = interpreter.GetValueOfSymbol("@InputVar");
 
             Assert.AreEqual("Hello World", value);

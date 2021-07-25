@@ -37,9 +37,8 @@ public partial class QikTemplateParser : Parser {
 	protected static DFA[] decisionToDFA;
 	protected static PredictionContextCache sharedContextCache = new PredictionContextCache();
 	public const int
-		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, T__7=8, CONST=9, 
-		STRING=10, IDENTIFIER=11, VARIABLE=12, FLOAT=13, INT=14, WS=15, COMMENT=16, 
-		LINE_COMMENT=17;
+		T__0=1, T__1=2, T__2=3, T__3=4, T__4=5, T__5=6, T__6=7, CONST=8, STRING=9, 
+		IDENTIFIER=10, VARIABLE=11, FLOAT=12, INT=13, WS=14, COMMENT=15, LINE_COMMENT=16;
 	public const int
 		RULE_template = 0, RULE_inputDecl = 1, RULE_funcDecl = 2, RULE_expr = 3, 
 		RULE_concatExpr = 4, RULE_func = 5, RULE_funcArg = 6;
@@ -48,11 +47,11 @@ public partial class QikTemplateParser : Parser {
 	};
 
 	private static readonly string[] _LiteralNames = {
-		null, "'='", "';'", "'=>'", "'+'", "'()'", "'('", "','", "')'"
+		null, "'=>'", "';'", "'+'", "'()'", "'('", "','", "')'"
 	};
 	private static readonly string[] _SymbolicNames = {
-		null, null, null, null, null, null, null, null, null, "CONST", "STRING", 
-		"IDENTIFIER", "VARIABLE", "FLOAT", "INT", "WS", "COMMENT", "LINE_COMMENT"
+		null, null, null, null, null, null, null, null, "CONST", "STRING", "IDENTIFIER", 
+		"VARIABLE", "FLOAT", "INT", "WS", "COMMENT", "LINE_COMMENT"
 	};
 	public static readonly IVocabulary DefaultVocabulary = new Vocabulary(_LiteralNames, _SymbolicNames);
 
@@ -247,7 +246,7 @@ public partial class QikTemplateParser : Parser {
 			EnterOuterAlt(_localctx, 1);
 			{
 			State = 25; Match(VARIABLE);
-			State = 26; Match(T__2);
+			State = 26; Match(T__0);
 			State = 29;
 			ErrorHandler.Sync(this);
 			switch ( Interpreter.AdaptivePredict(TokenStream,2,Context) ) {
@@ -406,14 +405,14 @@ public partial class QikTemplateParser : Parser {
 			do {
 				{
 				{
-				State = 42; Match(T__3);
+				State = 42; Match(T__2);
 				State = 43; expr();
 				}
 				}
 				State = 46;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-			} while ( _la==T__3 );
+			} while ( _la==T__2 );
 			}
 		}
 		catch (RecognitionException re) {
@@ -467,22 +466,22 @@ public partial class QikTemplateParser : Parser {
 			State = 61;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
-			case T__4:
+			case T__3:
 				{
-				State = 49; Match(T__4);
+				State = 49; Match(T__3);
 				}
 				break;
-			case T__5:
+			case T__4:
 				{
-				State = 50; Match(T__5);
+				State = 50; Match(T__4);
 				State = 51; funcArg();
 				State = 56;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
-				while (_la==T__6) {
+				while (_la==T__5) {
 					{
 					{
-					State = 52; Match(T__6);
+					State = 52; Match(T__5);
 					State = 53; funcArg();
 					}
 					}
@@ -490,7 +489,7 @@ public partial class QikTemplateParser : Parser {
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
-				State = 59; Match(T__7);
+				State = 59; Match(T__6);
 				}
 				break;
 			default:
@@ -571,7 +570,7 @@ public partial class QikTemplateParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\x13', '\x46', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\x12', '\x46', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x3', '\x2', '\x3', '\x2', '\x6', '\x2', '\x13', '\n', '\x2', '\r', '\x2', 
@@ -595,32 +594,32 @@ public partial class QikTemplateParser : Parser {
 		'\x12', '\x11', '\x3', '\x2', '\x2', '\x2', '\x13', '\x14', '\x3', '\x2', 
 		'\x2', '\x2', '\x14', '\x12', '\x3', '\x2', '\x2', '\x2', '\x14', '\x15', 
 		'\x3', '\x2', '\x2', '\x2', '\x15', '\x3', '\x3', '\x2', '\x2', '\x2', 
-		'\x16', '\x17', '\a', '\xE', '\x2', '\x2', '\x17', '\x18', '\a', '\x3', 
-		'\x2', '\x2', '\x18', '\x19', '\a', '\f', '\x2', '\x2', '\x19', '\x1A', 
+		'\x16', '\x17', '\a', '\r', '\x2', '\x2', '\x17', '\x18', '\a', '\x3', 
+		'\x2', '\x2', '\x18', '\x19', '\a', '\v', '\x2', '\x2', '\x19', '\x1A', 
 		'\a', '\x4', '\x2', '\x2', '\x1A', '\x5', '\x3', '\x2', '\x2', '\x2', 
-		'\x1B', '\x1C', '\a', '\xE', '\x2', '\x2', '\x1C', '\x1F', '\a', '\x5', 
+		'\x1B', '\x1C', '\a', '\r', '\x2', '\x2', '\x1C', '\x1F', '\a', '\x3', 
 		'\x2', '\x2', '\x1D', ' ', '\x5', '\n', '\x6', '\x2', '\x1E', ' ', '\x5', 
 		'\b', '\x5', '\x2', '\x1F', '\x1D', '\x3', '\x2', '\x2', '\x2', '\x1F', 
 		'\x1E', '\x3', '\x2', '\x2', '\x2', ' ', '!', '\x3', '\x2', '\x2', '\x2', 
 		'!', '\"', '\a', '\x4', '\x2', '\x2', '\"', '\a', '\x3', '\x2', '\x2', 
-		'\x2', '#', '*', '\x5', '\f', '\a', '\x2', '$', '*', '\a', '\f', '\x2', 
-		'\x2', '%', '*', '\a', '\xE', '\x2', '\x2', '&', '*', '\a', '\x10', '\x2', 
-		'\x2', '\'', '*', '\a', '\xF', '\x2', '\x2', '(', '*', '\a', '\v', '\x2', 
+		'\x2', '#', '*', '\x5', '\f', '\a', '\x2', '$', '*', '\a', '\v', '\x2', 
+		'\x2', '%', '*', '\a', '\r', '\x2', '\x2', '&', '*', '\a', '\xF', '\x2', 
+		'\x2', '\'', '*', '\a', '\xE', '\x2', '\x2', '(', '*', '\a', '\n', '\x2', 
 		'\x2', ')', '#', '\x3', '\x2', '\x2', '\x2', ')', '$', '\x3', '\x2', '\x2', 
 		'\x2', ')', '%', '\x3', '\x2', '\x2', '\x2', ')', '&', '\x3', '\x2', '\x2', 
 		'\x2', ')', '\'', '\x3', '\x2', '\x2', '\x2', ')', '(', '\x3', '\x2', 
 		'\x2', '\x2', '*', '\t', '\x3', '\x2', '\x2', '\x2', '+', '.', '\x5', 
-		'\b', '\x5', '\x2', ',', '-', '\a', '\x6', '\x2', '\x2', '-', '/', '\x5', 
+		'\b', '\x5', '\x2', ',', '-', '\a', '\x5', '\x2', '\x2', '-', '/', '\x5', 
 		'\b', '\x5', '\x2', '.', ',', '\x3', '\x2', '\x2', '\x2', '/', '\x30', 
 		'\x3', '\x2', '\x2', '\x2', '\x30', '.', '\x3', '\x2', '\x2', '\x2', '\x30', 
 		'\x31', '\x3', '\x2', '\x2', '\x2', '\x31', '\v', '\x3', '\x2', '\x2', 
-		'\x2', '\x32', '?', '\a', '\r', '\x2', '\x2', '\x33', '@', '\a', '\a', 
-		'\x2', '\x2', '\x34', '\x35', '\a', '\b', '\x2', '\x2', '\x35', ':', '\x5', 
-		'\xE', '\b', '\x2', '\x36', '\x37', '\a', '\t', '\x2', '\x2', '\x37', 
+		'\x2', '\x32', '?', '\a', '\f', '\x2', '\x2', '\x33', '@', '\a', '\x6', 
+		'\x2', '\x2', '\x34', '\x35', '\a', '\a', '\x2', '\x2', '\x35', ':', '\x5', 
+		'\xE', '\b', '\x2', '\x36', '\x37', '\a', '\b', '\x2', '\x2', '\x37', 
 		'\x39', '\x5', '\xE', '\b', '\x2', '\x38', '\x36', '\x3', '\x2', '\x2', 
 		'\x2', '\x39', '<', '\x3', '\x2', '\x2', '\x2', ':', '\x38', '\x3', '\x2', 
 		'\x2', '\x2', ':', ';', '\x3', '\x2', '\x2', '\x2', ';', '=', '\x3', '\x2', 
-		'\x2', '\x2', '<', ':', '\x3', '\x2', '\x2', '\x2', '=', '>', '\a', '\n', 
+		'\x2', '\x2', '<', ':', '\x3', '\x2', '\x2', '\x2', '=', '>', '\a', '\t', 
 		'\x2', '\x2', '>', '@', '\x3', '\x2', '\x2', '\x2', '?', '\x33', '\x3', 
 		'\x2', '\x2', '\x2', '?', '\x34', '\x3', '\x2', '\x2', '\x2', '@', '\r', 
 		'\x3', '\x2', '\x2', '\x2', '\x41', '\x44', '\x5', '\b', '\x5', '\x2', 

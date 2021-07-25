@@ -10,7 +10,7 @@
         "prefix": "qinput",
         "description": "Qik Input",
         "body": [
-            "@${1:variable} = \"${0:content}\";",
+            "@${1:variable} => \"${0:content}\";",
         ]
     },
     "Qik Expression": {
