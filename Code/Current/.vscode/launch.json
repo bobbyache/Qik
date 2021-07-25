@@ -23,8 +23,8 @@
                 // Prompt to Generate
                 // ****************************************
                 "--path", 
-                "C:\\Users\\RobB\\Desktop\\qik\\projectA\\project.json", 
-
+                // "C:\\Users\\RobB\\Desktop\\qik\\projectA\\project.json", 
+                "C:\\Users\\RobB\\OneDrive - Korbitec Inc\\Documents\\Korbicom\\Projects\\xchangedocs\\Qik\\xd-administration.json"
                 // "--path", 
                 // "C:\\Users\\RobB\\Desktop\\TestQik\\XD\\ApiServer\\Tests\\", 
             ],

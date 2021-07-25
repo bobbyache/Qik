@@ -34,12 +34,14 @@ namespace CygSoft.Qik.Console
             
             foreach(var processor in project.Processors)
             {
-                interpreterDictionary.Add(processor.Id, new ScriptInterpreter().GetPlaceholderLookups(fileFunctions.ReadTextFile(processor.ScriptFile)));
+                var fullPath = Path.Combine(Path.GetDirectoryName(path), processor.ScriptFile);
+                interpreterDictionary.Add(processor.Id, new ScriptInterpreter().GetPlaceholderLookups(fileFunctions.ReadTextFile(fullPath)));
             }
 
             foreach (var frag in project.Fragments)
             {
-                var templateText = fileFunctions.ReadTextFile(frag.Path);
+                var fullPath = Path.Combine(Path.GetDirectoryName(path), frag.Path);
+                var templateText = fileFunctions.ReadTextFile(fullPath);
 
                 foreach (var prroc in frag.Processors)
                 {
@@ -66,8 +68,20 @@ namespace CygSoft.Qik.Console
                         builder.AppendLine(fragmentsDictionary[structure]);
                     }
                 }
-                fileFunctions.WriteTextFile(document.OutputFilePath, builder.ToString());
+                
+                foreach (var outputPath in document.OutputFilePaths)
+                {
+                    fileFunctions.WriteTextFile(GetInferredFilePath(path, outputPath), builder.ToString());
+                }
             }
+        }
+
+        private string GetInferredFilePath(string projectFilePath, string filePath)
+        {
+            if (Path.IsPathRooted(filePath))
+                return filePath;
+            else
+                return Path.Combine(Path.GetDirectoryName(projectFilePath), filePath);
         }
     }
 }

@@ -30,7 +30,7 @@ namespace CygSoft.Qik.Console
 
     public class Document
     {
-        public string OutputFilePath { get; set; }
+        public string[] OutputFilePaths { get; set; }
         public string[] Structure { get; set; }
     }
 }

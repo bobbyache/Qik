@@ -27,6 +27,7 @@ dotnet run --project QikConsole/QikConsole.csproj
 ```
 
 ### Cmd Execution
+Move the tool to the preferred execution folder. Add the folder to your user environment path variable. Restart the computer.
 ```
 cd "C:\Code\you\Qik\Code\Current\QikConsole\bin\Debug\net5.0"
 qikconsole --path C:\Users\RobB\Desktop\TestQik
