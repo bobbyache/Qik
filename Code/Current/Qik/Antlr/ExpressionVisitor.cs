@@ -30,9 +30,9 @@ namespace CygSoft.Qik.Antlr
 
             else if (context.iffExpr() != null)
             {
-                var iifFunc = GetIifFunction(context.iffExpr());
+                var function = VisitIffExpr(context.iffExpr());
                 var expression =
-                    new ExpressionSymbol(errorReport, id, iifFunc);
+                    new ExpressionSymbol(errorReport, id, function);
                 scopeTable.AddSymbol(expression);
             }
             
@@ -45,6 +45,12 @@ namespace CygSoft.Qik.Antlr
 
             return null;
         }
+
+        public override IFunction VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context)
+        {
+            return GetIifFunction(context);
+        }
+
 
         public override IFunction VisitFunc(QikTemplateParser.FuncContext context)
         {
@@ -133,6 +139,7 @@ namespace CygSoft.Qik.Antlr
             
             var comparison = context.compExpr();
             var expressions = context.expr();
+            var iifs = context.iffExpr();
 
 
             var functions = new List<IFunction>();
@@ -148,7 +155,13 @@ namespace CygSoft.Qik.Antlr
             {
                 IFunction result = VisitExpr(expr);
                 functions.Add(result);
-            }            
+            }
+
+            foreach (QikTemplateParser.IffExprContext iif in iifs)
+            {
+                IFunction result = VisitIffExpr(iif);
+                functions.Add(result);
+            }         
 
             var iifFunc = new IifFunction(new FuncInfo("Iif", line, column), this.scopeTable, functions);
             iifFunc.SetOperator(compOperator);

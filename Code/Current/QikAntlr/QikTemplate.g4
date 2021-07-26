@@ -42,8 +42,7 @@ concatExpr
 
 
 iffExpr
-    // : 'iff' '(' compExpr ',' expr ',' expr ')'
-    : compExpr '?' expr ':' expr
+    : compExpr '?' (expr|iffExpr) ':' (expr|iffExpr)
     ;
 
 func

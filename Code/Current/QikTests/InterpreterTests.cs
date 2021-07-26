@@ -90,7 +90,24 @@ namespace Qik.LanguageEngine.UnitTests
 
             Assert.AreEqual("Happy", interpreter.GetValueOfSymbol("@TestDec"));
         }
-        
+
+        [Test]
+        public void Should_Read_IifFunction_Another__()
+        {
+            IInterpreter interpreter = new Interpreter();
+            interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @ExtraCheck => ""extra check"";
+                    @TestDec => @Entity == ""OtherAttribute"" ? """"
+                        : @ExtraCheck == ""extra check"" ? ""happy"" : ""sad""
+                    ;
+                "
+            );
+
+            Assert.AreEqual("happy", interpreter.GetValueOfSymbol("@TestDec"));
+        }
+
     //
     // TODO (Rob) Reinstate tests like this based on new syntax structure.
     // Refresh yourself on how error handling works...

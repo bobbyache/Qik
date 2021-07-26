@@ -508,6 +508,12 @@ public partial class QikTemplateParser : Parser {
 		public ExprContext expr(int i) {
 			return GetRuleContext<ExprContext>(i);
 		}
+		public IffExprContext[] iffExpr() {
+			return GetRuleContexts<IffExprContext>();
+		}
+		public IffExprContext iffExpr(int i) {
+			return GetRuleContext<IffExprContext>(i);
+		}
 		public IffExprContext(ParserRuleContext parent, int invokingState)
 			: base(parent, invokingState)
 		{
@@ -537,9 +543,35 @@ public partial class QikTemplateParser : Parser {
 			{
 			State = 57; compExpr();
 			State = 58; Match(T__5);
-			State = 59; expr();
-			State = 60; Match(T__6);
-			State = 61; expr();
+			State = 61;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,5,Context) ) {
+			case 1:
+				{
+				State = 59; expr();
+				}
+				break;
+			case 2:
+				{
+				State = 60; iffExpr();
+				}
+				break;
+			}
+			State = 63; Match(T__6);
+			State = 66;
+			ErrorHandler.Sync(this);
+			switch ( Interpreter.AdaptivePredict(TokenStream,6,Context) ) {
+			case 1:
+				{
+				State = 64; expr();
+				}
+				break;
+			case 2:
+				{
+				State = 65; iffExpr();
+				}
+				break;
+			}
 			}
 		}
 		catch (RecognitionException re) {
@@ -589,34 +621,34 @@ public partial class QikTemplateParser : Parser {
 		try {
 			EnterOuterAlt(_localctx, 1);
 			{
-			State = 63; Match(IDENTIFIER);
-			State = 76;
+			State = 68; Match(IDENTIFIER);
+			State = 81;
 			ErrorHandler.Sync(this);
 			switch (TokenStream.LA(1)) {
 			case T__7:
 				{
-				State = 64; Match(T__7);
+				State = 69; Match(T__7);
 				}
 				break;
 			case T__8:
 				{
-				State = 65; Match(T__8);
-				State = 66; funcArg();
-				State = 71;
+				State = 70; Match(T__8);
+				State = 71; funcArg();
+				State = 76;
 				ErrorHandler.Sync(this);
 				_la = TokenStream.LA(1);
 				while (_la==T__9) {
 					{
 					{
-					State = 67; Match(T__9);
-					State = 68; funcArg();
+					State = 72; Match(T__9);
+					State = 73; funcArg();
 					}
 					}
-					State = 73;
+					State = 78;
 					ErrorHandler.Sync(this);
 					_la = TokenStream.LA(1);
 				}
-				State = 74; Match(T__10);
+				State = 79; Match(T__10);
 				}
 				break;
 			default:
@@ -667,19 +699,19 @@ public partial class QikTemplateParser : Parser {
 		FuncArgContext _localctx = new FuncArgContext(Context, State);
 		EnterRule(_localctx, 16, RULE_funcArg);
 		try {
-			State = 80;
+			State = 85;
 			ErrorHandler.Sync(this);
-			switch ( Interpreter.AdaptivePredict(TokenStream,7,Context) ) {
+			switch ( Interpreter.AdaptivePredict(TokenStream,9,Context) ) {
 			case 1:
 				EnterOuterAlt(_localctx, 1);
 				{
-				State = 78; expr();
+				State = 83; expr();
 				}
 				break;
 			case 2:
 				EnterOuterAlt(_localctx, 2);
 				{
-				State = 79; concatExpr();
+				State = 84; concatExpr();
 				}
 				break;
 			}
@@ -697,7 +729,7 @@ public partial class QikTemplateParser : Parser {
 
 	private static char[] _serializedATN = {
 		'\x3', '\x608B', '\xA72A', '\x8133', '\xB9ED', '\x417C', '\x3BE7', '\x7786', 
-		'\x5964', '\x3', '\x16', 'U', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
+		'\x5964', '\x3', '\x16', 'Z', '\x4', '\x2', '\t', '\x2', '\x4', '\x3', 
 		'\t', '\x3', '\x4', '\x4', '\t', '\x4', '\x4', '\x5', '\t', '\x5', '\x4', 
 		'\x6', '\t', '\x6', '\x4', '\a', '\t', '\a', '\x4', '\b', '\t', '\b', 
 		'\x4', '\t', '\t', '\t', '\x4', '\n', '\t', '\n', '\x3', '\x2', '\x3', 
@@ -709,18 +741,19 @@ public partial class QikTemplateParser : Parser {
 		'\x5', '\x5', '/', '\n', '\x5', '\x3', '\x6', '\x3', '\x6', '\x3', '\x6', 
 		'\x3', '\x6', '\x3', '\a', '\x3', '\a', '\x3', '\a', '\x6', '\a', '\x38', 
 		'\n', '\a', '\r', '\a', '\xE', '\a', '\x39', '\x3', '\b', '\x3', '\b', 
-		'\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\b', '\x3', '\t', '\x3', 
+		'\x3', '\b', '\x3', '\b', '\x5', '\b', '@', '\n', '\b', '\x3', '\b', '\x3', 
+		'\b', '\x3', '\b', '\x5', '\b', '\x45', '\n', '\b', '\x3', '\t', '\x3', 
 		'\t', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\x3', '\t', '\a', '\t', 
-		'H', '\n', '\t', '\f', '\t', '\xE', '\t', 'K', '\v', '\t', '\x3', '\t', 
-		'\x3', '\t', '\x5', '\t', 'O', '\n', '\t', '\x3', '\n', '\x3', '\n', '\x5', 
-		'\n', 'S', '\n', '\n', '\x3', '\n', '\x2', '\x2', '\v', '\x2', '\x4', 
+		'M', '\n', '\t', '\f', '\t', '\xE', '\t', 'P', '\v', '\t', '\x3', '\t', 
+		'\x3', '\t', '\x5', '\t', 'T', '\n', '\t', '\x3', '\n', '\x3', '\n', '\x5', 
+		'\n', 'X', '\n', '\n', '\x3', '\n', '\x2', '\x2', '\v', '\x2', '\x4', 
 		'\x6', '\b', '\n', '\f', '\xE', '\x10', '\x12', '\x2', '\x3', '\x3', '\x2', 
-		'\x5', '\x6', '\x2', 'X', '\x2', '\x16', '\x3', '\x2', '\x2', '\x2', '\x4', 
+		'\x5', '\x6', '\x2', '_', '\x2', '\x16', '\x3', '\x2', '\x2', '\x2', '\x4', 
 		'\x1A', '\x3', '\x2', '\x2', '\x2', '\x6', '\x1F', '\x3', '\x2', '\x2', 
 		'\x2', '\b', '.', '\x3', '\x2', '\x2', '\x2', '\n', '\x30', '\x3', '\x2', 
 		'\x2', '\x2', '\f', '\x34', '\x3', '\x2', '\x2', '\x2', '\xE', ';', '\x3', 
-		'\x2', '\x2', '\x2', '\x10', '\x41', '\x3', '\x2', '\x2', '\x2', '\x12', 
-		'R', '\x3', '\x2', '\x2', '\x2', '\x14', '\x17', '\x5', '\x4', '\x3', 
+		'\x2', '\x2', '\x2', '\x10', '\x46', '\x3', '\x2', '\x2', '\x2', '\x12', 
+		'W', '\x3', '\x2', '\x2', '\x2', '\x14', '\x17', '\x5', '\x4', '\x3', 
 		'\x2', '\x15', '\x17', '\x5', '\x6', '\x4', '\x2', '\x16', '\x14', '\x3', 
 		'\x2', '\x2', '\x2', '\x16', '\x15', '\x3', '\x2', '\x2', '\x2', '\x17', 
 		'\x18', '\x3', '\x2', '\x2', '\x2', '\x18', '\x16', '\x3', '\x2', '\x2', 
@@ -748,22 +781,26 @@ public partial class QikTemplateParser : Parser {
 		'\x2', '\x2', '\x2', '\x38', '\x39', '\x3', '\x2', '\x2', '\x2', '\x39', 
 		'\x37', '\x3', '\x2', '\x2', '\x2', '\x39', ':', '\x3', '\x2', '\x2', 
 		'\x2', ':', '\r', '\x3', '\x2', '\x2', '\x2', ';', '<', '\x5', '\n', '\x6', 
-		'\x2', '<', '=', '\a', '\b', '\x2', '\x2', '=', '>', '\x5', '\b', '\x5', 
-		'\x2', '>', '?', '\a', '\t', '\x2', '\x2', '?', '@', '\x5', '\b', '\x5', 
-		'\x2', '@', '\xF', '\x3', '\x2', '\x2', '\x2', '\x41', 'N', '\a', '\x10', 
-		'\x2', '\x2', '\x42', 'O', '\a', '\n', '\x2', '\x2', '\x43', '\x44', '\a', 
-		'\v', '\x2', '\x2', '\x44', 'I', '\x5', '\x12', '\n', '\x2', '\x45', '\x46', 
-		'\a', '\f', '\x2', '\x2', '\x46', 'H', '\x5', '\x12', '\n', '\x2', 'G', 
-		'\x45', '\x3', '\x2', '\x2', '\x2', 'H', 'K', '\x3', '\x2', '\x2', '\x2', 
-		'I', 'G', '\x3', '\x2', '\x2', '\x2', 'I', 'J', '\x3', '\x2', '\x2', '\x2', 
-		'J', 'L', '\x3', '\x2', '\x2', '\x2', 'K', 'I', '\x3', '\x2', '\x2', '\x2', 
-		'L', 'M', '\a', '\r', '\x2', '\x2', 'M', 'O', '\x3', '\x2', '\x2', '\x2', 
-		'N', '\x42', '\x3', '\x2', '\x2', '\x2', 'N', '\x43', '\x3', '\x2', '\x2', 
-		'\x2', 'O', '\x11', '\x3', '\x2', '\x2', '\x2', 'P', 'S', '\x5', '\b', 
-		'\x5', '\x2', 'Q', 'S', '\x5', '\f', '\a', '\x2', 'R', 'P', '\x3', '\x2', 
-		'\x2', '\x2', 'R', 'Q', '\x3', '\x2', '\x2', '\x2', 'S', '\x13', '\x3', 
-		'\x2', '\x2', '\x2', '\n', '\x16', '\x18', '$', '.', '\x39', 'I', 'N', 
-		'R',
+		'\x2', '<', '?', '\a', '\b', '\x2', '\x2', '=', '@', '\x5', '\b', '\x5', 
+		'\x2', '>', '@', '\x5', '\xE', '\b', '\x2', '?', '=', '\x3', '\x2', '\x2', 
+		'\x2', '?', '>', '\x3', '\x2', '\x2', '\x2', '@', '\x41', '\x3', '\x2', 
+		'\x2', '\x2', '\x41', '\x44', '\a', '\t', '\x2', '\x2', '\x42', '\x45', 
+		'\x5', '\b', '\x5', '\x2', '\x43', '\x45', '\x5', '\xE', '\b', '\x2', 
+		'\x44', '\x42', '\x3', '\x2', '\x2', '\x2', '\x44', '\x43', '\x3', '\x2', 
+		'\x2', '\x2', '\x45', '\xF', '\x3', '\x2', '\x2', '\x2', '\x46', 'S', 
+		'\a', '\x10', '\x2', '\x2', 'G', 'T', '\a', '\n', '\x2', '\x2', 'H', 'I', 
+		'\a', '\v', '\x2', '\x2', 'I', 'N', '\x5', '\x12', '\n', '\x2', 'J', 'K', 
+		'\a', '\f', '\x2', '\x2', 'K', 'M', '\x5', '\x12', '\n', '\x2', 'L', 'J', 
+		'\x3', '\x2', '\x2', '\x2', 'M', 'P', '\x3', '\x2', '\x2', '\x2', 'N', 
+		'L', '\x3', '\x2', '\x2', '\x2', 'N', 'O', '\x3', '\x2', '\x2', '\x2', 
+		'O', 'Q', '\x3', '\x2', '\x2', '\x2', 'P', 'N', '\x3', '\x2', '\x2', '\x2', 
+		'Q', 'R', '\a', '\r', '\x2', '\x2', 'R', 'T', '\x3', '\x2', '\x2', '\x2', 
+		'S', 'G', '\x3', '\x2', '\x2', '\x2', 'S', 'H', '\x3', '\x2', '\x2', '\x2', 
+		'T', '\x11', '\x3', '\x2', '\x2', '\x2', 'U', 'X', '\x5', '\b', '\x5', 
+		'\x2', 'V', 'X', '\x5', '\f', '\a', '\x2', 'W', 'U', '\x3', '\x2', '\x2', 
+		'\x2', 'W', 'V', '\x3', '\x2', '\x2', '\x2', 'X', '\x13', '\x3', '\x2', 
+		'\x2', '\x2', '\f', '\x16', '\x18', '$', '.', '\x39', '?', '\x44', 'N', 
+		'S', 'W',
 	};
 
 	public static readonly ATN _ATN =
