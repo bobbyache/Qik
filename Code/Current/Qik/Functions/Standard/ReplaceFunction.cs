@@ -15,7 +15,7 @@ namespace CygSoft.Qik.Functions
         public override string Execute(IErrorReport errorReport)
         {
             if (functionArguments.Count() != 3)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Too many arguments", this.Name));
+                errorReport.AddError(new CustomError(this.Line, this.Column, "Unexpected number of arguments", this.Name));
 
             string result = null;
             try
