@@ -47,6 +47,50 @@ namespace Qik.LanguageEngine.UnitTests
             interpreterEngineMock.Verify(engine => engine.Interpret(It.IsAny<string>()), Times.Never);
         }
 
+        [Test]
+        public void Should_Read_IifFunction()
+        {
+            IInterpreter interpreter = new Interpreter();
+            interpreter.Interpret(
+                @"
+                    @IssueNumber => ""253"";
+                    @TestDec => @IssueNumber == ""253"" ? ""true"" : ""false"";
+                "
+            );
+
+
+
+            Assert.AreEqual("true", interpreter.GetValueOfSymbol("@TestDec"));
+        }
+
+        [Test]
+        public void Should_Read_IifFunction_Another()
+        {
+            IInterpreter interpreter = new Interpreter();
+            interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            Assert.AreEqual("happy", interpreter.GetValueOfSymbol("@TestDec"));
+        }
+
+        [Test]
+        public void Should_Read_IifFunction_Another_()
+        {
+            IInterpreter interpreter = new Interpreter();
+            interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? properCase(""happy"") : properCase(""sad"");
+                "
+            );
+
+            Assert.AreEqual("Happy", interpreter.GetValueOfSymbol("@TestDec"));
+        }
+        
     //
     // TODO (Rob) Reinstate tests like this based on new syntax structure.
     // Refresh yourself on how error handling works...

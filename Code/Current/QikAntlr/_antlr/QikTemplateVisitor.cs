@@ -57,11 +57,23 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitExpr([NotNull] QikTemplateParser.ExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.compExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCompExpr([NotNull] QikTemplateParser.CompExprContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.concatExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitConcatExpr([NotNull] QikTemplateParser.ConcatExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.iffExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// </summary>

@@ -9,7 +9,6 @@ template
     :	(inputDecl|funcDecl)+ 
     ;
 
-
 /* -----------------------------------------------------------------------
 Control Declarations
 ----------------------------------------------------------------------- */ 
@@ -18,7 +17,7 @@ inputDecl
     ;
 
 funcDecl
-    : VARIABLE '=>' (concatExpr|expr) ';'
+    : VARIABLE '=>' (expr|concatExpr|iffExpr) ';'
     ;
 
 /* -----------------------------------------------------------------------
@@ -33,14 +32,25 @@ expr
     |CONST
     ;
 
+compExpr
+    : expr ('=='|'!=') expr
+    ;
+
 concatExpr
     : expr ('+' expr)+
+    ;
+
+
+iffExpr
+    // : 'iff' '(' compExpr ',' expr ',' expr ')'
+    : compExpr '?' expr ':' expr
     ;
 
 func
     : IDENTIFIER ('()'|'(' funcArg (',' funcArg)* ')')
     ;
     
+
 funcArg
     : expr | concatExpr
     ;

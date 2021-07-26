@@ -72,6 +72,16 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitExpr([NotNull] QikTemplateParser.ExprContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.compExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCompExpr([NotNull] QikTemplateParser.CompExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.compExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCompExpr([NotNull] QikTemplateParser.CompExprContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.concatExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -81,6 +91,16 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitConcatExpr([NotNull] QikTemplateParser.ConcatExprContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIffExpr([NotNull] QikTemplateParser.IffExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// </summary>

@@ -27,6 +27,15 @@ namespace CygSoft.Qik.Antlr
                     new ExpressionSymbol(errorReport, id, concatenateFunc);
                 scopeTable.AddSymbol(expression);
             }
+
+            else if (context.iffExpr() != null)
+            {
+                var iifFunc = GetIifFunction(context.iffExpr());
+                var expression =
+                    new ExpressionSymbol(errorReport, id, iifFunc);
+                scopeTable.AddSymbol(expression);
+            }
+            
             else if (context.expr() != null)
             {
                 var function = VisitExpr(context.expr());
@@ -117,10 +126,41 @@ namespace CygSoft.Qik.Antlr
             return functionArguments;
         }
 
+        private IifFunction GetIifFunction(QikTemplateParser.IffExprContext context)
+        {
+            int line = context.Start.Line;
+            int column = context.Start.Column;
+            
+            var comparison = context.compExpr();
+            var expressions = context.expr();
+
+
+            var functions = new List<IFunction>();
+
+            var compOperator = comparison.children[1].GetText();
+            var operand1 = VisitExpr(comparison.expr()[0]);
+            var operand2 = VisitExpr(comparison.expr()[1]);
+
+            functions.Add(operand1);
+            functions.Add(operand2);
+
+            foreach (QikTemplateParser.ExprContext expr in expressions)
+            {
+                IFunction result = VisitExpr(expr);
+                functions.Add(result);
+            }            
+
+            var iifFunc = new IifFunction(new FuncInfo("Iif", line, column), this.scopeTable, functions);
+            iifFunc.SetOperator(compOperator);
+
+            return iifFunc;
+        }
+
         private ConcatenateFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)
         {
             int line = context.Start.Line;
             int column = context.Start.Column;
+            
 
             ConcatenateFunction concatenateFunc = new ConcatenateFunction(new FuncInfo("Concatenation", line, column), this.scopeTable);
 

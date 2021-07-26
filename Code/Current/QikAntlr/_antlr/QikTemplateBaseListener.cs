@@ -84,6 +84,18 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitExpr([NotNull] QikTemplateParser.ExprContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.compExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterCompExpr([NotNull] QikTemplateParser.CompExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.compExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitCompExpr([NotNull] QikTemplateParser.CompExprContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.concatExpr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>
@@ -95,6 +107,18 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitConcatExpr([NotNull] QikTemplateParser.ConcatExprContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIffExpr([NotNull] QikTemplateParser.IffExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIffExpr([NotNull] QikTemplateParser.IffExprContext context) { }
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// <para>The default implementation does nothing.</para>
