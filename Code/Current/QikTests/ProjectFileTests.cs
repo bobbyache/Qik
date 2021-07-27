@@ -13,14 +13,12 @@ namespace Qik.LanguageEngine.UnitTests
         public void Should_Write_To_Project_File()
         {
             var project = new Project();
-            project.PlaceholderPrefix = "{{";
-            project.PlaceholderPostfix = "}}";
             
             project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt", Processors = new string [2] {"simple_processor", "matrix_processor"} });
             project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt", Processors = new string [0] });
 
-            project.Processors.Add(new Processor { Id = "simple_processor", Type = "simple", ScriptFile = "kv_script_file.qik" });
-            project.Processors.Add(new Processor { Id = "matrix_processor", Type = "matrix", ScriptFile = "csv_script_file.qik" });
+            project.Processors.Add(new Processor { Id = "simple_processor", ScriptFile = "kv_script_file.qik" });
+            project.Processors.Add(new Processor { Id = "matrix_processor", ScriptFile = "csv_script_file.qik" });
 
             project.Documents.Add(new Document 
             { 
@@ -42,8 +40,6 @@ namespace Qik.LanguageEngine.UnitTests
             FileHelpers.DeleteFile("project.json");
 
             Assert.IsNotNull(writtenProject);
-            Assert.IsTrue(writtenProject.PlaceholderPrefix == "{{", "Unexpected prefix read from project file");
-            Assert.IsTrue(writtenProject.PlaceholderPostfix == "}}", "Unexpected postfix read from project file");
             Assert.IsTrue(writtenProject.Fragments.Count() == 2, "Unexpected number of fragments read from project file");
 
             var fragmentA = project.Fragments[0];
@@ -67,13 +63,11 @@ namespace Qik.LanguageEngine.UnitTests
             var processorA = writtenProject.Processors[0];
 
             Assert.IsTrue(processorA.Id == "simple_processor", "Unexpected processor id read from project file");
-            Assert.IsTrue(processorA.Type == "simple", "Unexpected processor type read from project file");
             Assert.IsTrue(processorA.ScriptFile == "kv_script_file.qik", "Unexpected processor script file read from project file");
 
             var processorB = writtenProject.Processors[1];
 
             Assert.IsTrue(processorB.Id == "matrix_processor", "Unexpected processor id read from project file");
-            Assert.IsTrue(processorB.Type == "matrix", "Unexpected processor type read from project file");
             Assert.IsTrue(processorB.ScriptFile == "csv_script_file.qik", "Unexpected processor script file read from project file");
 
 

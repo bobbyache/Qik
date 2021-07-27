@@ -5,9 +5,6 @@ namespace CygSoft.Qik.Console
 {
     public class Project
     {
-        public string PlaceholderPrefix { get; set; }
-        public string PlaceholderPostfix {get; set; }
-
         public List<Fragment> Fragments { get; set; } = new List<Fragment>();
         public List<Processor> Processors { get; set; } = new List<Processor>();
         public List<Document> Documents { get; set; } = new List<Document>();
@@ -23,7 +20,6 @@ namespace CygSoft.Qik.Console
     public class Processor
     {
         public string Id { get; set; }
-        public string Type { get; set; }
         public string ScriptFile { get; set; }
     }
 
