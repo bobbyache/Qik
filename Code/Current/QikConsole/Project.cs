@@ -24,7 +24,6 @@ namespace CygSoft.Qik.Console
     {
         public string Id { get; set; }
         public string Type { get; set; }
-        public string InputFile { get; set; }
         public string ScriptFile { get; set; }
     }
 
