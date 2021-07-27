@@ -11,7 +11,6 @@ namespace LanguageEngine.Tests.UnitTests.Symbols
         public void TextInputSymbol_Initialize_InitializesPlaceholder()
         {
             InputSymbol inputSymbol = TestHelpers.CreateInputSymbol_Author();
-            Assert.AreEqual("@{authorName}", inputSymbol.Placeholder);
         }
     }
 }

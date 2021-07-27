@@ -27,8 +27,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@concat", concatFunc);
 
             Assert.AreEqual("@concat", expressionSymbol.Symbol);
-            Assert.AreEqual("@{concat}", expressionSymbol.Placeholder);
-
             Assert.AreEqual("hello world", expressionSymbol.Value);
         }
 

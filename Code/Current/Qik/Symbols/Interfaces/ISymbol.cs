@@ -4,6 +4,5 @@
     {
         string Symbol { get; }
         string Value { get; }
-        string Placeholder { get; }
     }
 }

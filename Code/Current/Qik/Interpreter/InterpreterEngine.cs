@@ -18,10 +18,6 @@ namespace CygSoft.Qik
 
         public string[] Symbols => scopeTable.Symbols;
 
-        public IExpression[] Expressions => scopeTable.Expressions;
-
-        public string[] Placeholders => scopeTable.Placeholders;
-
         public InterpreterEngine(IGlobalTable scopeTable, IErrorReport errorReport )
         {
             this.scopeTable = scopeTable ?? throw new ArgumentNullException($"{nameof(scopeTable)} cannot be null.");
@@ -91,14 +87,6 @@ namespace CygSoft.Qik
             InterpretError?.Invoke(this, e);
         }
 
-        public ISymbolInfo GetSymbolInfo(string symbol) => scopeTable.GetSymbolInfo(symbol);
-
-        public ISymbolInfo GetPlaceholderInfo(string placeholder) => scopeTable.GetPlaceholderInfo(placeholder);
-
-        public ISymbolInfo[] GetSymbolInfoSet(string[] symbols) => scopeTable.GetSymbolInfoSet(symbols);
-
         public string GetValueOfSymbol(string symbol) => scopeTable.GetValueOfSymbol(symbol);
-
-        public string GetValueOfPlaceholder(string placeholder) => scopeTable.GetValueOfPlacholder(placeholder);
     }
 }

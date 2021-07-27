@@ -25,7 +25,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new ProperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
                 
             Assert.AreEqual("@toProperCase", expressionSymbol.Symbol);
-            Assert.AreEqual("@{toProperCase}", expressionSymbol.Placeholder);
             Assert.AreEqual("Literal Text", expressionSymbol.Value);
         }
 

@@ -16,9 +16,10 @@ namespace CygSoft.Qik
 
             var input = templateText;
 
-            foreach (var placeholder in interpreter.Placeholders)
+            foreach (var symbol in interpreter.Symbols)
             {
-                var output = interpreter.GetValueOfPlaceholder(placeholder);
+                var output = interpreter.GetValueOfSymbol(symbol);
+                var placeholder = "@{" + symbol.Replace("@", "") + "}" ;
                 input = input.Replace(placeholder, output);
             }
 

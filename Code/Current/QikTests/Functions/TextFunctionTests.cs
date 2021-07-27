@@ -19,7 +19,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new TextFunction(new FuncInfo("stub", 1, 1), globalTable, literalText));
             
             Assert.AreEqual("@authorName", expressionSymbol.Symbol);
-            Assert.AreEqual("@{authorName}", expressionSymbol.Placeholder);
             Assert.AreEqual("Rob Blake", expressionSymbol.Value);
         }
     }

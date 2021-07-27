@@ -13,11 +13,6 @@ namespace CygSoft.Qik
         {
         }
 
-        public InputSymbol(string symbol, string prefix, string postfix)
-            : base(symbol, prefix, postfix)
-        {
-        }
-
         public void SetValue(string value) => this.value = value;
     }
 }

@@ -17,14 +17,6 @@ namespace CygSoft.Qik
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
-        public ExpressionSymbol(IErrorReport errorReport, string symbol,
-            IFunction func, string prefix, string postfix)
-            : base(symbol, prefix, postfix)
-        {
-            this.func = func ?? throw new ArgumentNullException($"{nameof(func)} cannot be null.");
-            this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
-        }
-
         public override string Value => func.Execute(errorReport);
     }
 }

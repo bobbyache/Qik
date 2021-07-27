@@ -25,7 +25,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new ReplaceFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
-            Assert.AreEqual("@{classInstance}", expressionSymbol.Placeholder);
             Assert.AreEqual("Dashboard_Usage", expressionSymbol.Value);
         }
 

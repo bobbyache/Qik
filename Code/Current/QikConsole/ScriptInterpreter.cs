@@ -19,9 +19,12 @@ namespace CygSoft.Qik.Console
             IInterpreter interpreter = new Interpreter();
             interpreter.Interpret(script);
 
-            foreach (var placeholder in interpreter.Placeholders)
+            foreach (var symbol in interpreter.Symbols)
             {
-                dict.Add(new KeyValuePair<string, string>(placeholder, interpreter.GetValueOfPlaceholder(placeholder)));
+                var output = interpreter.GetValueOfSymbol(symbol);
+                var placeholder = "@{" + symbol.Replace("@", "") + "}" ;
+
+                dict.Add(new KeyValuePair<string, string>(placeholder, output));
             }
 
             return dict.ToArray();

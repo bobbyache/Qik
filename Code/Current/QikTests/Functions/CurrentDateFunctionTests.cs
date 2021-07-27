@@ -41,8 +41,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 CurrentDateFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@currentDate", expressionSymbol.Symbol);
-            Assert.AreEqual("@{currentDate}", expressionSymbol.Placeholder);
-
             Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy"), expressionSymbol.Value);
         }
     }

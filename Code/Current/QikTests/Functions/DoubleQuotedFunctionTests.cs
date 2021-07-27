@@ -25,7 +25,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new DoubleQuoteFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
 
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
-            Assert.AreEqual("@{classInstance}", expressionSymbol.Placeholder);
             Assert.AreEqual("\"literal text\"", expressionSymbol.Value);
         }
 

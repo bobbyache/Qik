@@ -24,7 +24,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
                 new RemovePunctuationFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
             
             Assert.AreEqual("@removePunctuation", expressionSymbol.Symbol);
-            Assert.AreEqual("@{removePunctuation}", expressionSymbol.Placeholder);
             Assert.AreEqual("LITERALTEXT", expressionSymbol.Value);
         }
 
