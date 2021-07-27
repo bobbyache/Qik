@@ -15,6 +15,9 @@ namespace CygSoft.Qik
         // Default functionality
         public Interpreter()
         {
+            //
+            // TODO (Rob) Would it not be better to seperate error detection completely from symbol generation?
+            // Parse for errors... only if not found, go and create the symbol table.
             syntaxValidator = new SyntaxValidator();
             interpreterEngine = new InterpreterEngine(new SymbolTable(), new ErrorReport());
         }
