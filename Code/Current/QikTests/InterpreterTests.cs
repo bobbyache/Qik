@@ -1,6 +1,7 @@
 ﻿using CygSoft.Qik;
 using NUnit.Framework;
 using Moq;
+using System.Collections.Generic;
 
 namespace Qik.LanguageEngine.UnitTests
 {
@@ -50,8 +51,8 @@ namespace Qik.LanguageEngine.UnitTests
         [Test]
         public void Should_Read_IifFunction()
         {
-            IInterpreter interpreter = new Interpreter();
-            interpreter.Interpret(
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
                 @"
                     @IssueNumber => ""253"";
                     @TestDec => @IssueNumber == ""253"" ? ""true"" : ""false"";
@@ -60,42 +61,42 @@ namespace Qik.LanguageEngine.UnitTests
 
 
 
-            Assert.AreEqual("true", interpreter.GetValueOfSymbol("@TestDec"));
+            Assert.AreEqual("true", terminal.GetValue("@TestDec"));
         }
 
         [Test]
         public void Should_Read_IifFunction_Another()
         {
-            IInterpreter interpreter = new Interpreter();
-            interpreter.Interpret(
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
                 @"
                     @Entity => ""EmailAttribute"";
                     @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
                 "
             );
 
-            Assert.AreEqual("happy", interpreter.GetValueOfSymbol("@TestDec"));
+            Assert.AreEqual("happy", terminal.GetValue("@TestDec"));
         }
 
         [Test]
         public void Should_Read_IifFunction_Another_()
         {
-            IInterpreter interpreter = new Interpreter();
-            interpreter.Interpret(
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
                 @"
                     @Entity => ""EmailAttribute"";
                     @TestDec => camelCase(@Entity) == ""emailAttribute"" ? properCase(""happy"") : properCase(""sad"");
                 "
             );
 
-            Assert.AreEqual("Happy", interpreter.GetValueOfSymbol("@TestDec"));
+            Assert.AreEqual("Happy", terminal.GetValue("@TestDec"));
         }
 
         [Test]
         public void Should_Read_IifFunction_Another__()
         {
-            IInterpreter interpreter = new Interpreter();
-            interpreter.Interpret(
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
                 @"
                     @Entity => ""EmailAttribute"";
                     @ExtraCheck => ""extra check"";
@@ -105,7 +106,80 @@ namespace Qik.LanguageEngine.UnitTests
                 "
             );
 
-            Assert.AreEqual("happy", interpreter.GetValueOfSymbol("@TestDec"));
+            Assert.AreEqual("happy", terminal.GetValue("@TestDec"));
+        }
+
+        [Test]
+        public void Should_Read_Value_Of_Original_iif_Interpreted_Input()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            Assert.AreEqual("happy", terminal.GetValue("@TestDec"));
+        }
+
+        [Test]
+        public void Should_Read_Value_Of_Updated_iif_Interpreted_Input()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            terminal.SetValue("@Entity", "MailAttribute");
+
+            Assert.AreEqual("sad", terminal.GetValue("@TestDec"));
+        }
+
+        [Test]
+        public void Should_Throw_Exception_When_Trying_To_Update_A_Non_Input_Symbol()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            Assert.Throws<KeyNotFoundException>(() => terminal.SetValue("@TestSymbol", "MailAttribute"), "Attempting to access a non-input symbol should throw a KeyNotFoundException");
+        }
+
+        [Test]
+        public void Should_Not_Return_Non_Input_Symbol_In_List_Of_InputSymbols()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            Assert.AreEqual(1, terminal.InputSymbols.Length);
+            Assert.AreNotEqual("@TestDec", terminal.InputSymbols[0]);
+        }
+
+        [Test]
+        public void Should_Return_All_Symbols()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? ""happy"" : ""sad"";
+                "
+            );
+
+            Assert.AreEqual(2, terminal.Symbols.Length);
         }
 
     //

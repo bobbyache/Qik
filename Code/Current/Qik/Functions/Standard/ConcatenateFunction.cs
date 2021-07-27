@@ -7,10 +7,10 @@ namespace CygSoft.Qik.Functions
     {
         private readonly List<IFunction> functions = new List<IFunction>();
 
-        public ConcatenateFunction(IFuncInfo funcInfo, IGlobalTable scopeTable)
-            : base(funcInfo, scopeTable)
+        public ConcatenateFunction(IFuncInfo funcInfo, ISymbolTable symbolTable)
+            : base(funcInfo, symbolTable)
         {
-            this.scopeTable = scopeTable;
+            this.symbolTable = symbolTable;
         }
 
         public override string Execute(IErrorReport errorReport)

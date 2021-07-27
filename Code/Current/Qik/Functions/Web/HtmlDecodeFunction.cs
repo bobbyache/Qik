@@ -7,7 +7,7 @@ namespace CygSoft.Qik.Functions
 {
     public class HtmlDecodeFunction : BaseFunction
     {
-        public HtmlDecodeFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments) : base(funcInfo, scopeTable, functionArguments)
+        public HtmlDecodeFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

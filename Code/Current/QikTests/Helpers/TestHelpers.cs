@@ -9,8 +9,8 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
             var interpreter = new Interpreter();
             var expression = TestHelpers.BuildExpressionForFunction(functionText);
 
-            interpreter.Interpret(expression);
-            var val = interpreter.GetValueOfSymbol("@output");
+            var terminal = interpreter.Interpret(expression);
+            var val = terminal.GetValue("@output");
 
             return val;
         }

@@ -5,8 +5,8 @@ namespace CygSoft.Qik.Functions
     {
         private readonly string text;
 
-        public ConstantFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, string text)
-            : base(funcInfo, scopeTable)
+        public ConstantFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, string text)
+            : base(funcInfo, symbolTable)
         {
             this.text = text;
         }

@@ -7,8 +7,8 @@ namespace CygSoft.Qik.Functions
     public class LowerCaseFunction : BaseFunction
     {
 
-        public LowerCaseFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public LowerCaseFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

@@ -5,17 +5,17 @@ namespace CygSoft.Qik.Functions
 {
     public abstract class BaseFunction : IFunction
     {
-        protected IGlobalTable scopeTable = null;
+        protected ISymbolTable symbolTable = null;
         protected List<IFunction> functionArguments;
 
         public int Line { get; }
         public int Column { get;}
         public string Name { get; }
 
-        public BaseFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments = null)
+        public BaseFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments = null)
         {
             if (funcInfo is null) throw new ArgumentNullException($"{nameof(funcInfo)} cannot be null.");
-            this.scopeTable = scopeTable ?? throw new ArgumentNullException($"{nameof(scopeTable)} cannot be null.");
+            this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
 
             Line = funcInfo.Line;
             Column = funcInfo.Column;

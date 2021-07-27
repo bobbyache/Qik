@@ -6,8 +6,8 @@ namespace CygSoft.Qik.Functions
 {
     public class UpperCaseFunction : BaseFunction
     {
-        public UpperCaseFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public UpperCaseFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

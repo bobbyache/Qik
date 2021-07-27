@@ -11,10 +11,9 @@ namespace Qik.LanguageEngine.IntegrationTests
         [Test]
         public void Should_Create_An_Input_Variable_With_Provided_Text()
         {
-            IInterpreter interpreter = new Interpreter();
-
-            interpreter.Interpret("@InputVar => \"Hello World\";");
-            var value = interpreter.GetValueOfSymbol("@InputVar");
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret("@InputVar => \"Hello World\";");
+            var value = terminal.GetValue("@InputVar");
 
             Assert.AreEqual("Hello World", value);
         }
@@ -24,8 +23,8 @@ namespace Qik.LanguageEngine.IntegrationTests
         {
             IInterpreter interpreter = new Interpreter();
 
-            interpreter.Interpret("@InputVar=>\"Hello World\";");
-            var value = interpreter.GetValueOfSymbol("@InputVar");
+            var terminal = interpreter.Interpret("@InputVar=>\"Hello World\";");
+            var value = terminal.GetValue("@InputVar");
 
             Assert.AreEqual("Hello World", value);
         }

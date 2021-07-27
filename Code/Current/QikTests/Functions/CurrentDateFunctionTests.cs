@@ -30,7 +30,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void CurrentDateFunction_RequestDate_ReturnsCurrentDate_1()
         {
-            var globalTable = new GlobalTable();
+            var globalTable = new SymbolTable();
 
             var functionArguments = new List<IFunction>
             {

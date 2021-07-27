@@ -4,7 +4,7 @@ using System.Linq;
 
 namespace CygSoft.Qik
 {
-    public class GlobalTable : IGlobalTable
+    public class SymbolTable : ISymbolTable
     {
         private readonly Dictionary<string, ISymbol> table = new Dictionary<string, ISymbol>();
 
@@ -19,9 +19,32 @@ namespace CygSoft.Qik
             }
         }
 
+        public string[] InputSymbols
+        {
+            get
+            {
+                if (table.Values.OfType<InputSymbol>().Any())
+                    return table.Values.OfType<InputSymbol>().Select(r => r.Symbol).ToArray();
+                else
+                    return new string[0];
+            }
+        }
+
         public void Clear()
         {
             table.Clear();
+        }
+
+        public void SetValue(string inputSymbol, string value)
+        {
+            if (table.ContainsKey(inputSymbol) && table[inputSymbol] is InputSymbol)
+            {
+                (table[inputSymbol] as InputSymbol).SetValue(value);
+            }
+            else
+            {
+                throw new KeyNotFoundException($"Input symbol does not exist for {inputSymbol}");
+            }
         }
 
         public void AddSymbol(ISymbol symbol)
@@ -30,7 +53,7 @@ namespace CygSoft.Qik
                 table.Add(symbol.Symbol, symbol);
         }
 
-        public string GetValueOfSymbol(string symbol)
+        public string GetValue(string symbol)
         {
             if (table.ContainsKey(symbol))
             {

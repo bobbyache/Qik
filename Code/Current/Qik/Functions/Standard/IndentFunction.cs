@@ -6,8 +6,8 @@ namespace CygSoft.Qik.Functions
 {
     public class IndentFunction : BaseFunction
     {
-        public IndentFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public IndentFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
         }
 

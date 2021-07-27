@@ -11,27 +11,26 @@ namespace CygSoft.Qik
         public event EventHandler AfterInterpret;
         public event EventHandler<InterpretErrorEventArgs> InterpretError;
 
-        private readonly IGlobalTable scopeTable;
+        private readonly ISymbolTable symbolTable;
         private readonly IErrorReport errorReport;
 
         public bool HasErrors { get; private set; } = false;
 
-        public string[] Symbols => scopeTable.Symbols;
+        public string[] Symbols => symbolTable.Symbols;
 
-        public InterpreterEngine(IGlobalTable scopeTable, IErrorReport errorReport )
+        public InterpreterEngine(ISymbolTable symbolTable, IErrorReport errorReport )
         {
-            this.scopeTable = scopeTable ?? throw new ArgumentNullException($"{nameof(scopeTable)} cannot be null.");
+            this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
             this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
-        public void Interpret(string scriptText)
+        public ISymbolTerminal Interpret(string scriptText)
         {
             HasErrors = false;
-            BeforeInterpret?.Invoke(this, new EventArgs());
 
             try
             {
-                scopeTable.Clear();
+                symbolTable.Clear();
 
                 errorReport.Reporting = true;
                 errorReport.ExecutionErrorDetected += ErrorReport_ExecutionErrorDetected;
@@ -49,10 +48,8 @@ namespace CygSoft.Qik
                 HasErrors = true;
                 InterpretError?.Invoke(this, new InterpretErrorEventArgs(exception));
             }
-            finally
-            {
-                AfterInterpret?.Invoke(this, new EventArgs());
-            }
+
+            return this.symbolTable;
         }
 
         private void InterpretExpressions(string scriptText)
@@ -64,7 +61,7 @@ namespace CygSoft.Qik
 
             var tree = parser.template();
 
-            var expressionVisitor = new ExpressionVisitor(this.scopeTable, this.errorReport);
+            var expressionVisitor = new ExpressionVisitor(this.symbolTable, this.errorReport);
             expressionVisitor.Visit(tree);
         }
 
@@ -77,7 +74,7 @@ namespace CygSoft.Qik
 
             var tree = parser.template();
 
-            var controlVisitor = new UserInputVisitor(this.scopeTable, this.errorReport);
+            var controlVisitor = new UserInputVisitor(this.symbolTable, this.errorReport);
             controlVisitor.Visit(tree);
         }
 
@@ -87,6 +84,6 @@ namespace CygSoft.Qik
             InterpretError?.Invoke(this, e);
         }
 
-        public string GetValueOfSymbol(string symbol) => scopeTable.GetValueOfSymbol(symbol);
+        public string GetValueOfSymbol(string symbol) => symbolTable.GetValue(symbol);
     }
 }

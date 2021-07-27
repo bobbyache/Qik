@@ -5,15 +5,15 @@ namespace CygSoft.Qik.Functions
     {
         private readonly string symbol;
 
-        public VariableFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, string symbol)
-            : base(funcInfo, scopeTable)
+        public VariableFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, string symbol)
+            : base(funcInfo, symbolTable)
         {
             this.symbol = symbol;
         }
 
         public override string Execute(IErrorReport errorReport)
         {
-            return base.scopeTable.GetValueOfSymbol(this.symbol);
+            return base.symbolTable.GetValue(this.symbol);
         }
     }
 }

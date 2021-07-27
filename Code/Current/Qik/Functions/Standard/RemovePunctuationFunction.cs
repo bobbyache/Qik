@@ -6,8 +6,8 @@ namespace CygSoft.Qik.Functions
 {
     public class RemovePunctuationFunction : BaseFunction
     {
-        public RemovePunctuationFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public RemovePunctuationFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

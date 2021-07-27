@@ -14,7 +14,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         {
             // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
 
-            var globalTable = new GlobalTable();
+            var globalTable = new SymbolTable();
 
             var functionArguments = new List<IFunction>();
             functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "Dashboard Usage"));

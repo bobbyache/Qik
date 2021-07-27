@@ -6,7 +6,7 @@ namespace CygSoft.Qik.Functions
 {
     public class GuidFunction : BaseFunction
     {
-        public GuidFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments) : base(funcInfo, scopeTable, functionArguments) {}
+        public GuidFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments) {}
 
         public override string Execute(IErrorReport errorReport)
         {

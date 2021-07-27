@@ -6,8 +6,8 @@ namespace CygSoft.Qik.Functions
 {
     public class ReplaceFunction : BaseFunction
     {
-        public ReplaceFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public ReplaceFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

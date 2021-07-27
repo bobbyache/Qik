@@ -16,12 +16,12 @@ namespace CygSoft.Qik.Console
         public KeyValuePair<string, string>[] GetPlaceholderLookups(string script)
         {
             var dict = new List<KeyValuePair<string, string>>();
-            IInterpreter interpreter = new Interpreter();
-            interpreter.Interpret(script);
+            var interpreter = new Interpreter();
+            var symbolTerminal = interpreter.Interpret(script);
 
-            foreach (var symbol in interpreter.Symbols)
+            foreach (var symbol in symbolTerminal.Symbols)
             {
-                var output = interpreter.GetValueOfSymbol(symbol);
+                var output = symbolTerminal.GetValue(symbol);
                 var placeholder = "@{" + symbol.Replace("@", "") + "}" ;
 
                 dict.Add(new KeyValuePair<string, string>(placeholder, output));

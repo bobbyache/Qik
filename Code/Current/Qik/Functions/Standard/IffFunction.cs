@@ -9,8 +9,8 @@ namespace CygSoft.Qik.Functions
     {
         private string comparisonOperator = "";
 
-        public IifFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public IifFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

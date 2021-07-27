@@ -10,8 +10,8 @@ namespace CygSoft.Qik.Functions
     public class AbbreviateFunction : BaseFunction
     {
 
-        public AbbreviateFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public AbbreviateFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

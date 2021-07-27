@@ -27,20 +27,14 @@ namespace CygSoft.Qik.Antlr
 
         private string UserFriendlyContext(string stackId)
         {
+            //
+            // TODO (Rob) You'll need to update this or find another strategy
             switch (stackId)
             {
                 case "template":
                     return "Main Script";
                 case "ctrlDecl":
                     return "Input Control";
-                case "optExpr":
-                    return "Option Expression";
-                case "optionsBody":
-                    return "Option Box";
-                case "textBox":
-                    return "Text Box";
-                case "singleOption":
-                    return "Single Option";
                 case "exprDecl":
                     return "Expression Declaration";
                 case "ifOptExpr":

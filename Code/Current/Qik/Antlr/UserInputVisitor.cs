@@ -4,12 +4,12 @@ namespace CygSoft.Qik.Antlr
 {
     internal class UserInputVisitor : QikTemplateBaseVisitor<string>
     {
-        private readonly IGlobalTable scopeTable;
+        private readonly ISymbolTable symbolTable;
         private readonly IErrorReport errorReport;
 
-        internal UserInputVisitor(IGlobalTable scopeTable, IErrorReport errorReport)
+        internal UserInputVisitor(ISymbolTable symbolTable, IErrorReport errorReport)
         {
-            this.scopeTable = scopeTable;
+            this.symbolTable = symbolTable;
             this.errorReport = errorReport;
         }
 
@@ -21,7 +21,7 @@ namespace CygSoft.Qik.Antlr
             var inputSymbol = new InputSymbol(context.VARIABLE().GetText());
             inputSymbol.SetValue(Common.StripOuterQuotes(context.STRING().GetText()));
 
-            scopeTable.AddSymbol(inputSymbol);
+            symbolTable.AddSymbol(inputSymbol);
             
             return base.VisitInputDecl(context);
         }

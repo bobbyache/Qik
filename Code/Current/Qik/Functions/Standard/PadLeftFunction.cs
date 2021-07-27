@@ -6,7 +6,7 @@ namespace CygSoft.Qik.Functions
 {
     public class PadLeftFunction : BaseFunction
     {
-        public PadLeftFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments) : base(funcInfo, scopeTable, functionArguments)
+        public PadLeftFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

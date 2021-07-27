@@ -6,8 +6,8 @@ namespace CygSoft.Qik.Functions
 {
     public class CurrentDateFunction : BaseFunction
     {
-        public CurrentDateFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments)
-            : base(funcInfo, scopeTable, functionArguments)
+        public CurrentDateFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
+            : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

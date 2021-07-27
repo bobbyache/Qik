@@ -6,7 +6,7 @@ namespace CygSoft.Qik.Functions
 {
     public class CamelCaseFunction : BaseFunction
     {
-        public CamelCaseFunction(IFuncInfo funcInfo, IGlobalTable scopeTable, List<IFunction> functionArguments) : base(funcInfo, scopeTable, functionArguments)
+        public CamelCaseFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments)
         {
 
         }

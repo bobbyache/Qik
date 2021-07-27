@@ -4,8 +4,8 @@ namespace CygSoft.Qik.Functions
 {
     public class NewlineFunction : BaseFunction
     {
-        public NewlineFunction(IFuncInfo funcInfo, IGlobalTable scopeTable)
-            : base(funcInfo, scopeTable)
+        public NewlineFunction(IFuncInfo funcInfo, ISymbolTable symbolTable)
+            : base(funcInfo, symbolTable)
         {
         }
 

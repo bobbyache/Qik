@@ -5,11 +5,11 @@ namespace CygSoft.Qik.Functions
 {
     public class FunctionFactory
     {
-        private readonly IGlobalTable scopeTable;
+        private readonly ISymbolTable symbolTable;
 
-        public FunctionFactory(IGlobalTable scopeTable)
+        public FunctionFactory(ISymbolTable symbolTable)
         {
-            this.scopeTable= scopeTable?? throw new ArgumentNullException($"{nameof(scopeTable)} cannot be null.");
+            this.symbolTable= symbolTable?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
         }
 
         public IFunction GetFunction(string functionIdentifier, IFuncInfo funcInfo, List<IFunction> functionArguments)
@@ -23,69 +23,69 @@ namespace CygSoft.Qik.Functions
             switch (functionIdentifier)
             {
                 case "camelCase":
-                    func = new CamelCaseFunction(funcInfo, scopeTable, functionArguments);
+                    func = new CamelCaseFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "currentDate":
-                    func = new CurrentDateFunction(funcInfo, scopeTable, functionArguments);
+                    func = new CurrentDateFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "lowerCase":
-                    func = new LowerCaseFunction(funcInfo, scopeTable, functionArguments);
+                    func = new LowerCaseFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "upperCase":
-                    func = new UpperCaseFunction(funcInfo, scopeTable, functionArguments);
+                    func = new UpperCaseFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "properCase":
-                    func = new ProperCaseFunction(funcInfo, scopeTable, functionArguments);
+                    func = new ProperCaseFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "removeSpaces":
-                    func = new RemoveSpacesFunction(funcInfo, scopeTable, functionArguments);
+                    func = new RemoveSpacesFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "removePunctuation":
-                    func = new RemovePunctuationFunction(funcInfo, scopeTable, functionArguments);
+                    func = new RemovePunctuationFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "replace":
-                    func = new ReplaceFunction(funcInfo, scopeTable, functionArguments);
+                    func = new ReplaceFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "indentLine":
-                    func = new IndentFunction(funcInfo, scopeTable, functionArguments);
+                    func = new IndentFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "doubleQuotes": // for backward compatibility...
-                    func = new DoubleQuoteFunction(funcInfo, scopeTable, functionArguments);
+                    func = new DoubleQuoteFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "doubleQuote":
-                    func = new DoubleQuoteFunction(funcInfo, scopeTable, functionArguments);
+                    func = new DoubleQuoteFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "htmlEncode":
-                    func = new HtmlEncodeFunction(funcInfo, scopeTable, functionArguments);
+                    func = new HtmlEncodeFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "htmlDecode":
-                    func = new HtmlDecodeFunction(funcInfo, scopeTable, functionArguments);
+                    func = new HtmlDecodeFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 case "guid":
-                    var guidFunction = new GuidFunction(funcInfo, scopeTable, functionArguments);
+                    var guidFunction = new GuidFunction(funcInfo, symbolTable, functionArguments);
                     func = guidFunction;
                     break;
                 case "padLeft":
-                    func = new PadLeftFunction(funcInfo, scopeTable, functionArguments);
+                    func = new PadLeftFunction(funcInfo, symbolTable, functionArguments);
                     break;
                 case "padRight":
-                    func = new PadRightFunction(funcInfo, scopeTable, functionArguments);
+                    func = new PadRightFunction(funcInfo, symbolTable, functionArguments);
                     break;
                 case "abbreviate":
-                    func = new AbbreviateFunction(funcInfo, scopeTable, functionArguments);
+                    func = new AbbreviateFunction(funcInfo, symbolTable, functionArguments);
                     break;
 
                 default:

@@ -12,7 +12,7 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void CamelCaseFunction_InputPascalCase_OutputsCamelCase_1()
         {
-            var globalTable = new GlobalTable();
+            var globalTable = new SymbolTable();
 
             var functionArguments = new List<IFunction>
             {
