@@ -14,7 +14,7 @@ namespace CygSoft.Qik.Antlr
         public override string VisitInputDecl([NotNull] QikTemplateParser.InputDeclContext context)
         {
             var inputSymbol = new InputSymbol(context.VARIABLE().GetText());
-            inputSymbol.SetValue(Common.StripOuterQuotes(context.STRING().GetText()));
+            inputSymbol.SetValue(context.STRING().GetText().StripOuterQuotes());
 
             symbolTable.AddSymbol(inputSymbol);
             

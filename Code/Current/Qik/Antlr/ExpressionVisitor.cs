@@ -73,7 +73,7 @@ namespace CygSoft.Qik.Antlr
 
             if (context.STRING() != null)
             {
-                return new TextFunction("String", Common.StripOuterQuotes(context.STRING().GetText()));
+                return new TextFunction("String", context.STRING().GetText().StripOuterQuotes());
             }
 
             else if (context.VARIABLE() != null)

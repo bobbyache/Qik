@@ -1,9 +1,8 @@
-﻿namespace CygSoft.Qik
+namespace CygSoft.Qik
 {
-    internal class Common
+    public static class StringExtensions
     {
-        //TODO: Consider using a string extension method.
-        public static string StripOuterQuotes(string text)
+        public static string StripOuterQuotes(this string text)
         {
             if (text != null && text.Length >= 2)
             {
