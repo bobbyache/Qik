@@ -55,10 +55,6 @@ namespace CygSoft.Qik.Functions
                     func = new IndentFunction(name, functionArguments);
                     break;
 
-                case "doubleQuotes": // for backward compatibility...
-                    func = new DoubleQuoteFunction(name, functionArguments);
-                    break;
-
                 case "doubleQuote":
                     func = new DoubleQuoteFunction(name, functionArguments);
                     break;

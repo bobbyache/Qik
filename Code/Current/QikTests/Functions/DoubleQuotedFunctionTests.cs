@@ -29,14 +29,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         }
 
         [Test]
-        public void DoubleQuoteFunction_Old_InputText_OutputsDoubleQuotedText()
-        {
-            var funcText = $"doubleQuotes(\"quote me\")";
-            var output = TestHelpers.EvaluateFunction(funcText);
-            Assert.AreEqual("\"quote me\"", output);
-        }
-
-        [Test]
         public void DoubleQuoteFunction_New_InputText_OutputsDoubleQuotedText()
         {
             var funcText = $"doubleQuote(\"quote me\")";

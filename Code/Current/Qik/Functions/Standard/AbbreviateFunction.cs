@@ -1,20 +1,14 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Text;
-using System.Threading;
 
 namespace CygSoft.Qik.Functions
 {
     public class AbbreviateFunction : BaseFunction
     {
-
         public AbbreviateFunction(string name, List<IFunction> functionArguments)
-            : base(name, functionArguments)
-        {
-
-        }
+            : base(name, functionArguments) {}
 
         public override string Execute()
         {            
