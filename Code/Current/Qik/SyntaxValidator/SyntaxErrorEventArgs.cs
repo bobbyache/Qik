@@ -2,7 +2,7 @@
 
 namespace CygSoft.Qik
 {
-    public class InterpretErrorEventArgs
+    public class SyntaxErrorEventArgs
     {
         public int Line { get; }
         public int Column { get; }
@@ -10,7 +10,7 @@ namespace CygSoft.Qik
         public string OffendingSymbol { get; }
         public string Location { get; }
 
-        public InterpretErrorEventArgs(string location, int line, int column, string offendingSymbol, string message)
+        public SyntaxErrorEventArgs(string location, int line, int column, string offendingSymbol, string message)
         {
             Line = line;
             Column = column;
@@ -19,7 +19,7 @@ namespace CygSoft.Qik
             Location = location;
         }
 
-        public InterpretErrorEventArgs(Exception exception)
+        public SyntaxErrorEventArgs(Exception exception)
         {
             Line = 0;
             Column = 0;

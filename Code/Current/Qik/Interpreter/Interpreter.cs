@@ -1,62 +1,45 @@
-﻿using System;
+﻿using Antlr4.Runtime;
 using CygSoft.Qik.Antlr;
 
 namespace CygSoft.Qik
 {
     public class Interpreter : IInterpreter
     {
-        public event EventHandler<InterpretErrorEventArgs> CompileError;
-
-        private readonly ISyntaxValidator syntaxValidator = null;
-        private readonly IInterpreterEngine interpreterEngine = null;
-
-        public bool HasErrors => syntaxValidator.HasErrors || interpreterEngine.HasErrors;
-
-        // Default functionality
-        public Interpreter()
-        {
-            //
-            // TODO (Rob) Would it not be better to seperate error detection completely from symbol generation?
-            // Parse for errors... only if not found, go and create the symbol table.
-            syntaxValidator = new SyntaxValidator();
-            interpreterEngine = new InterpreterEngine(new SymbolTable());
-        }
-
-        // For testing purposes:
-        public Interpreter(ISyntaxValidator syntaxValidator, IInterpreterEngine interpreterEngine)
-        {
-            this.syntaxValidator = syntaxValidator ?? throw new ArgumentNullException($"{nameof(syntaxValidator)} cannot be null.");
-            this.interpreterEngine = interpreterEngine ?? throw new ArgumentNullException($"{nameof(interpreterEngine)} cannot be null.");
-        }
-
         public ISymbolTerminal Interpret(string scriptText)
         {
-            CheckSyntax(scriptText);
+            var symbolTable = new SymbolTable();
+            symbolTable.Clear();
 
-            if (!syntaxValidator.HasErrors)
-                return InterpretInstructions(scriptText);
+            InterpretInputs(symbolTable, scriptText);
+            InterpretExpressions(symbolTable, scriptText);
 
-            return null;
+            return symbolTable;
         }
 
-        private ISymbolTerminal InterpretInstructions(string scriptText)
+        private void InterpretExpressions(ISymbolTable symbolTable, string scriptText)
         {
-            interpreterEngine.InterpretError += Interpreter_CompileError;
+            var inputStream = new AntlrInputStream(scriptText);
+            var lexer = new QikTemplateLexer(inputStream);
+            var tokens = new CommonTokenStream(lexer);
+            var parser = new QikTemplateParser(tokens);
 
-            ISymbolTerminal terminal = interpreterEngine.Interpret(scriptText);
+            var tree = parser.template();
 
-            interpreterEngine.InterpretError -= Interpreter_CompileError;
-
-            return terminal;
+            var expressionVisitor = new ExpressionVisitor(symbolTable);
+            expressionVisitor.Visit(tree);
         }
 
-        private void CheckSyntax(string scriptText)
+        private void InterpretInputs(ISymbolTable symbolTable, string scriptText)
         {
-            syntaxValidator.CompileError += Interpreter_CompileError;
-            syntaxValidator.Validate(scriptText);
-            syntaxValidator.CompileError -= Interpreter_CompileError;
-        }
+            var inputStream = new AntlrInputStream(scriptText);
+            var lexer = new QikTemplateLexer(inputStream);
+            var tokens = new CommonTokenStream(lexer);
+            var parser = new QikTemplateParser(tokens);
 
-        private void Interpreter_CompileError(object sender, InterpretErrorEventArgs e) => CompileError?.Invoke(this, e);
+            var tree = parser.template();
+
+            var controlVisitor = new UserInputVisitor(symbolTable);
+            controlVisitor.Visit(tree);
+        }
     }
 }
