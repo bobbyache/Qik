@@ -25,7 +25,6 @@ class Program
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
 
-            // TODO: Investigate why when you run after cd ~ with the *.exe fule path you get an error about a missing appsettings.json
             // TODO: Why, when executing with Powershell... does the program not end but remain running?
             var rootCommand = new RootCommand
             {
