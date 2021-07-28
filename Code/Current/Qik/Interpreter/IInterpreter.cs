@@ -1,9 +1,9 @@
-﻿using System;
+﻿using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik
 {
     public interface IInterpreter
     {
-        ISymbolTerminal Interpret(string scriptText);
+        ISymbolTerminal Interpret(IFunctionFactory functionFactory, string scriptText);
     }
 }

@@ -1,8 +1,6 @@
 
-using System;
-using System.IO;
 using System.Collections.Generic;
-using System.Net.WebSockets;
+using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik.Console
 {
@@ -17,7 +15,8 @@ namespace CygSoft.Qik.Console
         {
             var dict = new List<KeyValuePair<string, string>>();
             var interpreter = new Interpreter();
-            var symbolTerminal = interpreter.Interpret(script);
+            var functionFactory = new FunctionFactory();
+            var symbolTerminal = interpreter.Interpret(functionFactory, script);
 
             foreach (var symbol in symbolTerminal.Symbols)
             {

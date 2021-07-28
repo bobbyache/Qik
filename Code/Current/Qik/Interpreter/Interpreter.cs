@@ -1,22 +1,23 @@
 ﻿using Antlr4.Runtime;
 using CygSoft.Qik.Antlr;
+using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik
 {
     public class Interpreter : IInterpreter
     {
-        public ISymbolTerminal Interpret(string scriptText)
+        public ISymbolTerminal Interpret(IFunctionFactory functionFactory, string scriptText)
         {
             var symbolTable = new SymbolTable();
             symbolTable.Clear();
 
             InterpretInputs(symbolTable, scriptText);
-            InterpretExpressions(symbolTable, scriptText);
+            InterpretExpressions(symbolTable, functionFactory, scriptText);
 
             return symbolTable;
         }
 
-        private void InterpretExpressions(ISymbolTable symbolTable, string scriptText)
+        private void InterpretExpressions(ISymbolTable symbolTable, IFunctionFactory functionFactory, string scriptText)
         {
             var inputStream = new AntlrInputStream(scriptText);
             var lexer = new QikTemplateLexer(inputStream);
@@ -25,7 +26,7 @@ namespace CygSoft.Qik
 
             var tree = parser.template();
 
-            var expressionVisitor = new ExpressionVisitor(symbolTable);
+            var expressionVisitor = new ExpressionVisitor(symbolTable, functionFactory);
             expressionVisitor.Visit(tree);
         }
 

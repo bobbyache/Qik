@@ -1,4 +1,5 @@
 ﻿using CygSoft.Qik;
+using CygSoft.Qik.Functions;
 
 namespace LanguageEngine.Tests.UnitTests.Helpers
 {
@@ -9,7 +10,7 @@ namespace LanguageEngine.Tests.UnitTests.Helpers
             var interpreter = new Interpreter();
             var expression = TestHelpers.BuildExpressionForFunction(functionText);
 
-            var terminal = interpreter.Interpret(expression);
+            var terminal = interpreter.Interpret(new FunctionFactory(), expression);
             var val = terminal.GetValue("@output");
 
             return val;

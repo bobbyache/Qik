@@ -1,6 +1,8 @@
 ﻿using Antlr4.Runtime;
+using Antlr4.Runtime.Atn;
+using Antlr4.Runtime.Dfa;
+using Antlr4.Runtime.Sharpen;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
@@ -23,6 +25,22 @@ namespace CygSoft.Qik.Antlr
             stack.Reverse();
 
             SyntaxErrorDetected?.Invoke(this, new SyntaxErrorEventArgs(UserFriendlyContext(stack[0].ToString()), line, charPositionInLine, offendingSymbol.ToString(), msg));
+            base.SyntaxError(output, recognizer, offendingSymbol, line, charPositionInLine, msg, e);
+        }
+
+        public override void ReportAmbiguity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, bool exact, BitSet ambigAlts, ATNConfigSet configs)
+        {
+            base.ReportAmbiguity(recognizer, dfa, startIndex, stopIndex, exact, ambigAlts, configs);
+        }
+
+        public override void ReportAttemptingFullContext(Parser recognizer, DFA dfa, int startIndex, int stopIndex, BitSet conflictingAlts, SimulatorState conflictState)
+        {
+            base.ReportAttemptingFullContext(recognizer, dfa, startIndex, stopIndex, conflictingAlts, conflictState);
+        }
+
+        public override void ReportContextSensitivity(Parser recognizer, DFA dfa, int startIndex, int stopIndex, int prediction, SimulatorState acceptState)
+        {
+            base.ReportContextSensitivity(recognizer, dfa, startIndex, stopIndex, prediction, acceptState);
         }
 
         private string UserFriendlyContext(string stackId)

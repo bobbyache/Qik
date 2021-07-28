@@ -8,9 +8,11 @@ namespace CygSoft.Qik.Antlr
     internal class ExpressionVisitor : QikTemplateBaseVisitor<IFunction>
     {
         private readonly ISymbolTable symbolTable;
+        private readonly IFunctionFactory functionFactory;
 
-        internal ExpressionVisitor(ISymbolTable symbolTable)
+        internal ExpressionVisitor(ISymbolTable symbolTable, IFunctionFactory functionFactory)
         {
+            this.functionFactory = functionFactory ?? throw new ArgumentNullException($"{nameof(functionFactory)} cannot be null.");
             this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
         }
 
@@ -59,8 +61,6 @@ namespace CygSoft.Qik.Antlr
                 string funcIdentifier = context.IDENTIFIER().GetText();
                 List<IFunction> functionArguments = CreateArguments(context.funcArg());
 
-                //TODO: Consider Injecting this. Does this need to be newed up every time? Don't think so...
-                FunctionFactory functionFactory = new FunctionFactory(symbolTable);
                 func = functionFactory.GetFunction(funcIdentifier, functionArguments);
             }
             return func;

@@ -15,7 +15,6 @@ namespace CygSoft.Qik.Antlr
         {
             HasErrors = false;
             
-            // TODO: Can't this stuff all be injected and mocked out for testing?
             var inputStream = new AntlrInputStream(scriptText);
             var lexer = new QikTemplateLexer(inputStream);
             var tokens = new CommonTokenStream(lexer);

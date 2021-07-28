@@ -3,15 +3,13 @@ using System.Collections.Generic;
 
 namespace CygSoft.Qik.Functions
 {
-    public class FunctionFactory
+    public interface IFunctionFactory
     {
-        private readonly ISymbolTable symbolTable;
+        IFunction GetFunction(string name, List<IFunction> functionArguments);
+    }
 
-        public FunctionFactory(ISymbolTable symbolTable)
-        {
-            this.symbolTable= symbolTable?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
-        }
-
+    public class FunctionFactory : IFunctionFactory
+    {
         public IFunction GetFunction(string name, List<IFunction> functionArguments)
         {
             if (name is null) throw new ArgumentNullException($"{nameof(name)} cannot be null.");
