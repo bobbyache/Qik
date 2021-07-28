@@ -4,12 +4,12 @@ namespace CygSoft.Qik.Functions
 {
     public class NewlineFunction : BaseFunction
     {
-        public NewlineFunction(IFuncInfo funcInfo, ISymbolTable symbolTable)
-            : base(funcInfo, symbolTable)
+        public NewlineFunction(string name)
+            : base(name)
         {
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             return Environment.NewLine;
         }

@@ -6,22 +6,22 @@ namespace CygSoft.Qik.Functions
 {
     public class IndentFunction : BaseFunction
     {
-        public IndentFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
-            : base(funcInfo, symbolTable, functionArguments)
+        public IndentFunction(string name, List<IFunction> functionArguments)
+            : base(name, functionArguments)
         {
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             if (functionArguments.Count() != 3)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Unexpected number of arguments", this.Name));
+                throw new Exception("Unexpected number of function arguments");
 
             string result = null;
             try
             {
-                string txt = functionArguments[0].Execute(errorReport);
-                string indentType = functionArguments[1].Execute(errorReport);
-                int noOfTimes = int.Parse(functionArguments[2].Execute(errorReport));
+                string txt = functionArguments[0].Execute();
+                string indentType = functionArguments[1].Execute();
+                int noOfTimes = int.Parse(functionArguments[2].Execute());
 
                 string indentedText = "";
 
@@ -35,9 +35,9 @@ namespace CygSoft.Qik.Functions
                     result = indentedText;
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Bad function call.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
             return result;
         }

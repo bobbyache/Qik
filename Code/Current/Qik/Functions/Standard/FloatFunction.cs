@@ -5,13 +5,13 @@ namespace CygSoft.Qik.Functions
     {
         private readonly string text;
 
-        public FloatFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, string text)
-            : base(funcInfo, symbolTable)
+        public FloatFunction(string name, string text)
+            : base(name)
         {
             this.text = text;
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             return text;
         }

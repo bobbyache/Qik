@@ -5,12 +5,12 @@ namespace CygSoft.Qik.Functions
     {
         private readonly string text;
 
-        public TextFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, string text) : base(funcInfo, symbolTable)
+        public TextFunction(string name, string text) : base(name)
         {
             this.text = text;
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             return this.text;
         }

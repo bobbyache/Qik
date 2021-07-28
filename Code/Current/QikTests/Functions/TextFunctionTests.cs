@@ -15,8 +15,8 @@ namespace LanguageEngine.Tests.UnitTests.Functions
             var globalTable = new SymbolTable();
 
             var literalText = "Rob Blake";
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@authorName",
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, literalText));
+            var expressionSymbol = new ExpressionSymbol("@authorName",
+                new TextFunction("stub", literalText));
             
             Assert.AreEqual("@authorName", expressionSymbol.Symbol);
             Assert.AreEqual("Rob Blake", expressionSymbol.Value);

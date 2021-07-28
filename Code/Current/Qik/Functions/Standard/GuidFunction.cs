@@ -6,19 +6,19 @@ namespace CygSoft.Qik.Functions
 {
     public class GuidFunction : BaseFunction
     {
-        public GuidFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments) {}
+        public GuidFunction(string name, List<IFunction> functionArguments) : base(name, functionArguments) {}
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             if (functionArguments.Count() > 1)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Guid function requires a single empty string parameter.", this.Name));
+                throw new Exception("Unexpected number of function arguments");
 
             string result = null;
             try
             {
                 if (functionArguments.Count() == 1) 
                 {
-                    string txt = functionArguments[0].Execute(errorReport);
+                    string txt = functionArguments[0].Execute();
                     result = txt == "u" ? Guid.NewGuid().ToString().ToUpper() : Guid.NewGuid().ToString();
                 }
                 else
@@ -26,9 +26,9 @@ namespace CygSoft.Qik.Functions
                     result = Guid.NewGuid().ToString();
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Bad function call.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
             return result;
         }

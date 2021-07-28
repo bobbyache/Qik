@@ -7,21 +7,21 @@ namespace CygSoft.Qik.Functions
 {
     public class ProperCaseFunction : BaseFunction
     {
-        public ProperCaseFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
-            : base(funcInfo, symbolTable, functionArguments)
+        public ProperCaseFunction(string name, List<IFunction> functionArguments)
+            : base(name, functionArguments)
         {
 
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             if (functionArguments.Count() != 1)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Unexpected number of arguments", this.Name));
+                throw new Exception("Unexpected number of function arguments");
 
             string result = null;
             try
             {
-                string txt = functionArguments[0].Execute(errorReport);
+                string txt = functionArguments[0].Execute();
 
                 if (txt != null && txt.Length >= 1)
                 {
@@ -29,9 +29,9 @@ namespace CygSoft.Qik.Functions
                     result = cultureInfo.TextInfo.ToTitleCase(txt.ToLower());
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Bad function call.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
             return result;
         }

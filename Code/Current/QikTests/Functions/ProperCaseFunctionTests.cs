@@ -18,11 +18,11 @@ namespace LanguageEngine.Tests.UnitTests.Functions
 
             var functionArguments = new List<IFunction>
             {
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "LITERAL TEXT")
+                new TextFunction("stub", "LITERAL TEXT")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@toProperCase",
-                new ProperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            var expressionSymbol = new ExpressionSymbol("@toProperCase",
+                new ProperCaseFunction("stub", functionArguments));
                 
             Assert.AreEqual("@toProperCase", expressionSymbol.Symbol);
             Assert.AreEqual("Literal Text", expressionSymbol.Value);

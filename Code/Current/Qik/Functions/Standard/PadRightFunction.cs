@@ -6,31 +6,31 @@ namespace CygSoft.Qik.Functions
 {
     public class PadRightFunction : BaseFunction
     {
-        public PadRightFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments) : base(funcInfo, symbolTable, functionArguments)
+        public PadRightFunction(string name, List<IFunction> functionArguments) : base(name, functionArguments)
         {
 
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             if (functionArguments.Count() != 3)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Unexpected number of arguments", this.Name));
+                throw new Exception("Unexpected number of function arguments");
 
             string result = null;
             try
             {
-                string txt = functionArguments[0].Execute(errorReport);
-                char character = functionArguments[1].Execute(errorReport)[0];
-                int amount = int.Parse(functionArguments[2].Execute(errorReport));
+                string txt = functionArguments[0].Execute();
+                char character = functionArguments[1].Execute()[0];
+                int amount = int.Parse(functionArguments[2].Execute());
 
                 if (txt != null && txt.Length >= 1)
                 {
                     result = txt.PadRight(amount, character);
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Bad function call.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
             return result;
         }

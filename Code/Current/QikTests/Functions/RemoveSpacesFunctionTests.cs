@@ -18,11 +18,11 @@ namespace LanguageEngine.Tests.UnitTests.Functions
 
             var functionArguments = new List<IFunction>
             {
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "literal text")
+                new TextFunction("stub", "literal text")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance",
-                new RemoveSpacesFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            var expressionSymbol = new ExpressionSymbol("@classInstance",
+                new RemoveSpacesFunction("stub", functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
             Assert.AreEqual("literaltext", expressionSymbol.Value);

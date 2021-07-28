@@ -34,11 +34,11 @@ namespace LanguageEngine.Tests.UnitTests.Functions
 
             var functionArguments = new List<IFunction>
             {
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "dd/MM/yyyy")
+                new TextFunction("stub", "dd/MM/yyyy")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@currentDate", new 
-                CurrentDateFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            var expressionSymbol = new ExpressionSymbol("@currentDate", new 
+                CurrentDateFunction("stub", functionArguments));
             
             Assert.AreEqual("@currentDate", expressionSymbol.Symbol);
             Assert.AreEqual(DateTime.Now.ToString("dd/MM/yyyy"), expressionSymbol.Value);

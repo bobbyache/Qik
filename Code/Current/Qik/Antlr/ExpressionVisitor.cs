@@ -8,12 +8,10 @@ namespace CygSoft.Qik.Antlr
     internal class ExpressionVisitor : QikTemplateBaseVisitor<IFunction>
     {
         private readonly ISymbolTable symbolTable;
-        private readonly IErrorReport errorReport;
 
-        internal ExpressionVisitor(ISymbolTable symbolTable, IErrorReport errorReport)
+        internal ExpressionVisitor(ISymbolTable symbolTable)
         {
             this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
-            this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
         public override IFunction VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context)
@@ -24,7 +22,7 @@ namespace CygSoft.Qik.Antlr
             {
                 var concatenateFunc = GetConcatenateFunction(context.concatExpr());
                 var expression =
-                    new ExpressionSymbol(errorReport, id, concatenateFunc);
+                    new ExpressionSymbol(id, concatenateFunc);
                 symbolTable.AddSymbol(expression);
             }
 
@@ -32,14 +30,14 @@ namespace CygSoft.Qik.Antlr
             {
                 var function = VisitIffExpr(context.iffExpr());
                 var expression =
-                    new ExpressionSymbol(errorReport, id, function);
+                    new ExpressionSymbol(id, function);
                 symbolTable.AddSymbol(expression);
             }
             
             else if (context.expr() != null)
             {
                 var function = VisitExpr(context.expr());
-                var expression = new ExpressionSymbol(errorReport, id, function);
+                var expression = new ExpressionSymbol(id, function);
                 symbolTable.AddSymbol(expression);
             }
 
@@ -60,11 +58,10 @@ namespace CygSoft.Qik.Antlr
             {
                 string funcIdentifier = context.IDENTIFIER().GetText();
                 List<IFunction> functionArguments = CreateArguments(context.funcArg());
-                IFuncInfo funcInfo = new FuncInfo(funcIdentifier, context.Start.Line, context.Start.Column);
 
                 //TODO: Consider Injecting this. Does this need to be newed up every time? Don't think so...
                 FunctionFactory functionFactory = new FunctionFactory(symbolTable);
-                func = functionFactory.GetFunction(funcIdentifier, funcInfo, functionArguments);
+                func = functionFactory.GetFunction(funcIdentifier, functionArguments);
             }
             return func;
         }
@@ -76,30 +73,28 @@ namespace CygSoft.Qik.Antlr
 
             if (context.STRING() != null)
             {
-                FuncInfo funcInfo = new FuncInfo("String", line, column);
-                return new TextFunction(funcInfo, symbolTable, Common.StripOuterQuotes(context.STRING().GetText()));
+                return new TextFunction("String", Common.StripOuterQuotes(context.STRING().GetText()));
             }
 
             else if (context.VARIABLE() != null)
             {
-                FuncInfo funcInfo = new FuncInfo("Variable", line, column);
-                return new VariableFunction(funcInfo, symbolTable, context.VARIABLE().GetText());
+                return new VariableFunction("Variable", symbolTable, context.VARIABLE().GetText());
             }
 
             else if (context.CONST() != null)
             {
                 string constantText = context.CONST().GetText();
                 if (constantText == "NEWLINE")
-                    return new NewlineFunction(new FuncInfo("Constant", line, column), symbolTable);
+                    return new NewlineFunction("Constant");
                 else
-                    return new ConstantFunction(new FuncInfo("Constant", line, column), symbolTable, context.CONST().GetText());
+                    return new ConstantFunction("Constant", context.CONST().GetText());
             }
 
             else if (context.INT() != null)
-                return new IntegerFunction(new FuncInfo("Int", line, column), symbolTable, context.INT().GetText());
+                return new IntegerFunction("Int", context.INT().GetText());
 
             else if (context.FLOAT() != null)
-                return new FloatFunction(new FuncInfo("Float", line, column), symbolTable, context.FLOAT().GetText());
+                return new FloatFunction("Float", context.FLOAT().GetText());
 
             // recurse...
             else if (context.func() != null)
@@ -163,7 +158,7 @@ namespace CygSoft.Qik.Antlr
                 functions.Add(result);
             }         
 
-            var iifFunc = new IifFunction(new FuncInfo("Iif", line, column), this.symbolTable, functions);
+            var iifFunc = new IifFunction("Iif", functions);
             iifFunc.SetOperator(compOperator);
 
             return iifFunc;
@@ -175,7 +170,7 @@ namespace CygSoft.Qik.Antlr
             int column = context.Start.Column;
             
 
-            ConcatenateFunction concatenateFunc = new ConcatenateFunction(new FuncInfo("Concatenation", line, column), this.symbolTable);
+            ConcatenateFunction concatenateFunc = new ConcatenateFunction("Concatenation");
 
             IReadOnlyList<QikTemplateParser.ExprContext> expressions = context.expr();
 

@@ -9,18 +9,17 @@ namespace CygSoft.Qik.Functions
     {
         private string comparisonOperator = "";
 
-        public IifFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, List<IFunction> functionArguments)
-            : base(funcInfo, symbolTable, functionArguments)
+        public IifFunction(string name, List<IFunction> functionArguments)
+            : base(name, functionArguments)
         {
 
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             if (functionArguments.Count() != 4)
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Unexpected number of arguments", this.Name));
+                throw new Exception("Unexpected number of function arguments");
 
-            string result = null;
             try
             {
                 var leftOperand = functionArguments[0];
@@ -30,24 +29,24 @@ namespace CygSoft.Qik.Functions
 
                 if (comparisonOperator == "==")
                 {
-                    if (leftOperand.Execute(errorReport) == rightOperand.Execute(errorReport))
+                    if (leftOperand.Execute() == rightOperand.Execute())
                     {
-                        return trueExpression.Execute(errorReport);
+                        return trueExpression.Execute();
                     }
                     else
                     {
-                        return falseExpression.Execute(errorReport);
+                        return falseExpression.Execute();
                     }
                 }
                 else if (comparisonOperator == "!=")
                 {
-                    if (leftOperand.Execute(errorReport) != rightOperand.Execute(errorReport))
+                    if (leftOperand.Execute() != rightOperand.Execute())
                     {
-                        return trueExpression.Execute(errorReport);
+                        return trueExpression.Execute();
                     }
                     else
                     {
-                        return falseExpression.Execute(errorReport);
+                        return falseExpression.Execute();
                     }
                 }
                 else
@@ -55,11 +54,10 @@ namespace CygSoft.Qik.Functions
                     throw new Exception("Unidentified operator");
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Bad function call.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
-            return result;
         }
 
         public void SetOperator(string comparisonOperator)

@@ -14,15 +14,13 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         {
             // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
 
-            var globalTable = new SymbolTable();
-
             var functionArguments = new List<IFunction>
             {
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "literaltext")
+                new TextFunction("stub", "literaltext")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance",
-                new UpperCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            var expressionSymbol = new ExpressionSymbol("@classInstance",
+                new UpperCaseFunction("stub", functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
             Assert.AreEqual("LITERALTEXT", expressionSymbol.Value);

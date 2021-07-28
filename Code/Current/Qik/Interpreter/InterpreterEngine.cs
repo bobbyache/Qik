@@ -12,16 +12,14 @@ namespace CygSoft.Qik
         public event EventHandler<InterpretErrorEventArgs> InterpretError;
 
         private readonly ISymbolTable symbolTable;
-        private readonly IErrorReport errorReport;
 
         public bool HasErrors { get; private set; } = false;
 
         public string[] Symbols => symbolTable.Symbols;
 
-        public InterpreterEngine(ISymbolTable symbolTable, IErrorReport errorReport )
+        public InterpreterEngine(ISymbolTable symbolTable)
         {
             this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
-            this.errorReport = errorReport ?? throw new ArgumentNullException($"{nameof(errorReport)} cannot be null.");
         }
 
         public ISymbolTerminal Interpret(string scriptText)
@@ -32,16 +30,8 @@ namespace CygSoft.Qik
             {
                 symbolTable.Clear();
 
-                errorReport.Reporting = true;
-                errorReport.ExecutionErrorDetected += ErrorReport_ExecutionErrorDetected;
-
                 InterpretInputs(scriptText);
                 InterpretExpressions(scriptText);
-
-                errorReport.ExecutionErrorDetected -= ErrorReport_ExecutionErrorDetected;
-                errorReport.Reporting = false;
-
-                this.errorReport.Clear();
             }
             catch (Exception exception)
             {
@@ -61,7 +51,7 @@ namespace CygSoft.Qik
 
             var tree = parser.template();
 
-            var expressionVisitor = new ExpressionVisitor(this.symbolTable, this.errorReport);
+            var expressionVisitor = new ExpressionVisitor(this.symbolTable);
             expressionVisitor.Visit(tree);
         }
 
@@ -74,14 +64,8 @@ namespace CygSoft.Qik
 
             var tree = parser.template();
 
-            var controlVisitor = new UserInputVisitor(this.symbolTable, this.errorReport);
+            var controlVisitor = new UserInputVisitor(this.symbolTable);
             controlVisitor.Visit(tree);
-        }
-
-        private void ErrorReport_ExecutionErrorDetected(object sender, InterpretErrorEventArgs e)
-        {
-            HasErrors = true;
-            InterpretError?.Invoke(this, e);
         }
 
         public string GetValueOfSymbol(string symbol) => symbolTable.GetValue(symbol);

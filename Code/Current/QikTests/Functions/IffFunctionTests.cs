@@ -16,12 +16,12 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         //     // var globalTable = new GlobalTable();
 
         //     // var functionArguments = new List<IFunction>();
-        //     // functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "Dashboard Usage"));
-        //     // functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, " "));
-        //     // functionArguments.Add(new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "_"));
+        //     // functionArguments.Add(new TextFunction("stub", "Dashboard Usage"));
+        //     // functionArguments.Add(new TextFunction("stub", " "));
+        //     // functionArguments.Add(new TextFunction("stub", "_"));
 
         //     // var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance",
-        //     //     new ReplaceFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+        //     //     new ReplaceFunction("stub", functionArguments));
             
         //     // Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
         //     // Assert.AreEqual("@{classInstance}", expressionSymbol.Placeholder);

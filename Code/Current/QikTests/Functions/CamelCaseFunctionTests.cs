@@ -16,11 +16,11 @@ namespace LanguageEngine.Tests.UnitTests.Functions
 
             var functionArguments = new List<IFunction>
             {
-                new TextFunction(new FuncInfo("stub", 1, 1), globalTable, "LiteralText")
+                new TextFunction("stub", "LiteralText")
             };
 
-            var expressionSymbol = new ExpressionSymbol(new ErrorReport(), "@classInstance",  
-                new CamelCaseFunction(new FuncInfo("stub", 1, 1), globalTable, functionArguments));
+            var expressionSymbol = new ExpressionSymbol("@classInstance",  
+                new CamelCaseFunction("stub", functionArguments));
             
             Assert.AreEqual("@classInstance", expressionSymbol.Symbol);
             Assert.AreEqual("literalText", expressionSymbol.Value);

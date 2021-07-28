@@ -1,19 +1,22 @@
-﻿
+﻿using System;
+
 namespace CygSoft.Qik.Functions
 {
     public class VariableFunction : BaseFunction
     {
         private readonly string symbol;
+        protected ISymbolTable symbolTable = null;
 
-        public VariableFunction(IFuncInfo funcInfo, ISymbolTable symbolTable, string symbol)
-            : base(funcInfo, symbolTable)
+        public VariableFunction(string name, ISymbolTable symbolTable, string symbol)
+            : base(name)
         {
             this.symbol = symbol;
+            this.symbolTable = symbolTable ?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
-            return base.symbolTable.GetValue(this.symbol);
+            return symbolTable.GetValue(this.symbol);
         }
     }
 }

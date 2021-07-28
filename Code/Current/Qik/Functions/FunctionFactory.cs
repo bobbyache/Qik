@@ -12,80 +12,79 @@ namespace CygSoft.Qik.Functions
             this.symbolTable= symbolTable?? throw new ArgumentNullException($"{nameof(symbolTable)} cannot be null.");
         }
 
-        public IFunction GetFunction(string functionIdentifier, IFuncInfo funcInfo, List<IFunction> functionArguments)
+        public IFunction GetFunction(string name, List<IFunction> functionArguments)
         {
-            if (functionIdentifier is null) throw new ArgumentNullException($"{nameof(functionIdentifier)} cannot be null.");
-            if (funcInfo is null) throw new ArgumentNullException($"{nameof(funcInfo)} cannot be null.");
+            if (name is null) throw new ArgumentNullException($"{nameof(name)} cannot be null.");
             if (functionArguments is null) throw new ArgumentNullException($"{nameof(functionArguments)} cannot be null.");
 
             IFunction func;
 
-            switch (functionIdentifier)
+            switch (name)
             {
                 case "camelCase":
-                    func = new CamelCaseFunction(funcInfo, symbolTable, functionArguments);
+                    func = new CamelCaseFunction(name, functionArguments);
                     break;
 
                 case "currentDate":
-                    func = new CurrentDateFunction(funcInfo, symbolTable, functionArguments);
+                    func = new CurrentDateFunction(name, functionArguments);
                     break;
 
                 case "lowerCase":
-                    func = new LowerCaseFunction(funcInfo, symbolTable, functionArguments);
+                    func = new LowerCaseFunction(name, functionArguments);
                     break;
 
                 case "upperCase":
-                    func = new UpperCaseFunction(funcInfo, symbolTable, functionArguments);
+                    func = new UpperCaseFunction(name, functionArguments);
                     break;
 
                 case "properCase":
-                    func = new ProperCaseFunction(funcInfo, symbolTable, functionArguments);
+                    func = new ProperCaseFunction(name, functionArguments);
                     break;
 
                 case "removeSpaces":
-                    func = new RemoveSpacesFunction(funcInfo, symbolTable, functionArguments);
+                    func = new RemoveSpacesFunction(name, functionArguments);
                     break;
 
                 case "removePunctuation":
-                    func = new RemovePunctuationFunction(funcInfo, symbolTable, functionArguments);
+                    func = new RemovePunctuationFunction(name, functionArguments);
                     break;
 
                 case "replace":
-                    func = new ReplaceFunction(funcInfo, symbolTable, functionArguments);
+                    func = new ReplaceFunction(name, functionArguments);
                     break;
 
                 case "indentLine":
-                    func = new IndentFunction(funcInfo, symbolTable, functionArguments);
+                    func = new IndentFunction(name, functionArguments);
                     break;
 
                 case "doubleQuotes": // for backward compatibility...
-                    func = new DoubleQuoteFunction(funcInfo, symbolTable, functionArguments);
+                    func = new DoubleQuoteFunction(name, functionArguments);
                     break;
 
                 case "doubleQuote":
-                    func = new DoubleQuoteFunction(funcInfo, symbolTable, functionArguments);
+                    func = new DoubleQuoteFunction(name, functionArguments);
                     break;
 
                 case "htmlEncode":
-                    func = new HtmlEncodeFunction(funcInfo, symbolTable, functionArguments);
+                    func = new HtmlEncodeFunction(name, functionArguments);
                     break;
 
                 case "htmlDecode":
-                    func = new HtmlDecodeFunction(funcInfo, symbolTable, functionArguments);
+                    func = new HtmlDecodeFunction(name, functionArguments);
                     break;
 
                 case "guid":
-                    var guidFunction = new GuidFunction(funcInfo, symbolTable, functionArguments);
+                    var guidFunction = new GuidFunction(name, functionArguments);
                     func = guidFunction;
                     break;
                 case "padLeft":
-                    func = new PadLeftFunction(funcInfo, symbolTable, functionArguments);
+                    func = new PadLeftFunction(name, functionArguments);
                     break;
                 case "padRight":
-                    func = new PadRightFunction(funcInfo, symbolTable, functionArguments);
+                    func = new PadRightFunction(name, functionArguments);
                     break;
                 case "abbreviate":
-                    func = new AbbreviateFunction(funcInfo, symbolTable, functionArguments);
+                    func = new AbbreviateFunction(name, functionArguments);
                     break;
 
                 default:
@@ -94,7 +93,7 @@ namespace CygSoft.Qik.Functions
             }
 
             if (func == null)
-                throw new NotSupportedException(string.Format("Function \"{0}\" is not supported in this context.", functionIdentifier));
+                throw new NotSupportedException(string.Format("Function \"{0}\" is not supported in this context.", name));
 
             return func;
         }

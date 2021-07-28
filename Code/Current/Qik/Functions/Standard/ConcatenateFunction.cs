@@ -7,25 +7,24 @@ namespace CygSoft.Qik.Functions
     {
         private readonly List<IFunction> functions = new List<IFunction>();
 
-        public ConcatenateFunction(IFuncInfo funcInfo, ISymbolTable symbolTable)
-            : base(funcInfo, symbolTable)
+        public ConcatenateFunction(string name)
+            : base(name)
         {
-            this.symbolTable = symbolTable;
         }
 
-        public override string Execute(IErrorReport errorReport)
+        public override string Execute()
         {
             string result = null;
             try
             {
                 foreach (BaseFunction func in functions)
                 {
-                    result += func.Execute(errorReport);
+                    result += func.Execute();
                 }
             }
-            catch (Exception)
+            catch (Exception exception)
             {
-                errorReport.AddError(new CustomError(this.Line, this.Column, "Concatenation error.", this.Name));
+                throw new Exception("Unspecified function construction error.", exception);
             }
             return result;
         }
