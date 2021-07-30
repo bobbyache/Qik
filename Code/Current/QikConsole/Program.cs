@@ -28,20 +28,14 @@ class Program
             // TODO: Why, when executing with Powershell... does the program not end but remain running?
             var rootCommand = new RootCommand
             {
-                new Option(new[] { "--inputs", "-i" }, "Do not process. Just provide input information"),
                 new Option<string>( new[] { "--path", "-p" } , "The path (can be a qik file or a folder containining a qik file")
             };
 
             rootCommand.Description = "Qik Console Application";
 
             // Note that the parameters of the handler method are matched according to the names of the options
-            rootCommand.Handler = CommandHandler.Create<bool, string>((Action<bool, string>)(
-                (
-                    inputs,
-                    path
-                ) =>
+            rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
             {
-
                 Console.ForegroundColor = ConsoleColor.Blue;
                 Console.WriteLine(new Resources().GetWelcomeHeader());
                 Console.ForegroundColor = ConsoleColor.White;
@@ -51,23 +45,7 @@ class Program
                     Console.WriteLine("Please specify a path. See --help for more information.");
                 }
 
-                if (inputs && !string.IsNullOrWhiteSpace(path))
-                {
-                    try
-                    {
-                        Console.WriteLine("Generating inputs...");
-                        Console.WriteLine(appHost.GetJsonInputInterface(path));
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("...Success!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "ooops and exception occurred.");
-                        LogConsoleError(ex);
-                    }
-                }
-                else if (!string.IsNullOrWhiteSpace(path))
+                if (!string.IsNullOrWhiteSpace(path))
                 {
                     try
                     {

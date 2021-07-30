@@ -13,6 +13,7 @@ namespace CygSoft.Qik.Console
         string ReadTextFile(string filePath);
         void WriteTextFile(string path, string contents);
          bool IsFolder(string path);
+         string GetRootedFilePath(string projectFilePath, string filePath);
     }
 
     public class FileFunctions : IFileFunctions
@@ -59,6 +60,14 @@ namespace CygSoft.Qik.Console
             // You can use this to start some form of error handling in the app
             var fileSystemInfo = new DirectoryInfo(path);
             return fileSystemInfo.IsDirectory();
+        }
+
+        public string GetRootedFilePath(string projectFilePath, string filePath)
+        {
+            if (Path.IsPathRooted(filePath))
+                return filePath;
+            else
+                return Path.Combine(Path.GetDirectoryName(projectFilePath), filePath);
         }
     }
 }

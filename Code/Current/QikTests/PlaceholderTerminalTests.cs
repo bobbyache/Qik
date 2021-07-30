@@ -13,7 +13,7 @@ namespace Qik.LanguageEngine.UnitTests
         {
             var interpreter = new Interpreter();
             var symbolTerminal = interpreter.Interpret(new FunctionFactory(), "@InputVar => \"Hello World\";");
-            var terminal = new PlaceholderTerminal("id", symbolTerminal);
+            var terminal = new PlaceholderTerminal("id", symbolTerminal, "@{", "}");
 
             Assert.AreEqual("Hello World", terminal.GetValue("@{InputVar}"));
         }

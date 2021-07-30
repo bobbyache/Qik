@@ -12,14 +12,14 @@ namespace CygSoft.Qik.Console
 
         public Dictionary<string, string> symbolDictionary =  new Dictionary<string, string>();
 
-        public PlaceholderTerminal(string id, ISymbolTerminal symbolTerminal)
+        public PlaceholderTerminal(string id, ISymbolTerminal symbolTerminal, string placeholderPrefix, string placeholderPostfix)
         {
             this.Id = id;
             this.symbolTerminal = symbolTerminal;
             
             foreach (var symbol in symbolTerminal.Symbols)
             {
-                symbolDictionary.Add("@{" + symbol.Replace("@", "") + "}", symbol);
+                symbolDictionary.Add(placeholderPrefix + symbol.Replace("@", "") + placeholderPostfix, symbol);
             }
         }
 
