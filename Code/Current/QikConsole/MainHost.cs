@@ -4,6 +4,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik.Console
 {
@@ -13,8 +14,7 @@ namespace CygSoft.Qik.Console
     {
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
-
-        private Dictionary<string, KeyValuePair<string, string>[]> interpreterDictionary = new Dictionary<string, KeyValuePair<string, string>[]>();
+        private Dictionary<string, PlaceholderTerminal> terminalDictionary = new Dictionary<string, PlaceholderTerminal>();
         private Dictionary<string, string> fragmentsDictionary = new Dictionary<string, string>();
 
         public MainHost(IProjectFile projectFile, IFileFunctions fileFunctions)
@@ -30,12 +30,15 @@ namespace CygSoft.Qik.Console
 
         public void Generate(string path)
         {
+            terminalDictionary.Clear();
+
             var project = projectFile.Read(path);
             
             foreach(var processor in project.Processors)
             {
                 var fullPath = Path.Combine(Path.GetDirectoryName(path), processor.ScriptFile);
-                interpreterDictionary.Add(processor.Id, new ScriptInterpreter().GetPlaceholderLookups(fileFunctions.ReadTextFile(fullPath)));
+                var script = fileFunctions.ReadTextFile(fullPath);
+                terminalDictionary.Add(processor.Id, GetTerminal(processor.Id, script));
             }
 
             foreach (var frag in project.Fragments)
@@ -43,15 +46,16 @@ namespace CygSoft.Qik.Console
                 var fullPath = Path.Combine(Path.GetDirectoryName(path), frag.Path);
                 var templateText = fileFunctions.ReadTextFile(fullPath);
 
-                foreach (var prroc in frag.Processors)
+                foreach (var processorId in frag.Processors)
                 {
-                    if (frag.Processors.Contains(prroc) && interpreterDictionary.ContainsKey(prroc))
+                    if (frag.Processors.Contains(processorId) && terminalDictionary.ContainsKey(processorId))
                     {
-                        var interpreter = interpreterDictionary[prroc];
-                        foreach (var val in interpreterDictionary[prroc])
+                        var terminal = terminalDictionary[processorId];
+
+                        foreach (var placeholder in terminal.Placeholders)
                         {
-                            templateText = templateText.Replace(val.Key, val.Value);
-                        } 
+                            templateText = templateText.Replace(placeholder, terminal.GetValue(placeholder));
+                        }
                     }
                 }
                 fragmentsDictionary.Add(frag.Id, templateText);
@@ -76,6 +80,16 @@ namespace CygSoft.Qik.Console
             }
         }
 
+        private PlaceholderTerminal GetTerminal(string id, string script)
+        {
+            var interpreter = new Interpreter();
+            var functionFactory = new FunctionFactory();
+            var symbolTerminal = interpreter.Interpret(functionFactory, script);
+            var terminal = new PlaceholderTerminal(id, symbolTerminal);
+            
+            return terminal;
+        }
+        
         private string GetInferredFilePath(string projectFilePath, string filePath)
         {
             if (Path.IsPathRooted(filePath))
