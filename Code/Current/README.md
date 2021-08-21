@@ -1,20 +1,4 @@
 
-# Qik
-
-Why Qik? Qik was designed for a singular purpose. Generate templates into code skeletons. Yes, we have [T4 Templates](https://docs.microsoft.com/en-us/visualstudio/modeling/code-generation-and-t4-text-templates?view=vs-2019), but it seemed so complicated just to get a basic code skeleton to work.
-
-This is not a full solution. But I use it every day. Wish I could spend more time on it...
-
-I'll admit that the idea came from a foolish act of mine to try and generate patterns based on a requirement. I came up with a complex solution which you can find [here](http:/fixthelink). Although I put a number of good design patterns to use I was enlightened by a member of fthe development team that there was a better, tested, alternative. Why not use an established lexer and parser to build the patterns. After licking my wounds I became interested. I realized that maybe I had an interest in having a look at it.
-
-Turns out there was a gap in my education. The experience led me into the domain of Lexers, Parsers, Abstract Syntax Trees, Symbols, and Scope. I learned a lot more about how languages worked. I think the experience might turn me into a better programmer. I now understand why JavaScript, Python, and C# works the way it does. I say this not just because of Udemy or YouTube, but because I've read `The Definitive ANTLR 4 Reference` by Terrence Parr, who has dedicated much of his life to designing a language engine.
-
-
-I've digressed. What is the point to Qik? Qik takes a number of inputs and transforms them through expressions to generate code templates of your entire architecture. Its not about the details... such as properties of classes. Its more about the framework or structure of your layers. UI, Services, and Repositories (and I'm NOT a fan of repositories).
-
-Much of what you have to do manually is generated. But you have to approach it from an architectural stand point.
-
-
 ## Get up and Running
 
 ### Run the Console
@@ -26,17 +10,6 @@ dotnet restore
 dotnet run --project QikConsole/QikConsole.csproj
 ```
 
-### Cmd Execution
-Move the tool to the preferred execution folder. Add the folder to your user environment path variable. Restart the computer.
-```
-cd "C:\Code\you\Qik\Code\Current\QikConsole\bin\Debug\net5.0"
-qikconsole --path C:\Users\RobB\Desktop\TestQik
-```
-
-### Powershell Execution
-```
-Start-Process -NoNewWindow -FilePath "C:\Code\you\Qik\Code\Current\QikConsole\bin\Debug\net5.0\qikconsole.exe" -ArgumentList "--inputs","--path=C:\Users\RobB\Desktop\TestQik"
-```
 ### Run the tests
 
 ```
