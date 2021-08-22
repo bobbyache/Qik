@@ -30,7 +30,7 @@ namespace Qik.LanguageEngine.UnitTests
         }
         
         [Test]
-        public void Should_Read_IifFunction()
+        public void Should_Read_IifFunction_Example1()
         {
             var interpreter = new Interpreter();
             var terminal = interpreter.Interpret(new FunctionFactory(), 
@@ -40,13 +40,11 @@ namespace Qik.LanguageEngine.UnitTests
                 "
             );
 
-
-
             Assert.AreEqual("true", terminal.GetValue("@TestDec"));
         }
 
         [Test]
-        public void Should_Read_IifFunction_Another()
+        public void Should_Read_IifFunction_Example2()
         {
             var interpreter = new Interpreter();
             var terminal = interpreter.Interpret(new FunctionFactory(), 
@@ -60,7 +58,7 @@ namespace Qik.LanguageEngine.UnitTests
         }
 
         [Test]
-        public void Should_Read_IifFunction_Another_()
+        public void Should_Read_IifFunction_And_Return_Function_Output()
         {
             var interpreter = new Interpreter();
             var terminal = interpreter.Interpret(new FunctionFactory(), 
@@ -74,7 +72,7 @@ namespace Qik.LanguageEngine.UnitTests
         }
 
         [Test]
-        public void Should_Read_IifFunction_Another__()
+        public void Should_Read_And_Process_Nested_IifFunction()
         {
             var interpreter = new Interpreter();
             var terminal = interpreter.Interpret(new FunctionFactory(), 

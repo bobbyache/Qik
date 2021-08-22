@@ -6,7 +6,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
     [TestFixture]
     class HtmlDecodeFunctionTests
     {
-
         [Test]
         public void Should_Decode_Correctly()
         {

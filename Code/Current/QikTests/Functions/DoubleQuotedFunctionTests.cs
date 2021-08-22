@@ -12,8 +12,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void DoubleQuoteFunction_InputText_OutputsDoubleQuotedText()
         {
-            // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
-
             var globalTable = new SymbolTable();
 
             var functionArguments = new List<IFunction>
