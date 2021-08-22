@@ -78,9 +78,6 @@ namespace CygSoft.Qik.Antlr
 
         public override IFunction VisitExpr(QikTemplateParser.ExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-
             if (context.STRING() != null)
             {
                 return new TextFunction("String", context.STRING().GetText().StripOuterQuotes());
@@ -156,26 +153,26 @@ namespace CygSoft.Qik.Antlr
 
         private IFunction GetIfFunction([NotNull] QikTemplateParser.IfExprContext context)
         {
-            var comparison = context.ifStat().compExpr();
-            var compOperator = comparison.children[1].GetText();
-            var leftOperand = VisitExpr(comparison.expr()[0]);
-            var rightOperand = VisitExpr(comparison.expr()[1]);
-            var resultFunc = GetStatementFunction(context.ifStat().stat());
+            var ifComparison = context.ifStat().compExpr();
+            var ifExpressionOperator = ifComparison.children[1].GetText();
+            var ifLeftOperand = VisitExpr(ifComparison.expr()[0]);
+            var ifRightOperand = VisitExpr(ifComparison.expr()[1]);
+            var ifResolutionFunc = GetStatementFunction(context.ifStat().stat());
 
-            var ifFunction = new IfCase(leftOperand, rightOperand, compOperator, resultFunc);
+            var ifFunction = new IfCase(ifLeftOperand, ifRightOperand, ifExpressionOperator, ifResolutionFunc);
             var elseIfFunctions = new List<IfCase>();
 
             if (context.elseIfStat() is not null && context.elseIfStat().Length > 0)
             {
                 foreach (var elseIf in context.elseIfStat())
                 {
-                    var comparison_1 = elseIf.compExpr();
-                    var compOperator_1 = comparison_1.children[1].GetText();
-                    var leftOperand_1 = VisitExpr(comparison_1.expr()[0]);
-                    var rightOperand_1 = VisitExpr(comparison_1.expr()[1]);
-                    var resultFunc_1 = GetStatementFunction(elseIf.stat());
+                    var elseIfComparison = elseIf.compExpr();
+                    var elseIfExpressionOperator = elseIfComparison.children[1].GetText();
+                    var elseIfLeftOperand = VisitExpr(elseIfComparison.expr()[0]);
+                    var elseIfRightOperand = VisitExpr(elseIfComparison.expr()[1]);
+                    var elseIfResolutionFunc = GetStatementFunction(elseIf.stat());
 
-                    var elseIfFunction = new IfCase(leftOperand_1, rightOperand_1, compOperator_1, resultFunc_1);
+                    var elseIfFunction = new IfCase(elseIfLeftOperand, elseIfRightOperand, elseIfExpressionOperator, elseIfResolutionFunc);
                     elseIfFunctions.Add(elseIfFunction);
                 }
             }
@@ -187,9 +184,6 @@ namespace CygSoft.Qik.Antlr
 
         private IifFunction GetIifFunction(QikTemplateParser.IffExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-
             var comparison = context.compExpr();
             var compOperator = comparison.children[1].GetText();
             var leftOperand = VisitExpr(comparison.expr()[0]);
@@ -223,10 +217,6 @@ namespace CygSoft.Qik.Antlr
 
         private ConcatenateFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-            
-
             ConcatenateFunction concatenateFunc = new ConcatenateFunction("Concatenation");
 
             IReadOnlyList<QikTemplateParser.ExprContext> expressions = context.expr();

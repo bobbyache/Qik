@@ -28,7 +28,7 @@ class Program
             // TODO: Why, when executing with Powershell... does the program not end but remain running?
             var rootCommand = new RootCommand
             {
-                new Option<string>( new[] { "--path", "-p" } , "The path (can be a qik file or a folder containining a qik file")
+                new Option<string>( new[] { "--path", "-p" } , "The path to a Qik project configuration file.")
             };
 
             rootCommand.Description = "Qik Console Application";

@@ -25,25 +25,11 @@ namespace CygSoft.Qik.Functions
             {
                 if (comparisonOperator == "==")
                 {
-                    if (leftOperand.Execute() == rightOperand.Execute())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return leftOperand.Execute() == rightOperand.Execute();
                 }
                 else if (comparisonOperator == "!=")
                 {
-                    if (leftOperand.Execute() != rightOperand.Execute())
-                    {
-                        return true;
-                    }
-                    else
-                    {
-                        return false;
-                    }
+                    return leftOperand.Execute() != rightOperand.Execute();
                 }
                 else
                 {

@@ -3,7 +3,6 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
-using System.Security.Cryptography;
 
 namespace CygSoft.Qik.Console
 {

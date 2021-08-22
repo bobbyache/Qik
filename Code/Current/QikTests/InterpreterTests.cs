@@ -21,6 +21,8 @@ namespace Qik.LanguageEngine.UnitTests
         [Test]
         public void Should_Create_An_Input_Variable_With_Provided_Text_With_No_Spaces()
         {
+            //
+            // White space should not matter when interpreting.
             IInterpreter interpreter = new Interpreter();
 
             var terminal = interpreter.Interpret(new FunctionFactory(), "@InputVar=>\"Hello World\";");
