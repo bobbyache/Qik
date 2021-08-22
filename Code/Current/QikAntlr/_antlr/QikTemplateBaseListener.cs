@@ -120,6 +120,30 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIffExpr([NotNull] QikTemplateParser.IffExprContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

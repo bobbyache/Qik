@@ -41,7 +41,15 @@ concatExpr
     ;
 
 iffExpr
-    : compExpr '?' (expr|iffExpr|concatExpr) ':' (expr|iffExpr|concatExpr)
+    : compExpr iffTrueStat iffFalseStat
+    ;
+
+iffTrueStat
+    : '?' (expr|iffExpr|concatExpr)
+    ;
+
+iffFalseStat
+    : ':' (expr|iffExpr|concatExpr)
     ;
 
 switchExpr

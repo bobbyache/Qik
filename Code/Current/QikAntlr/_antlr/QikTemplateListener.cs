@@ -102,6 +102,26 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

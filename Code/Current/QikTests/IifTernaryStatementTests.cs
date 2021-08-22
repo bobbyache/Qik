@@ -50,19 +50,19 @@ namespace Qik.LanguageEngine.UnitTests
             Assert.AreEqual("Happy", terminal.GetValue("@TestDec"));
         }
 
-        // [Test]
-        // public void Should_Read_IifFunction_And_Return_Expected_Output_Using_Concatenation()
-        // {
-        //     var interpreter = new Interpreter();
-        //     var terminal = interpreter.Interpret(new FunctionFactory(), 
-        //         @"
-        //             @Entity => ""EmailAttribute"";
-        //             @TestDec => camelCase(@Entity) == ""emailAttribute"" ? properCase(""happy"") + "" day"" : properCase(""sad"") + "" day"";
-        //         "
-        //     );
+        [Test]
+        public void Should_Read_IifFunction_And_Return_Expected_Output_Using_Concatenation()
+        {
+            var interpreter = new Interpreter();
+            var terminal = interpreter.Interpret(new FunctionFactory(), 
+                @"
+                    @Entity => ""EmailAttribute"";
+                    @TestDec => camelCase(@Entity) == ""emailAttribute"" ? properCase(""happy"") + "" day"" : properCase(""sad"") + "" day"";
+                "
+            );
 
-        //     Assert.AreEqual("Happy day", terminal.GetValue("@TestDec"));
-        // }
+            Assert.AreEqual("Happy day", terminal.GetValue("@TestDec"));
+        }
 
 
         [Test]

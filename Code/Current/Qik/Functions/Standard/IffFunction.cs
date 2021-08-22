@@ -4,28 +4,30 @@ using System.Linq;
 
 namespace CygSoft.Qik.Functions
 {
-    public class IifFunction : BaseFunction
+    public class IifFunction : IFunction
     {
-        private string comparisonOperator = "";
+        private readonly string comparisonOperator = "";
+        private readonly IFunction leftOperand;
+        private readonly IFunction rightOperand;
+        private readonly IFunction trueExpression;
+        private readonly IFunction falseExpression;
 
-        public IifFunction(string name, List<IFunction> functionArguments)
-            : base(name, functionArguments)
+        public string Name { get; }
+
+        public IifFunction(string name, IFunction leftOperand, IFunction rightOperand, string comparisonOperator, 
+            IFunction trueExpression, IFunction falseExpression)
         {
-
+            this.leftOperand = leftOperand;
+            this.rightOperand = rightOperand;
+            this.trueExpression = trueExpression;
+            this.falseExpression = falseExpression;
+            this.comparisonOperator = comparisonOperator;
         }
 
-        public override string Execute()
+        public string Execute()
         {
-            if (functionArguments.Count() != 4)
-                throw new Exception("Unexpected number of function arguments");
-
             try
             {
-                var leftOperand = functionArguments[0];
-                var rightOperand = functionArguments[1];
-                var trueExpression = functionArguments[2];
-                var falseExpression = functionArguments[3];
-
                 if (comparisonOperator == "==")
                 {
                     if (leftOperand.Execute() == rightOperand.Execute())
@@ -57,11 +59,6 @@ namespace CygSoft.Qik.Functions
             {
                 throw new Exception("Unspecified function construction error.", exception);
             }
-        }
-
-        public void SetOperator(string comparisonOperator)
-        {
-            this.comparisonOperator = comparisonOperator;
         }
     }
 }

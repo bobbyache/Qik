@@ -189,37 +189,43 @@ namespace CygSoft.Qik.Antlr
         {
             int line = context.Start.Line;
             int column = context.Start.Column;
-            
+
             var comparison = context.compExpr();
-            var expressions = context.expr();
-            var iifs = context.iffExpr();
-
-
-            var functions = new List<IFunction>();
-
             var compOperator = comparison.children[1].GetText();
-            var operand1 = VisitExpr(comparison.expr()[0]);
-            var operand2 = VisitExpr(comparison.expr()[1]);
+            var leftOperand = VisitExpr(comparison.expr()[0]);
+            var rightOperand = VisitExpr(comparison.expr()[1]);
 
-            functions.Add(operand1);
-            functions.Add(operand2);
+            IFunction trueFunc = null;
 
-            foreach (QikTemplateParser.ExprContext expr in expressions)
+            if (context.iffTrueStat().expr() is not null)
             {
-                IFunction result = VisitExpr(expr);
-                functions.Add(result);
+                trueFunc = VisitExpr(context.iffTrueStat().expr());
+            }
+            else if (context.iffTrueStat().iffExpr() is not null)
+            {
+                trueFunc = VisitIffExpr(context.iffTrueStat().iffExpr());
+            }
+            else if (context.iffTrueStat().concatExpr() is not null)
+            {
+                trueFunc = GetConcatenateFunction(context.iffTrueStat().concatExpr());
             }
 
-            foreach (QikTemplateParser.IffExprContext iif in iifs)
+            IFunction falseFunc = null;
+
+            if (context.iffFalseStat().expr() is not null)
             {
-                IFunction result = VisitIffExpr(iif);
-                functions.Add(result);
-            }         
+                falseFunc = VisitExpr(context.iffFalseStat().expr());
+            }
+            else if (context.iffFalseStat().iffExpr() is not null)
+            {
+                falseFunc = VisitIffExpr(context.iffFalseStat().iffExpr());
+            }
+            else if (context.iffFalseStat().concatExpr() is not null)
+            {
+                falseFunc = GetConcatenateFunction(context.iffFalseStat().concatExpr());
+            }
 
-            var iifFunc = new IifFunction("Iif", functions);
-            iifFunc.SetOperator(compOperator);
-
-            return iifFunc;
+            return new IifFunction("Iif", leftOperand, rightOperand, compOperator, trueFunc, falseFunc);
         }
 
         private ConcatenateFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)
