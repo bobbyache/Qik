@@ -72,6 +72,18 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterStat([NotNull] QikTemplateParser.StatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitStat([NotNull] QikTemplateParser.StatContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

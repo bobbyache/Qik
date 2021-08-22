@@ -62,6 +62,16 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

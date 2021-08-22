@@ -20,19 +20,11 @@ namespace CygSoft.Qik.Antlr
         {
             var id = context.VARIABLE().GetText();
 
-            if (context.concatExpr() != null)
+            if (context.stat() != null)
             {
-                var concatenateFunc = GetConcatenateFunction(context.concatExpr());
+                var func = GetStatementFunction(context.stat());
                 var expression =
-                    new ExpressionSymbol(id, concatenateFunc);
-                symbolTable.AddSymbol(expression);
-            }
-
-            else if (context.iffExpr() != null)
-            {
-                var function = VisitIffExpr(context.iffExpr());
-                var expression =
-                    new ExpressionSymbol(id, function);
+                    new ExpressionSymbol(id, func);
                 symbolTable.AddSymbol(expression);
             }
 
@@ -44,13 +36,6 @@ namespace CygSoft.Qik.Antlr
                 symbolTable.AddSymbol(expression);
             }
             
-            else if (context.expr() != null)
-            {
-                var function = VisitExpr(context.expr());
-                var expression = new ExpressionSymbol(id, function);
-                symbolTable.AddSymbol(expression);
-            }
-
             return null;
         }
 
@@ -148,39 +133,10 @@ namespace CygSoft.Qik.Antlr
             foreach (var possibleCase in context.caseStat())
             {
                 var testVal = possibleCase.STRING().GetText().StripOuterQuotes();
-
-                if (possibleCase.expr() is not null)
-                {
-                    caseFuncs.Add(testVal, VisitExpr(possibleCase.expr()));
-                }
-                    
-                else if (possibleCase.iffExpr() is not null)
-                {
-                    caseFuncs.Add(testVal, VisitIffExpr(possibleCase.iffExpr()));
-                }
-
-                else if (possibleCase.concatExpr() is not null)
-                {
-                    caseFuncs.Add(testVal, GetConcatenateFunction(possibleCase.concatExpr()));
-                }
+                caseFuncs.Add(testVal, GetStatementFunction(possibleCase.stat()));
             }
 
-            IFunction elseFunction = null;
-
-            if (context.elseStat().expr() is not null)
-            {
-                elseFunction = VisitExpr(context.elseStat().expr());
-            }
-                
-            else if (context.elseStat().iffExpr() is not null)
-            {
-                elseFunction = VisitIffExpr(context.elseStat().iffExpr());
-            }
-
-            else if (context.elseStat().concatExpr() is not null)
-            {
-                elseFunction = GetConcatenateFunction(context.elseStat().concatExpr());
-            }
+            IFunction elseFunction = GetStatementFunction(context.elseStat().stat());
 
             return new SwitchFunction("SwitchFunction", subjectFunction, caseFuncs, elseFunction);
         }
@@ -195,37 +151,30 @@ namespace CygSoft.Qik.Antlr
             var leftOperand = VisitExpr(comparison.expr()[0]);
             var rightOperand = VisitExpr(comparison.expr()[1]);
 
-            IFunction trueFunc = null;
-
-            if (context.iffTrueStat().expr() is not null)
-            {
-                trueFunc = VisitExpr(context.iffTrueStat().expr());
-            }
-            else if (context.iffTrueStat().iffExpr() is not null)
-            {
-                trueFunc = VisitIffExpr(context.iffTrueStat().iffExpr());
-            }
-            else if (context.iffTrueStat().concatExpr() is not null)
-            {
-                trueFunc = GetConcatenateFunction(context.iffTrueStat().concatExpr());
-            }
-
-            IFunction falseFunc = null;
-
-            if (context.iffFalseStat().expr() is not null)
-            {
-                falseFunc = VisitExpr(context.iffFalseStat().expr());
-            }
-            else if (context.iffFalseStat().iffExpr() is not null)
-            {
-                falseFunc = VisitIffExpr(context.iffFalseStat().iffExpr());
-            }
-            else if (context.iffFalseStat().concatExpr() is not null)
-            {
-                falseFunc = GetConcatenateFunction(context.iffFalseStat().concatExpr());
-            }
+            IFunction trueFunc = GetStatementFunction(context.iffTrueStat().stat());
+            IFunction falseFunc = GetStatementFunction(context.iffFalseStat().stat());
 
             return new IifFunction("Iif", leftOperand, rightOperand, compOperator, trueFunc, falseFunc);
+        }
+
+        private IFunction GetStatementFunction(QikTemplateParser.StatContext context)
+        {
+            IFunction statementFunction = null;
+
+            if (context.expr() is not null)
+            {
+                statementFunction = VisitExpr(context.expr());
+            }
+            else if (context.iffExpr() is not null)
+            {
+                statementFunction = VisitIffExpr(context.iffExpr());
+            }
+            else if (context.concatExpr() is not null)
+            {
+                statementFunction = GetConcatenateFunction(context.concatExpr());
+            }
+
+            return statementFunction;
         }
 
         private ConcatenateFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)

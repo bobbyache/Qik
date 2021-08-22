@@ -51,6 +51,12 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
