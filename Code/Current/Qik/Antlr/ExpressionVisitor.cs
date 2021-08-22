@@ -35,6 +35,14 @@ namespace CygSoft.Qik.Antlr
                     new ExpressionSymbol(id, function);
                 symbolTable.AddSymbol(expression);
             }
+
+            else if (context.switchExpr() != null)
+            {
+                var function = VisitSwitchExpr(context.switchExpr());
+                var expression =
+                    new ExpressionSymbol(id, function);
+                symbolTable.AddSymbol(expression);
+            }
             
             else if (context.expr() != null)
             {
@@ -51,6 +59,10 @@ namespace CygSoft.Qik.Antlr
             return GetIifFunction(context);
         }
 
+        public override IFunction VisitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context)
+        {
+            return GetSwitchFunction(context);
+        }
 
         public override IFunction VisitFunc(QikTemplateParser.FuncContext context)
         {
@@ -125,6 +137,52 @@ namespace CygSoft.Qik.Antlr
                 }
             }
             return functionArguments;
+        }
+
+        private SwitchFunction GetSwitchFunction(QikTemplateParser.SwitchExprContext context)
+        {
+            var subjectFunction = VisitExpr(context.switchStat().expr());
+
+            var caseFuncs = new Dictionary<string, IFunction>();
+
+            foreach (var possibleCase in context.caseStat())
+            {
+                var testVal = possibleCase.STRING().GetText().StripOuterQuotes();
+
+                if (possibleCase.expr() is not null)
+                {
+                    caseFuncs.Add(testVal, VisitExpr(possibleCase.expr()));
+                }
+                    
+                else if (possibleCase.iffExpr() is not null)
+                {
+                    caseFuncs.Add(testVal, VisitIffExpr(possibleCase.iffExpr()));
+                }
+
+                else if (possibleCase.concatExpr() is not null)
+                {
+                    caseFuncs.Add(testVal, GetConcatenateFunction(possibleCase.concatExpr()));
+                }
+            }
+
+            IFunction elseFunction = null;
+
+            if (context.elseStat().expr() is not null)
+            {
+                elseFunction = VisitExpr(context.elseStat().expr());
+            }
+                
+            else if (context.elseStat().iffExpr() is not null)
+            {
+                elseFunction = VisitIffExpr(context.elseStat().iffExpr());
+            }
+
+            else if (context.elseStat().concatExpr() is not null)
+            {
+                elseFunction = GetConcatenateFunction(context.elseStat().concatExpr());
+            }
+
+            return new SwitchFunction("SwitchFunction", subjectFunction, caseFuncs, elseFunction);
         }
 
         private IifFunction GetIifFunction(QikTemplateParser.IffExprContext context)

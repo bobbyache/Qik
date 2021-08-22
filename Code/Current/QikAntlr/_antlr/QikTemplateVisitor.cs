@@ -75,6 +75,30 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.switchStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchStat([NotNull] QikTemplateParser.SwitchStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.caseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCaseStat([NotNull] QikTemplateParser.CaseStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.elseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitElseStat([NotNull] QikTemplateParser.ElseStatContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
