@@ -93,6 +93,24 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

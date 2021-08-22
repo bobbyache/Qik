@@ -17,7 +17,7 @@ inputDecl
     ;
 
 funcDecl
-    : VARIABLE '=>' (stat|switchExpr) ';'
+    : VARIABLE '=>' (stat|switchExpr|ifExpr) ';'
     ;
 
 /* -----------------------------------------------------------------------
@@ -56,6 +56,18 @@ iffFalseStat
     : ':' stat
     ;
 
+ifExpr
+    : ifStat (elseIfStat)* elseStat
+    ;
+
+ifStat
+    : 'if' compExpr 'then' stat
+    ;
+
+elseIfStat
+    : 'else if' compExpr 'then' stat
+    ;
+
 switchExpr
     : switchStat ((caseStat)+ elseStat)
     ;
@@ -65,7 +77,7 @@ switchStat
     ;
 
 caseStat
-    : 'case' STRING ':' stat
+    : 'case' STRING 'then' stat
     ;
 
 elseStat

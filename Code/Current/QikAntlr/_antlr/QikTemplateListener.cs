@@ -132,6 +132,36 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>

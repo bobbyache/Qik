@@ -156,6 +156,42 @@ public partial class QikTemplateBaseListener : IQikTemplateListener {
 	/// <param name="context">The parse tree.</param>
 	public virtual void ExitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context) { }
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIfExpr([NotNull] QikTemplateParser.IfExprContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIfExpr([NotNull] QikTemplateParser.IfExprContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterIfStat([NotNull] QikTemplateParser.IfStatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitIfStat([NotNull] QikTemplateParser.IfStatContext context) { }
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void EnterElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context) { }
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// <para>The default implementation does nothing.</para>
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	public virtual void ExitElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context) { }
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
 	/// <para>The default implementation does nothing.</para>
 	/// </summary>

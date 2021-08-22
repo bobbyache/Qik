@@ -35,6 +35,14 @@ namespace CygSoft.Qik.Antlr
                     new ExpressionSymbol(id, function);
                 symbolTable.AddSymbol(expression);
             }
+
+            else if (context.ifExpr() != null)
+            {
+                var function = VisitIfExpr(context.ifExpr());
+                var expression =
+                    new ExpressionSymbol(id, function);
+                symbolTable.AddSymbol(expression);
+            }
             
             return null;
         }
@@ -42,6 +50,11 @@ namespace CygSoft.Qik.Antlr
         public override IFunction VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context)
         {
             return GetIifFunction(context);
+        }
+
+        public override IFunction VisitIfExpr([NotNull] QikTemplateParser.IfExprContext context)
+        {
+            return GetIfFunction(context);
         }
 
         public override IFunction VisitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context)
@@ -139,6 +152,37 @@ namespace CygSoft.Qik.Antlr
             IFunction elseFunction = GetStatementFunction(context.elseStat().stat());
 
             return new SwitchFunction("SwitchFunction", subjectFunction, caseFuncs, elseFunction);
+        }
+
+        private IFunction GetIfFunction([NotNull] QikTemplateParser.IfExprContext context)
+        {
+            var comparison = context.ifStat().compExpr();
+            var compOperator = comparison.children[1].GetText();
+            var leftOperand = VisitExpr(comparison.expr()[0]);
+            var rightOperand = VisitExpr(comparison.expr()[1]);
+            var resultFunc = GetStatementFunction(context.ifStat().stat());
+
+            var ifFunction = new IfCase(leftOperand, rightOperand, compOperator, resultFunc);
+            var elseIfFunctions = new List<IfCase>();
+
+            if (context.elseIfStat() is not null && context.elseIfStat().Length > 0)
+            {
+                foreach (var elseIf in context.elseIfStat())
+                {
+                    var comparison_1 = elseIf.compExpr();
+                    var compOperator_1 = comparison_1.children[1].GetText();
+                    var leftOperand_1 = VisitExpr(comparison_1.expr()[0]);
+                    var rightOperand_1 = VisitExpr(comparison_1.expr()[1]);
+                    var resultFunc_1 = GetStatementFunction(elseIf.stat());
+
+                    var elseIfFunction = new IfCase(leftOperand_1, rightOperand_1, compOperator_1, resultFunc_1);
+                    elseIfFunctions.Add(elseIfFunction);
+                }
+            }
+
+            var elseFunction = GetStatementFunction(context.elseStat().stat());
+
+            return new IfFunction("IfFunction", ifFunction, elseIfFunctions, elseFunction);
         }
 
         private IifFunction GetIifFunction(QikTemplateParser.IffExprContext context)

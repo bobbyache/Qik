@@ -17,8 +17,8 @@ namespace Qik.LanguageEngine.UnitTests
                     @testVal => ""Green"";
                     @result =>
                         switch @testVal
-                            case ""Yellow"" : ""YELLOW""
-                            case ""Green"" : ""GREEN""
+                            case ""Yellow"" then ""YELLOW""
+                            case ""Green"" then ""GREEN""
                             else
                                 ""RED""
                     ;
@@ -37,8 +37,8 @@ namespace Qik.LanguageEngine.UnitTests
                     @testVal => ""Blue"";
                     @result =>
                         switch @testVal
-                            case ""Yellow"" : ""YELLOW""
-                            case ""Green"" : ""GREEN""
+                            case ""Yellow"" then ""YELLOW""
+                            case ""Green"" then ""GREEN""
                             else
                                 ""RED""
                     ;
@@ -57,8 +57,8 @@ namespace Qik.LanguageEngine.UnitTests
                     @testVal => ""Blue"";
                     @result =>
                         switch @testVal
-                            case ""Yellow"" : ""YELLOW""
-                            case ""Green"" : ""GREEN""
+                            case ""Yellow"" then ""YELLOW""
+                            case ""Green"" then ""GREEN""
                             else
                                 ""RED""
                     ;
@@ -81,8 +81,8 @@ namespace Qik.LanguageEngine.UnitTests
 
                     @result =>
                         switch @val_1
-                            case ""Yellow"" : ""YELLOW""
-                            case ""Blue"" : lowerCase(@val_2) == ""gravy"" ? upperCase(""happy"") : upperCase(""sad"")
+                            case ""Yellow"" then ""YELLOW""
+                            case ""Blue"" then lowerCase(@val_2) == ""gravy"" ? upperCase(""happy"") : upperCase(""sad"")
                             else
                                 ""RED""
                     ;
@@ -103,8 +103,8 @@ namespace Qik.LanguageEngine.UnitTests
 
                     @result =>
                         switch upperCase(@val_1)
-                            case ""green"" : ""green""
-                            case ""BLUE"" : lowerCase(@val_2) == ""gravy"" ? upperCase(""happy"") : upperCase(""sad"")
+                            case ""green"" then ""green""
+                            case ""BLUE"" then lowerCase(@val_2) == ""gravy"" ? upperCase(""happy"") : upperCase(""sad"")
                             else
                                 ""RED""
                     ;
@@ -125,8 +125,8 @@ namespace Qik.LanguageEngine.UnitTests
 
                     @result =>
                         switch upperCase(@val_1)
-                            case ""GREEN"" : ""green""
-                            case ""BLUE"" : ""blue""
+                            case ""GREEN"" then ""green""
+                            case ""BLUE"" then ""blue""
                             else
                                 lowerCase(@val_2) == ""gravy"" ? upperCase(""happy"") : upperCase(""sad"")
                     ;
@@ -146,8 +146,8 @@ namespace Qik.LanguageEngine.UnitTests
 
                     @result =>
                         switch upperCase(@val_1)
-                            case ""GREEN"" : lowerCase(""Green"") + "" grass""
-                            case ""BLUE"" : lowerCase(""Blue"") + "" grass""
+                            case ""GREEN"" then lowerCase(""Green"") + "" grass""
+                            case ""BLUE"" then lowerCase(""Blue"") + "" grass""
                             else lowerCase(""Yellow"") + "" grass""
                     ;
                 "
@@ -166,8 +166,8 @@ namespace Qik.LanguageEngine.UnitTests
 
                     @result =>
                         switch upperCase(@val_1)
-                            case ""GREEN"" : lowerCase(""Green"") + "" grass""
-                            case ""BLUE"" : lowerCase(""Blue"") + "" grass""
+                            case ""GREEN"" then lowerCase(""Green"") + "" grass""
+                            case ""BLUE"" then lowerCase(""Blue"") + "" grass""
                             else lowerCase(""Yellow"") + "" grass""
                     ;
                 "
