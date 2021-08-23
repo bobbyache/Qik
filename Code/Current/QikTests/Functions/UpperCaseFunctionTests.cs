@@ -12,8 +12,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void UpperCaseFunction_InputLower_OutputsUpperCase_1()
         {
-            // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
-
             var functionArguments = new List<IFunction>
             {
                 new TextFunction("stub", "literaltext")

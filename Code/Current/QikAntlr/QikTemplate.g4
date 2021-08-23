@@ -17,12 +17,16 @@ inputDecl
     ;
 
 funcDecl
-    : VARIABLE '=>' (expr|concatExpr|iffExpr) ';'
+    : VARIABLE '=>' (stat|switchExpr|ifExpr) ';'
     ;
 
 /* -----------------------------------------------------------------------
 Expressions and Functions
 ----------------------------------------------------------------------- */ 
+stat
+    : (expr|iffExpr|concatExpr)
+    ;
+
 expr
     : func
     |STRING
@@ -40,9 +44,44 @@ concatExpr
     : expr ('+' expr)+
     ;
 
-
 iffExpr
-    : compExpr '?' (expr|iffExpr) ':' (expr|iffExpr)
+    : compExpr iffTrueStat iffFalseStat
+    ;
+
+iffTrueStat
+    : '?' stat
+    ;
+
+iffFalseStat
+    : ':' stat
+    ;
+
+ifExpr
+    : ifStat (elseIfStat)* elseStat
+    ;
+
+ifStat
+    : 'if' compExpr 'then' stat
+    ;
+
+elseIfStat
+    : 'else if' compExpr 'then' stat
+    ;
+
+switchExpr
+    : switchStat ((caseStat)+ elseStat)
+    ;
+
+switchStat
+    : 'switch' expr
+    ;
+
+caseStat
+    : 'case' STRING 'then' stat
+    ;
+
+elseStat
+    : 'else' stat
     ;
 
 func

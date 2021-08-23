@@ -10,8 +10,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void BasicTextFunction_InputText_OutputsText()
         {
-            // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
-
             var globalTable = new SymbolTable();
 
             var literalText = "Rob Blake";

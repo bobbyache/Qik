@@ -18,39 +18,29 @@ namespace CygSoft.Qik.Antlr
 
         public override IFunction VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context)
         {
+            IFunction func = null;
             var id = context.VARIABLE().GetText();
-
-            if (context.concatExpr() != null)
+            
+            if (context.stat() != null)
             {
-                var concatenateFunc = GetConcatenateFunction(context.concatExpr());
-                var expression =
-                    new ExpressionSymbol(id, concatenateFunc);
-                symbolTable.AddSymbol(expression);
+                func = GetStatementFunction(context.stat());
+                symbolTable.AddSymbol(new ExpressionSymbol(id, func));
             }
 
-            else if (context.iffExpr() != null)
+            else if (context.switchExpr() != null)
             {
-                var function = VisitIffExpr(context.iffExpr());
-                var expression =
-                    new ExpressionSymbol(id, function);
-                symbolTable.AddSymbol(expression);
+                func = VisitSwitchExpr(context.switchExpr());
+                symbolTable.AddSymbol(new ExpressionSymbol(id, func));
+            }
+
+            else if (context.ifExpr() != null)
+            {
+                func = VisitIfExpr(context.ifExpr());
+                symbolTable.AddSymbol(new ExpressionSymbol(id, func));
             }
             
-            else if (context.expr() != null)
-            {
-                var function = VisitExpr(context.expr());
-                var expression = new ExpressionSymbol(id, function);
-                symbolTable.AddSymbol(expression);
-            }
-
-            return null;
+            return func;
         }
-
-        public override IFunction VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context)
-        {
-            return GetIifFunction(context);
-        }
-
 
         public override IFunction VisitFunc(QikTemplateParser.FuncContext context)
         {
@@ -59,18 +49,19 @@ namespace CygSoft.Qik.Antlr
             if (context.IDENTIFIER() != null)
             {
                 string funcIdentifier = context.IDENTIFIER().GetText();
-                List<IFunction> functionArguments = CreateArguments(context.funcArg());
+                List<IFunction> functionArguments = CreateFunctionArguments(context.funcArg());
 
                 func = functionFactory.GetFunction(funcIdentifier, functionArguments);
             }
             return func;
         }
 
+        public override IFunction VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context) => GetIifFunction(context);
+        public override IFunction VisitIfExpr([NotNull] QikTemplateParser.IfExprContext context) => GetIfFunction(context);
+        public override IFunction VisitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context) => GetSwitchFunction(context);
+
         public override IFunction VisitExpr(QikTemplateParser.ExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-
             if (context.STRING() != null)
             {
                 return new TextFunction("String", context.STRING().GetText().StripOuterQuotes());
@@ -104,83 +95,122 @@ namespace CygSoft.Qik.Antlr
                 return null;
         }
 
-        private List<IFunction> CreateArguments(IReadOnlyList<QikTemplateParser.FuncArgContext> funcArgs)
+        private List<IFunction> CreateFunctionArguments(IReadOnlyList<QikTemplateParser.FuncArgContext> funcArgs)
         {
-            List<IFunction> functionArguments = new List<IFunction>();
+            var functionArguments = new List<IFunction>();
 
-            foreach (QikTemplateParser.FuncArgContext funcArg in funcArgs)
+            foreach (var funcArg in funcArgs)
             {
-                QikTemplateParser.ConcatExprContext concatExpr = funcArg.concatExpr();
-                QikTemplateParser.ExprContext expr = funcArg.expr();
+                var concatExpr = funcArg.concatExpr();
+                var expr = funcArg.expr();
 
                 if (concatExpr != null)
                 {
-                    ConcatenateFunction concatenateFunc = GetConcatenateFunction(concatExpr);
+                    var concatenateFunc = GetConcatenateFunction(concatExpr);
                     functionArguments.Add(concatenateFunc);
                 }
                 else if (expr != null)
                 {
-                    IFunction function = VisitExpr(expr);
+                    var function = VisitExpr(expr);
                     functionArguments.Add(function);
                 }
             }
             return functionArguments;
         }
 
-        private IifFunction GetIifFunction(QikTemplateParser.IffExprContext context)
+        private IFunction GetSwitchFunction(QikTemplateParser.SwitchExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-            
-            var comparison = context.compExpr();
-            var expressions = context.expr();
-            var iifs = context.iffExpr();
+            var subjectFunction = VisitExpr(context.switchStat().expr());
 
+            var caseFuncs = new Dictionary<string, IFunction>();
 
-            var functions = new List<IFunction>();
-
-            var compOperator = comparison.children[1].GetText();
-            var operand1 = VisitExpr(comparison.expr()[0]);
-            var operand2 = VisitExpr(comparison.expr()[1]);
-
-            functions.Add(operand1);
-            functions.Add(operand2);
-
-            foreach (QikTemplateParser.ExprContext expr in expressions)
+            foreach (var possibleCase in context.caseStat())
             {
-                IFunction result = VisitExpr(expr);
-                functions.Add(result);
+                var testVal = possibleCase.STRING().GetText().StripOuterQuotes();
+                caseFuncs.Add(testVal, GetStatementFunction(possibleCase.stat()));
             }
 
-            foreach (QikTemplateParser.IffExprContext iif in iifs)
-            {
-                IFunction result = VisitIffExpr(iif);
-                functions.Add(result);
-            }         
+            IFunction elseFunction = GetStatementFunction(context.elseStat().stat());
 
-            var iifFunc = new IifFunction("Iif", functions);
-            iifFunc.SetOperator(compOperator);
-
-            return iifFunc;
+            return new SwitchFunction("SwitchFunction", subjectFunction, caseFuncs, elseFunction);
         }
 
-        private ConcatenateFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)
+        private IFunction GetIfFunction([NotNull] QikTemplateParser.IfExprContext context)
         {
-            int line = context.Start.Line;
-            int column = context.Start.Column;
-            
+            var ifComparison = context.ifStat().compExpr();
+            var ifExpressionOperator = ifComparison.children[1].GetText();
+            var ifLeftOperand = VisitExpr(ifComparison.expr()[0]);
+            var ifRightOperand = VisitExpr(ifComparison.expr()[1]);
+            var ifResolutionFunc = GetStatementFunction(context.ifStat().stat());
 
-            ConcatenateFunction concatenateFunc = new ConcatenateFunction("Concatenation");
+            var ifFunction = new IfCase(ifLeftOperand, ifRightOperand, ifExpressionOperator, ifResolutionFunc);
+            var elseIfFunctions = new List<IfCase>();
 
-            IReadOnlyList<QikTemplateParser.ExprContext> expressions = context.expr();
-
-            foreach (QikTemplateParser.ExprContext expr in expressions)
+            if (context.elseIfStat() is not null && context.elseIfStat().Length > 0)
             {
-                IFunction result = VisitExpr(expr);
-                concatenateFunc.AddFunction(result);
+                foreach (var elseIf in context.elseIfStat())
+                {
+                    var elseIfComparison = elseIf.compExpr();
+                    var elseIfExpressionOperator = elseIfComparison.children[1].GetText();
+                    var elseIfLeftOperand = VisitExpr(elseIfComparison.expr()[0]);
+                    var elseIfRightOperand = VisitExpr(elseIfComparison.expr()[1]);
+                    var elseIfResolutionFunc = GetStatementFunction(elseIf.stat());
+
+                    var elseIfFunction = new IfCase(elseIfLeftOperand, elseIfRightOperand, elseIfExpressionOperator, elseIfResolutionFunc);
+                    elseIfFunctions.Add(elseIfFunction);
+                }
             }
 
-            return concatenateFunc;
+            var elseFunction = GetStatementFunction(context.elseStat().stat());
+
+            return new IfFunction("IfFunction", ifFunction, elseIfFunctions, elseFunction);
+        }
+
+        private IFunction GetIifFunction(QikTemplateParser.IffExprContext context)
+        {
+            var comparison = context.compExpr();
+            var compOperator = comparison.children[1].GetText();
+            var leftOperand = VisitExpr(comparison.expr()[0]);
+            var rightOperand = VisitExpr(comparison.expr()[1]);
+
+            var trueFunc = GetStatementFunction(context.iffTrueStat().stat());
+            var falseFunc = GetStatementFunction(context.iffFalseStat().stat());
+
+            return new IifFunction("Iif", leftOperand, rightOperand, compOperator, trueFunc, falseFunc);
+        }
+
+        private IFunction GetStatementFunction(QikTemplateParser.StatContext context)
+        {
+            IFunction statementFunction = null;
+
+            if (context.expr() is not null)
+            {
+                statementFunction = VisitExpr(context.expr());
+            }
+            else if (context.iffExpr() is not null)
+            {
+                statementFunction = VisitIffExpr(context.iffExpr());
+            }
+            else if (context.concatExpr() is not null)
+            {
+                statementFunction = GetConcatenateFunction(context.concatExpr());
+            }
+
+            return statementFunction;
+        }
+
+        private IFunction GetConcatenateFunction(QikTemplateParser.ConcatExprContext context)
+        {
+            var func = new ConcatenateFunction("Concatenation");
+            var expressions = context.expr();
+
+            foreach (var expr in expressions)
+            {
+                IFunction result = VisitExpr(expr);
+                func.AddFunction(result);
+            }
+
+            return func;
         }
     }
 }

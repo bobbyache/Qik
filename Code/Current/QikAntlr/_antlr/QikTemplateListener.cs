@@ -62,6 +62,16 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// <param name="context">The parse tree.</param>
 	void ExitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context);
 	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -101,6 +111,96 @@ public interface IQikTemplateListener : IParseTreeListener {
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
 	void ExitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.switchStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterSwitchStat([NotNull] QikTemplateParser.SwitchStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.switchStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitSwitchStat([NotNull] QikTemplateParser.SwitchStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.caseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterCaseStat([NotNull] QikTemplateParser.CaseStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.caseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitCaseStat([NotNull] QikTemplateParser.CaseStatContext context);
+	/// <summary>
+	/// Enter a parse tree produced by <see cref="QikTemplateParser.elseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void EnterElseStat([NotNull] QikTemplateParser.ElseStatContext context);
+	/// <summary>
+	/// Exit a parse tree produced by <see cref="QikTemplateParser.elseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	void ExitElseStat([NotNull] QikTemplateParser.ElseStatContext context);
 	/// <summary>
 	/// Enter a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// </summary>

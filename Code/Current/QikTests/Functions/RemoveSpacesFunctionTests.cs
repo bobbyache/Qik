@@ -12,8 +12,6 @@ namespace LanguageEngine.Tests.UnitTests.Functions
         [Test]
         public void RemoveSpacesFunction_InputSpacedText_RemovesSpaces_1()
         {
-            // BEFORE REMOVING THIS TEST METHOD YOU NEED TO WRITE TESTS FOR ALL ITS POSSIBILITIES IN THE NEW STYLE BELOW
-
             var globalTable = new SymbolTable();
 
             var functionArguments = new List<IFunction>

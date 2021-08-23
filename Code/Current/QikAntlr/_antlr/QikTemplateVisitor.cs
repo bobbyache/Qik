@@ -51,6 +51,12 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <return>The visitor result.</return>
 	Result VisitFuncDecl([NotNull] QikTemplateParser.FuncDeclContext context);
 	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.stat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitStat([NotNull] QikTemplateParser.StatContext context);
+	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.expr"/>.
 	/// </summary>
 	/// <param name="context">The parse tree.</param>
@@ -74,6 +80,60 @@ public interface IQikTemplateVisitor<Result> : IParseTreeVisitor<Result> {
 	/// <param name="context">The parse tree.</param>
 	/// <return>The visitor result.</return>
 	Result VisitIffExpr([NotNull] QikTemplateParser.IffExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.iffTrueStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIffTrueStat([NotNull] QikTemplateParser.IffTrueStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.iffFalseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIffFalseStat([NotNull] QikTemplateParser.IffFalseStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.ifExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIfExpr([NotNull] QikTemplateParser.IfExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.ifStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitIfStat([NotNull] QikTemplateParser.IfStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.elseIfStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitElseIfStat([NotNull] QikTemplateParser.ElseIfStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.switchExpr"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchExpr([NotNull] QikTemplateParser.SwitchExprContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.switchStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitSwitchStat([NotNull] QikTemplateParser.SwitchStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.caseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitCaseStat([NotNull] QikTemplateParser.CaseStatContext context);
+	/// <summary>
+	/// Visit a parse tree produced by <see cref="QikTemplateParser.elseStat"/>.
+	/// </summary>
+	/// <param name="context">The parse tree.</param>
+	/// <return>The visitor result.</return>
+	Result VisitElseStat([NotNull] QikTemplateParser.ElseStatContext context);
 	/// <summary>
 	/// Visit a parse tree produced by <see cref="QikTemplateParser.func"/>.
 	/// </summary>
