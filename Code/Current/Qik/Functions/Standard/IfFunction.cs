@@ -65,11 +65,20 @@ namespace CygSoft.Qik.Functions
             {
                 var result = elseFunction.Execute();
 
-                if (ifFunction.Matches()) result = ifFunction.ResultFunction.Execute();
-
-                foreach (var elseIfFunction in elseIfFunctions)
+                if (ifFunction.Matches()) 
+                { 
+                    result = ifFunction.ResultFunction.Execute();
+                }
+                else
                 {
-                    if (elseIfFunction.Matches()) result = elseIfFunction.ResultFunction.Execute();
+                    foreach (var elseIfFunction in elseIfFunctions)
+                    {
+                        if (elseIfFunction.Matches()) 
+                        {
+                            result = elseIfFunction.ResultFunction.Execute();
+                            break;
+                        }
+                    }
                 }
 
                 return result;
