@@ -14,17 +14,52 @@
         ]
     },
     "Qik Expression": {
-        "prefix": "qexpression",
+        "prefix": "qexpr",
         "description": "Qik Expression",
         "body": [
             "@${1:variable} => ${0:content};",
         ]
     },
-    "Qik Return Statement": {
-        "prefix": "qret",
-        "description": "Qik Return Statement",
+    "Qik Switch Statement": {
+        "prefix": "qswitch",
+        "description": "Qik Switch Statement",
         "body": [
-            "return ${1:content};",
+            "switch ${1:expression}"
+        ]
+    },
+    "Qik Case Statement": {
+        "prefix": "qcase",
+        "description": "Qik Case Operator",
+        "body": [
+            "case ${1:expression} then ${2:value}"
+        ]
+    },
+    "Qik Iif Ternary Statement": {
+        "prefix": "qiifoperator",
+        "description": "Qik Iif Ternary Statement",
+        "body": [
+            "${1:predicate} ? ${2:trueValue} : ${3:trueValue}"
+        ]
+    },
+    "Qik If Statement": {
+        "prefix": "qif",
+        "description": "Qik If Statement",
+        "body": [
+            "if ${1:predicate} then ${2:value}"
+        ]
+    },
+    "Qik Else If Statement": {
+        "prefix": "qelseif",
+        "description": "Qik Else If Statement",
+        "body": [
+            "else if ${1:predicate} then ${2:value}"
+        ]
+    },
+    "Qik Else Statement": {
+        "prefix": "qelse",
+        "description": "Qik Else Statement",
+        "body": [
+            "else ${1:value}"
         ]
     },
     "Qik Camel Case Function": {
