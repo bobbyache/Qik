@@ -2,7 +2,7 @@
 using CygSoft.Qik.Functions;
 using NUnit.Framework;
 
-namespace LanguageEngine.Tests.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     class TextFunctionTests

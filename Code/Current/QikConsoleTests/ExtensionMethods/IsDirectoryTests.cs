@@ -1,7 +1,7 @@
 using System.IO;
 using NUnit.Framework;
 
-namespace Qik.LanguageEngine.UnitTests
+namespace QikConsoleTests
 {
     [TestFixture]
     class IsDirectoryTests

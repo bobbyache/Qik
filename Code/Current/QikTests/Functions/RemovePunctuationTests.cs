@@ -1,10 +1,9 @@
 ﻿using CygSoft.Qik;
 using CygSoft.Qik.Functions;
-using LanguageEngine.Tests.UnitTests.Helpers;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace LanguageEngine.Tests.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     public class RemovePunctuationTests

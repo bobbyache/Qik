@@ -1,7 +1,6 @@
-﻿using LanguageEngine.Tests.UnitTests.Helpers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace Qik.LanguageEngine.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     public class PadFunctionTests

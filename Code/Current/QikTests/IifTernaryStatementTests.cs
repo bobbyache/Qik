@@ -3,7 +3,7 @@ using CygSoft.Qik.Functions;
 using NUnit.Framework;
 using System.Collections.Generic;
 
-namespace Qik.LanguageEngine.UnitTests
+namespace QikTests
 {
     [TestFixture]
     class IifTernaryStatementTests

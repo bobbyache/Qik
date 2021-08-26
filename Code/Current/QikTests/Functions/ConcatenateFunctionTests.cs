@@ -1,9 +1,6 @@
-﻿using CygSoft.Qik;
-using CygSoft.Qik.Functions;
-using LanguageEngine.Tests.UnitTests.Helpers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 
-namespace LanguageEngine.Tests.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     class ConcatenateFunctionTests

@@ -3,7 +3,7 @@ using CygSoft.Qik.Console;
 using CygSoft.Qik.Functions;
 using NUnit.Framework;
 
-namespace Qik.LanguageEngine.UnitTests
+namespace QikConsoleTests
 {
     [TestFixture]
     class PlaceholderTerminalTests

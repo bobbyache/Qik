@@ -1,7 +1,6 @@
 using NUnit.Framework;
-using LanguageEngine.Tests.UnitTests.Helpers;
 
-namespace LanguageEngine.Tests.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     class HtmlDecodeFunctionTests

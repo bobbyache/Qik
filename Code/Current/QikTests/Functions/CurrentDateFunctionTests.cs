@@ -3,9 +3,8 @@ using CygSoft.Qik.Functions;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
-using LanguageEngine.Tests.UnitTests.Helpers;
 
-namespace LanguageEngine.Tests.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     class CurrentDateFunctionTests
