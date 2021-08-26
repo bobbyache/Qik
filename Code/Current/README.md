@@ -50,9 +50,19 @@ dotnet new -i NUnit3.DotNetNew.Template
 ```
 Create the unit tests
 ```
-dotnet new nunit -n QikTests
-dotnet add qiktests/qiktests.csproj reference Qik/Qik.csproj
+dotnet new nunit -n QikConsoleTests
+dotnet add QikConsoleTests/QikConsoleTests.csproj reference QikConsole/QikConsole.csproj
+dotnet sln add QikConsoleTests/QikConsoleTests.csproj
+
+cd ./QikConsoleTests/
+dotnet add package FluentAssertions --version 5.10.3
+dotnet add package Moq --version 4.15.1
+
+cd ..
+
+dotnet test
 ```
+
 Run the tests
 ```
 dotnet test ./qiktests/qiktests.csproj
