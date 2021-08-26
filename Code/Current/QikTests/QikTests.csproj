@@ -16,7 +16,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Qik\Qik.csproj" />
-    <ProjectReference Include="..\QikConsole\QikConsole.csproj" />
   </ItemGroup>
 
 </Project>
