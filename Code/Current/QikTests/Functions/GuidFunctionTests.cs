@@ -1,8 +1,7 @@
-﻿using LanguageEngine.Tests.UnitTests.Helpers;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System;
 
-namespace Qik.LanguageEngine.UnitTests.Functions
+namespace QikTests
 {
     [TestFixture]
     public class GuidFunctionTests

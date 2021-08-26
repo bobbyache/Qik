@@ -1,7 +1,7 @@
 using CygSoft.Qik;
 using NUnit.Framework;
 
-namespace Qik.LanguageEngine.UnitTests
+namespace QikTests
 {
     [TestFixture]
     class StringExtensionTests

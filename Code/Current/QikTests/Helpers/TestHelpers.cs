@@ -1,7 +1,7 @@
 ﻿using CygSoft.Qik;
 using CygSoft.Qik.Functions;
 
-namespace LanguageEngine.Tests.UnitTests.Helpers
+namespace QikTests
 {
     public class TestHelpers
     {

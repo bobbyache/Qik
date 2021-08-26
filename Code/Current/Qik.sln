@@ -11,6 +11,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikTests", "QikTests\QikTes
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikAntlr", "QikAntlr\QikAntlr.csproj", "{B2C00AAD-C76A-4A74-9818-C30182EE2506}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikConsoleTests", "QikConsoleTests\QikConsoleTests.csproj", "{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -108,5 +110,17 @@ Global
 		{7E41142A-E132-41FB-BD0F-A98F1770D641}.Release|x64.Build.0 = Release|Any CPU
 		{7E41142A-E132-41FB-BD0F-A98F1770D641}.Release|x86.ActiveCfg = Release|Any CPU
 		{7E41142A-E132-41FB-BD0F-A98F1770D641}.Release|x86.Build.0 = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|x64.Build.0 = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Debug|x86.Build.0 = Debug|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|x64.ActiveCfg = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|x64.Build.0 = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|x86.ActiveCfg = Release|Any CPU
+		{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

@@ -1,6 +1,6 @@
 ﻿using System.IO;
 
-namespace QikTests
+namespace QikConsoleTests
 {
     public class FileHelpers
     {

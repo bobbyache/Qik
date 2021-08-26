@@ -1,10 +1,9 @@
 using CygSoft.Qik.Console;
-using Qik.LanguageEngine.IntegrationTests.Helpers;
 using NUnit.Framework;
 using System.Linq;
 using Moq;
 
-namespace Qik.LanguageEngine.UnitTests
+namespace QikConsoleTests
 {
     [TestFixture]
     class ProjectFileTests
