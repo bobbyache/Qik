@@ -7,19 +7,25 @@ namespace CygSoft.Qik.QikConsole
 {
     using static System.Console;
 
-    public interface ICmdlineGenerator
+
+    public class MenuOption
     {
-        void Start(string filePath);
+
+    }
+    
+    public interface IRootMenu
+    {
+        void Enter(string filePath);
     }
 
-    public class CmdlineGenerator : ICmdlineGenerator
+    public class RootMenu : IRootMenu
     {
         private readonly NLog.ILogger logger;
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
         private readonly IAppHost appHost;
 
-        public CmdlineGenerator(IProjectFile projectFile, IAppHost appHost, IFileFunctions fileFunctions, NLog.ILogger logger)
+        public RootMenu(IProjectFile projectFile, IAppHost appHost, IFileFunctions fileFunctions, NLog.ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
             this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
@@ -27,7 +33,7 @@ namespace CygSoft.Qik.QikConsole
             this.appHost = appHost ?? throw new ArgumentNullException($"{nameof(appHost)} cannot be null.");
         }
 
-        public void Start(string filePath)
+        public void Enter(string filePath)
         {
             DisplayWelcomeHeader();
 
@@ -51,16 +57,20 @@ namespace CygSoft.Qik.QikConsole
 
         private void EnterExecutionLoop(string filePath)
         {
-            Console.WriteLine("Please enter your choice:");
-            string choice = Console.ReadLine();
-            OpenProject(filePath);
+            var choice = EnterChoice();
 
-            while (choice.ToLower() != "q")
+            while (choice != "q")
             {
-                Console.WriteLine("Please enter your choice:");
-                choice = Console.ReadLine();
                 OpenProject(filePath);
+
+                choice = EnterChoice();
             }
+        }
+
+        private string EnterChoice()
+        {
+            Console.WriteLine("Please enter your choice:");
+            return Console.ReadLine();
         }
 
         private void OpenProject(string filePath)

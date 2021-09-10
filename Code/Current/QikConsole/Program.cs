@@ -21,7 +21,7 @@ class Program
         public static int Main(string[] args)
         {
             IAppHost appHost = null;
-            ICmdlineGenerator cmdLine = null;
+            IRootMenu cmdLine = null;
             NLog.ILogger logger = null;
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
@@ -37,7 +37,7 @@ class Program
             // Parameters of the handler method are matched according to the names of the options.
             rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
             {
-                cmdLine.Start(path);
+                cmdLine.Enter(path);
             }));
 
             var config = new ConfigurationBuilder()
@@ -60,13 +60,13 @@ class Program
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
                 .AddSingleton<IAppHost, MainHost>()
-                .AddSingleton<ICmdlineGenerator, CmdlineGenerator>()
+                .AddSingleton<IRootMenu, RootMenu>()
             ;
 
             serviceProvider = services.BuildServiceProvider();
 
             appHost = serviceProvider.GetService<IAppHost>();
-            cmdLine = serviceProvider.GetService<ICmdlineGenerator>();
+            cmdLine = serviceProvider.GetService<IRootMenu>();
             
 
             //
