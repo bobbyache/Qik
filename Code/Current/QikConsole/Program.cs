@@ -4,7 +4,7 @@ using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using CygSoft.Qik;
-using CygSoft.Qik.Console;
+using CygSoft.Qik.QikConsole;
 
 using NLog;
 using NLog.Extensions.Logging;

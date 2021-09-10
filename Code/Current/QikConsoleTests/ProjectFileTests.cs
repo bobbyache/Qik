@@ -1,4 +1,4 @@
-using CygSoft.Qik.Console;
+using CygSoft.Qik.QikConsole;
 using NUnit.Framework;
 using System.Linq;
 using Moq;

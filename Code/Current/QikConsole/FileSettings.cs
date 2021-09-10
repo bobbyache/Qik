@@ -1,4 +1,4 @@
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     //
     // Don't remove just yet... may need to hook up configuration settings again so have left the skeleton behind.

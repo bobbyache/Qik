@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     public class PlaceholderTerminal
     {

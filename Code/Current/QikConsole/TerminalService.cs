@@ -3,7 +3,7 @@ using System.IO;
 using CygSoft.Qik.Functions;
 using System.Collections.Generic;
 
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     public class TerminalService
     {

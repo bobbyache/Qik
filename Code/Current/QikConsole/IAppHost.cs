@@ -1,5 +1,5 @@
 
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     public interface IAppHost
     {

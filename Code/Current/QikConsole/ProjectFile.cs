@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json;
 using System.IO;
 
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     public interface IProjectFile
     {

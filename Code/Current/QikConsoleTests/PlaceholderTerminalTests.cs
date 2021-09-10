@@ -1,5 +1,5 @@
 using CygSoft.Qik;
-using CygSoft.Qik.Console;
+using CygSoft.Qik.QikConsole;
 using CygSoft.Qik.Functions;
 using NUnit.Framework;
 
