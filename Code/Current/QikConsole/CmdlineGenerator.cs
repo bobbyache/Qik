@@ -53,20 +53,30 @@ namespace CygSoft.Qik.QikConsole
         {
             Console.WriteLine("Please enter your choice:");
             string choice = Console.ReadLine();
-            GenerateOutputFiles(filePath);
+            OpenProject(filePath);
 
             while (choice.ToLower() != "q")
             {
                 Console.WriteLine("Please enter your choice:");
                 choice = Console.ReadLine();
-                GenerateOutputFiles(filePath);
+                OpenProject(filePath);
             }
         }
 
-        private void GenerateOutputFiles(string filePath)
+        private void OpenProject(string filePath)
+        {
+            appHost.OpenProject(filePath);
+            foreach (var terminalId in appHost.GetTerminalList())
+            {
+                WriteLine(terminalId);
+            }
+        }
+
+        private void GenerateOutput(string filePath)
         {
             WriteLine("Generating output files...");
-            appHost.Generate(filePath);
+            // appHost.OpenProject(filePath);
+            // appHost.GetTerminalList();
             ForegroundColor = ConsoleColor.Green;
             WriteLine("...Success!");
             ForegroundColor = ConsoleColor.White;

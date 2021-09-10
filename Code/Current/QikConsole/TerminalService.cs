@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using CygSoft.Qik.Functions;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CygSoft.Qik.QikConsole
 {
@@ -9,13 +10,14 @@ namespace CygSoft.Qik.QikConsole
     {
         private Dictionary<string, PlaceholderTerminal> terminalDictionary = new Dictionary<string, PlaceholderTerminal>();
 
+        public string[] Terminals { get => terminalDictionary.Keys.ToArray(); }
+
         public TerminalService(IFileFunctions fileFunctions, string path, Project project)
         {
             BuildTerminalDictionary(path, project, 
                 fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.")
             );
         }
-
         public string Execute(string processorId, string templateText)
         {
             if (terminalDictionary.ContainsKey(processorId))

@@ -11,6 +11,7 @@ namespace CygSoft.Qik.QikConsole
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
         private Dictionary<string, string> fragmentsDictionary = new Dictionary<string, string>();
+        private TerminalService terminalService = null;
 
         public MainHost(IProjectFile projectFile, IFileFunctions fileFunctions)
         {
@@ -18,17 +19,27 @@ namespace CygSoft.Qik.QikConsole
             this.fileFunctions = fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.");
         }
 
-        public void Generate(string path)
+        public string[] GetTerminalList()
+        {
+            if (this.terminalService is not null)
+            {
+                return this.terminalService.Terminals;
+            }
+            return new string[0];
+        }
+
+        public void OpenProject(string path)
         {
             var project = projectFile.Read(path);
+            this.terminalService = new TerminalService(fileFunctions, path, project);
             
-            GenerateFragments(path, project);
-            GenerateDocuments(path, project);
+            // GenerateFragments(path, project);
+            // GenerateDocuments(path, project);
         }
 
         public void GenerateFragments(string path, Project project)
         {
-            var service = new TerminalService(fileFunctions, path, project);
+            if (terminalService is null) return;
 
             foreach (var frag in project.Fragments)
             {
@@ -37,7 +48,7 @@ namespace CygSoft.Qik.QikConsole
 
                 foreach (var processorId in frag.Processors)
                 {
-                    templateText = service.Execute(processorId, templateText);
+                    templateText = terminalService.Execute(processorId, templateText);
                 }
                 fragmentsDictionary.Add(frag.Id, templateText);
             }
@@ -45,6 +56,8 @@ namespace CygSoft.Qik.QikConsole
 
         public void GenerateDocuments(string path, Project project)
         {
+            if (terminalService is null) return;
+
             foreach (var document in project.Documents)
             {
                 StringBuilder builder = new StringBuilder();
