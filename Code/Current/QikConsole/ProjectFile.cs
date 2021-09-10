@@ -34,7 +34,7 @@ namespace CygSoft.Qik.QikConsole
         {
             string contents = null;
             
-            using (var file = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Read))
+            using (var file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 using (StreamReader sr = new StreamReader(file))
                 {

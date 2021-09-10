@@ -21,6 +21,7 @@ class Program
         public static int Main(string[] args)
         {
             IAppHost appHost = null;
+            ICmdlineGenerator cmdLine = null;
             NLog.ILogger logger = null;
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
@@ -36,35 +37,7 @@ class Program
             // Parameters of the handler method are matched according to the names of the options.
             rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
             {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(new Resources().GetWelcomeHeader());
-                Console.ForegroundColor = ConsoleColor.White;
-
-                if (string.IsNullOrWhiteSpace(path))
-                {
-                    Console.WriteLine("Please specify a path. See --help for more information.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(path))
-                {
-                    try
-                    {
-                        Console.WriteLine("Generating output files...");
-                        appHost.Generate(path);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("...Success!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "ooops and exception occurred.");
-                        LogConsoleError(ex);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please see --help for information.");
-                }
+                cmdLine.Start(path);
             }));
 
             var config = new ConfigurationBuilder()
@@ -83,26 +56,21 @@ class Program
             
             var services = new ServiceCollection()
                 .AddSingleton<IInterpreter, Interpreter>()
+                .AddSingleton<ILogger>(logger)
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
                 .AddSingleton<IAppHost, MainHost>()
+                .AddSingleton<ICmdlineGenerator, CmdlineGenerator>()
             ;
 
             serviceProvider = services.BuildServiceProvider();
 
             appHost = serviceProvider.GetService<IAppHost>();
+            cmdLine = serviceProvider.GetService<ICmdlineGenerator>();
+            
 
             //
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args).Result;
-        }
-
-        private static void LogConsoleError(Exception ex)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("An error occurred!");
-            Console.WriteLine($"\t{ex.Message}");
-            Console.WriteLine("Please check the error logs");
-            Console.ForegroundColor = ConsoleColor.White;
         }
 }
