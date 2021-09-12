@@ -13,23 +13,10 @@
             "program": "${workspaceFolder}/QikConsole/bin/Debug/net5.0/QikConsole.dll",
             "args": [
                 // ****************************************
-                // Generate Inputs 
-                // ****************************************
-                // "--path", 
-                // "C:\\Users\\RobB\\Desktop\\TestQik\\", 
-                // "--inputs"
-                
-                // ****************************************
-                // Prompt to Generate
+                // Prompt to Generate from project
                 // ****************************************
                 "--path",
                 "C:\\Users\\RobB\\Desktop\\Qik\\project.json"
-                // "This is fragment B -> @{expr1}"
-                // "C:\\Users\\RobB\\Desktop\\qik\\projectA\\project.json", 
-                // "C:\\Users\\RobB\\OneDrive - Korbitec Inc\\Documents\\Korbicom\\Projects\\xchangedocs\\Qik\\xd-administration.json"
-                // "C:\\Users\\RobB\\OneDrive - Korbitec Inc\\Documents\\Korbicom\\Projects\\xchangedocs\\Qik\\xd-deployment.json"
-                // "--path", 
-                // "C:\\Users\\RobB\\Desktop\\TestQik\\XD\\ApiServer\\Tests\\", 
             ],
             "cwd": "${workspaceFolder}/QikConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

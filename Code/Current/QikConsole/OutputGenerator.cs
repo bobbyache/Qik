@@ -35,6 +35,11 @@ namespace CygSoft.Qik.QikConsole
             var interpreter = new Interpreter();
             var symbolTerminal = interpreter.Interpret(new FunctionFactory(), script);
             var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
+
+            foreach (var input in project.Inputs)
+            {
+                terminal.SetSymbolValue(input.Symbol, input.Value);
+            }
             
             foreach (var frag in project.Fragments)
             {

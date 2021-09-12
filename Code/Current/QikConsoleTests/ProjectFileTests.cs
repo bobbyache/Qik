@@ -15,6 +15,9 @@ namespace QikConsoleTests
             
             project.ScriptPath = "kv_script_file.qik";
 
+            project.Inputs.Add(new Input() { Symbol = "@Input1", Value = "Input 1" });
+            project.Inputs.Add(new Input() { Symbol = "@Input2", Value = "Input 2" });
+
             project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt"});
             project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt" });
 
@@ -38,6 +41,15 @@ namespace QikConsoleTests
             FileHelpers.DeleteFile("project.json");
 
             Assert.IsNotNull(writtenProject);
+
+            Assert.IsTrue(writtenProject.Inputs.Count() == 2, "Unexpected number of fragments read from project file");
+            var inputA = project.Inputs[0];
+            var inputB = project.Inputs[1];
+            Assert.IsTrue(inputA.Symbol == "@Input1", "Unexpected input symbol read from project file");
+            Assert.IsTrue(inputA.Value == "Input 1", "Unexpected input value read from project file");
+            Assert.IsTrue(inputB.Symbol == "@Input2", "Unexpected input symbol read from project file");
+            Assert.IsTrue(inputB.Value == "Input 2", "Unexpected input value read from project file");
+
             Assert.IsTrue(writtenProject.Fragments.Count() == 2, "Unexpected number of fragments read from project file");
 
             var fragmentA = project.Fragments[0];
