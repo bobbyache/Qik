@@ -1,25 +1,19 @@
 using System;
-using System.IO;
-using System.Collections.Generic;
-using System.Text;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 
 namespace CygSoft.Qik.QikConsole
 {
     using static System.Console;
 
-    public interface ICmdlineGenerator
-    {
-        void Start(string filePath);
-    }
-
-    public class CmdlineGenerator : ICmdlineGenerator
+    public class GenerateCommand
     {
         private readonly NLog.ILogger logger;
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
         private readonly IOutputGenerator outputGenerator;
 
-        public CmdlineGenerator(IProjectFile projectFile, IOutputGenerator outputGenerator, IFileFunctions fileFunctions, NLog.ILogger logger)
+        public GenerateCommand(IProjectFile projectFile, IOutputGenerator outputGenerator, IFileFunctions fileFunctions, NLog.ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
             this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
@@ -27,7 +21,22 @@ namespace CygSoft.Qik.QikConsole
             this.outputGenerator = outputGenerator ?? throw new ArgumentNullException($"{nameof(outputGenerator)} cannot be null.");
         }
 
-        public void Start(string filePath)
+        public Command Configure()
+        {
+            var cmd = new Command("gen", "Generates from a project file.")
+            {
+                new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.")
+            };
+
+            cmd.Handler = CommandHandler.Create<string>((Action<string>)((file) =>
+            {
+                Generate(file);
+            }));
+
+            return cmd;
+        }
+
+        private void Generate(string filePath)
         {
             DisplayWelcomeHeader();
 

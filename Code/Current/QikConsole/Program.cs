@@ -20,25 +20,9 @@ class Program
 {
         public static int Main(string[] args)
         {
-            IOutputGenerator outputGenerator = null;
-            ICmdlineGenerator cmdLine = null;
-            NLog.ILogger logger = null;
+            ICommandFactory commandFactory = null;
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
-
-            var rootCommand = new RootCommand
-            {
-                new Option<string>( new[] { "--path", "-p" } , "The path to a Qik project configuration file.")
-            };
-
-            rootCommand.Description = "Qik Console Application";
-
-            //
-            // Parameters of the handler method are matched according to the names of the options.
-            rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
-            {
-                cmdLine.Start(path);
-            }));
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -49,25 +33,23 @@ class Program
             // settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
 
             LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));
-
-            logger = LogManager.Setup()
-                                .LoadConfigurationFromSection(config)
-                                .GetCurrentClassLogger();
             
             var services = new ServiceCollection()
                 .AddSingleton<IInterpreter, Interpreter>()
-                .AddSingleton<ILogger>(logger)
+                .AddSingleton<ILogger>(logger => LogManager.Setup().LoadConfigurationFromSection(config).GetCurrentClassLogger())
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
                 .AddSingleton<IOutputGenerator, OutputGenerator>()
-                .AddSingleton<ICmdlineGenerator, CmdlineGenerator>()
+                .AddSingleton<ICommandFactory, CommandFactory>()
             ;
 
             serviceProvider = services.BuildServiceProvider();
+            commandFactory = serviceProvider.GetService<ICommandFactory>();
 
-            outputGenerator = serviceProvider.GetService<IOutputGenerator>();
-            cmdLine = serviceProvider.GetService<ICmdlineGenerator>();
-            
+            var rootCommand = new RootCommand("Qik Console Application");
+
+            rootCommand.Add(commandFactory.Create(CommandType.Generate));
+            rootCommand.Add(commandFactory.Create(CommandType.SymbolUpdate));
 
             //
             // Parse the incoming args and invoke the handler

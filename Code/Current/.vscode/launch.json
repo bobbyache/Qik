@@ -15,8 +15,26 @@
                 // ****************************************
                 // Prompt to Generate from project
                 // ****************************************
-                "--path",
+                "gen",
+                "-f",
                 "C:\\Users\\RobB\\Desktop\\Qik\\project.json"
+
+                // "sym",
+                // "-f",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\project.json",
+                // "-k",
+                // "input1",
+                // "-v",
+                // "--------------------------------------"
+
+                // "sym",
+                // "-f",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\project.json",
+                // "-k",
+                // "input2",
+                // "-v",
+                // "--------------------------------------"
+
             ],
             "cwd": "${workspaceFolder}/QikConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
