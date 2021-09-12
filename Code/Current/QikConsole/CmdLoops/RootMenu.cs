@@ -55,13 +55,33 @@ namespace CygSoft.Qik.QikConsole
             }
         }
 
+
+        private void DisplayMenu()
+        {
+            var processors = new List<Processor>()
+            {
+                new Processor() { ScriptFile = "script_1.qik", Id = "Deployment Script" },
+                new Processor() { ScriptFile = "script_2.qik", Id = "Process Script" },
+            };
+
+            var menu = new Menu<Processor>();
+            menu.AddItems(processors);
+            var menuText = menu.GetReadableMenu();
+
+            foreach(var menuItem in menuText)
+            {
+                WriteLine(menuItem);
+            }
+        }
+
         private void EnterExecutionLoop(string filePath)
         {
             var choice = EnterChoice();
 
             while (choice != "q")
             {
-                OpenProject(filePath);
+                DisplayMenu();
+                // OpenProject(filePath);
 
                 choice = EnterChoice();
             }

@@ -31,6 +31,7 @@ namespace CygSoft.Qik.QikConsole
         public void OpenProject(string path)
         {
             var project = projectFile.Read(path);
+            
             this.terminalService = new TerminalService(fileFunctions, path, project);
             
             // GenerateFragments(path, project);

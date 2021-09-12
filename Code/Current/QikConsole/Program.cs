@@ -26,19 +26,19 @@ class Program
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
 
-            var rootCommand = new RootCommand
-            {
-                new Option<string>( new[] { "--path", "-p" } , "The path to a Qik project configuration file.")
-            };
+            string projectPath = null;
 
-            rootCommand.Description = "Qik Console Application";
+            var rootCommand = new RootCommand("Qik Console Application");
+
+            rootCommand.Add(LoadCommand.Configure(projectPath));
+            rootCommand.Add(ProcessorCommand.Configure());
 
             //
             // Parameters of the handler method are matched according to the names of the options.
-            rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
-            {
-                cmdLine.Enter(path);
-            }));
+            // rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
+            // {
+            //     cmdLine.Enter(path);
+            // }));
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -49,7 +49,6 @@ class Program
             // settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
 
             LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));
-
             logger = LogManager.Setup()
                                 .LoadConfigurationFromSection(config)
                                 .GetCurrentClassLogger();

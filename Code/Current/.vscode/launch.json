@@ -12,23 +12,29 @@
             // If you have changed target frameworks, make sure to update the program path.
             "program": "${workspaceFolder}/QikConsole/bin/Debug/net5.0/QikConsole.dll",
             "args": [
-                // ****************************************
-                // Generate Inputs 
-                // ****************************************
-                // "--path", 
-                // "C:\\Users\\RobB\\Desktop\\TestQik\\", 
-                // "--inputs"
-                
-                // ****************************************
-                // Prompt to Generate
-                // ****************************************
-                "--path",
-                "C:\\Code\\mess-around\\qikconsole\\xd\\xd-deployment\\xd-deployment.json"
-                // "C:\\Users\\RobB\\Desktop\\qik\\projectA\\project.json", 
-                // "C:\\Users\\RobB\\OneDrive - Korbitec Inc\\Documents\\Korbicom\\Projects\\xchangedocs\\Qik\\xd-administration.json"
-                // "C:\\Users\\RobB\\OneDrive - Korbitec Inc\\Documents\\Korbicom\\Projects\\xchangedocs\\Qik\\xd-deployment.json"
-                // "--path", 
-                // "C:\\Users\\RobB\\Desktop\\TestQik\\XD\\ApiServer\\Tests\\", 
+
+                // "load",
+                // "-p",
+                // "C:\\Code\\mess-around\\qikconsole\\xd\\xd-deployment\\xd-deployment.json",
+
+                // "processors",
+                // "ls",
+
+
+                // "processors",
+                // "add",
+                // "-i",
+                // "processor-id",
+                // "-s",
+                // "scriptfile.qik"
+
+                "processors",
+                "update",
+                "-i",
+                "processor-id",
+                "-s",
+                "scriptfile.qik"
+
             ],
             "cwd": "${workspaceFolder}/QikConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
