@@ -13,13 +13,12 @@ namespace CygSoft.Qik.QikConsole
         private readonly NLog.ILogger logger;
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
-        private readonly IOutputGenerator outputGenerator;
-        public SymbolCommand(IProjectFile projectFile, IOutputGenerator outputGenerator, IFileFunctions fileFunctions, NLog.ILogger logger)
+
+        public SymbolCommand(IProjectFile projectFile, IFileFunctions fileFunctions, NLog.ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
             this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
             this.fileFunctions = fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.");
-            this.outputGenerator = outputGenerator ?? throw new ArgumentNullException($"{nameof(outputGenerator)} cannot be null.");
         }
 
         public Command Configure()
@@ -51,7 +50,9 @@ namespace CygSoft.Qik.QikConsole
             {
                 try
                 {
+                    WriteLine("Updating symbol...");
                     SetSymbol(filePath, key, value);
+                    WriteLine("...Done!");
                 }
                 catch (Exception ex)
                 {

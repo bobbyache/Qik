@@ -39,7 +39,6 @@ class Program
                 .AddSingleton<ILogger>(logger => LogManager.Setup().LoadConfigurationFromSection(config).GetCurrentClassLogger())
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
-                .AddSingleton<IOutputGenerator, OutputGenerator>()
                 .AddSingleton<ICommandFactory, CommandFactory>()
             ;
 
