@@ -17,14 +17,14 @@ namespace CygSoft.Qik.QikConsole
         private readonly NLog.ILogger logger;
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
-        private readonly IAppHost appHost;
+        private readonly IOutputGenerator outputGenerator;
 
-        public CmdlineGenerator(IProjectFile projectFile, IAppHost appHost, IFileFunctions fileFunctions, NLog.ILogger logger)
+        public CmdlineGenerator(IProjectFile projectFile, IOutputGenerator outputGenerator, IFileFunctions fileFunctions, NLog.ILogger logger)
         {
             this.logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
             this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
             this.fileFunctions = fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.");
-            this.appHost = appHost ?? throw new ArgumentNullException($"{nameof(appHost)} cannot be null.");
+            this.outputGenerator = outputGenerator ?? throw new ArgumentNullException($"{nameof(outputGenerator)} cannot be null.");
         }
 
         public void Start(string filePath)
@@ -52,7 +52,7 @@ namespace CygSoft.Qik.QikConsole
         private void GenerateOutputFiles(string filePath)
         {
             WriteLine("Generating output files...");
-            appHost.Generate(filePath);
+            outputGenerator.Generate(filePath);
             ForegroundColor = ConsoleColor.Green;
             WriteLine("...Success!");
             ForegroundColor = ConsoleColor.White;

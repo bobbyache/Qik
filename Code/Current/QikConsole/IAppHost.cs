@@ -1,7 +1,7 @@
 
 namespace CygSoft.Qik.QikConsole
 {
-    public interface IAppHost
+    public interface IOutputGenerator
     {
         void Generate(string path);
     }

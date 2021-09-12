@@ -20,7 +20,7 @@ class Program
 {
         public static int Main(string[] args)
         {
-            IAppHost appHost = null;
+            IOutputGenerator outputGenerator = null;
             ICmdlineGenerator cmdLine = null;
             NLog.ILogger logger = null;
             // FileSettings settings = null;
@@ -59,13 +59,13 @@ class Program
                 .AddSingleton<ILogger>(logger)
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
-                .AddSingleton<IAppHost, MainHost>()
+                .AddSingleton<IOutputGenerator, OutputGenerator>()
                 .AddSingleton<ICmdlineGenerator, CmdlineGenerator>()
             ;
 
             serviceProvider = services.BuildServiceProvider();
 
-            appHost = serviceProvider.GetService<IAppHost>();
+            outputGenerator = serviceProvider.GetService<IOutputGenerator>();
             cmdLine = serviceProvider.GetService<ICmdlineGenerator>();
             
 

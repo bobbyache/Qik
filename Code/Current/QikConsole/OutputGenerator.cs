@@ -7,13 +7,13 @@ using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik.QikConsole
 {
-    public class MainHost : IAppHost
+    public class OutputGenerator : IOutputGenerator
     {
         private readonly IProjectFile projectFile;
         private readonly IFileFunctions fileFunctions;
         private Dictionary<string, string> fragmentsDictionary = new Dictionary<string, string>();
 
-        public MainHost(IProjectFile projectFile, IFileFunctions fileFunctions)
+        public OutputGenerator(IProjectFile projectFile, IFileFunctions fileFunctions)
         {
             this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
             this.fileFunctions = fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.");
