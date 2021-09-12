@@ -43,7 +43,7 @@ namespace CygSoft.Qik.QikConsole
 
                 foreach (var placeholder in terminal.Placeholders)
                 {
-                    templateText = templateText.Replace(placeholder, terminal.GetValue(placeholder));
+                    templateText = templateText.Replace(placeholder, terminal.GetPlaceholderValue(placeholder));
                 }
 
                 fragmentsDictionary.Add(frag.Id, templateText);
