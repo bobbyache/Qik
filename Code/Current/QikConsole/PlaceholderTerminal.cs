@@ -5,16 +5,14 @@ namespace CygSoft.Qik.QikConsole
 {
     public class PlaceholderTerminal
     {
-        private readonly string Id;
         private readonly ISymbolTerminal symbolTerminal;
 
         public string[] Placeholders { get => symbolDictionary.Keys.ToArray(); }
 
         public Dictionary<string, string> symbolDictionary =  new Dictionary<string, string>();
 
-        public PlaceholderTerminal(string id, ISymbolTerminal symbolTerminal, string placeholderPrefix, string placeholderPostfix)
+        public PlaceholderTerminal(ISymbolTerminal symbolTerminal, string placeholderPrefix, string placeholderPostfix)
         {
-            this.Id = id;
             this.symbolTerminal = symbolTerminal;
             
             foreach (var symbol in symbolTerminal.Symbols)

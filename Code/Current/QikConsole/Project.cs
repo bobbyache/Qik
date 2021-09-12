@@ -4,8 +4,9 @@ namespace CygSoft.Qik.QikConsole
 {
     public class Project
     {
+        public string ScriptPath { get; set; }
+        public List<Input> Inputs { get; set; } = new List<Input>();
         public List<Fragment> Fragments { get; set; } = new List<Fragment>();
-        public List<Processor> Processors { get; set; } = new List<Processor>();
         public List<Document> Documents { get; set; } = new List<Document>();
     }
 
@@ -13,13 +14,12 @@ namespace CygSoft.Qik.QikConsole
     {
         public string Id { get; set; }
         public string Path { get; set; }
-        public string[] Processors { get; set; }
     }
 
-    public class Processor
+    public class Input
     {
-        public string Id { get; set; }
-        public string ScriptFile { get; set; }
+        public string Symbol { get; set; }
+        public string Value { get; set; }
     }
 
     public class Document

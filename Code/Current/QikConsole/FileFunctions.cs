@@ -10,6 +10,7 @@ namespace CygSoft.Qik.QikConsole
         string GetFileDirectory(string filePath);
         string ReadTextFile(string filePath);
         void WriteTextFile(string path, string contents);
+        void DeleteFile(string path);
          bool IsFolder(string path);
          string GetRootedFilePath(string projectFilePath, string filePath);
     }
@@ -47,6 +48,8 @@ namespace CygSoft.Qik.QikConsole
                 streamWriter.Flush();
             }
         }
+
+        public void DeleteFile(string path) => File.Delete(path);
 
         public bool DirectoryExists(string directoryPath) => Directory.Exists(directoryPath);
 

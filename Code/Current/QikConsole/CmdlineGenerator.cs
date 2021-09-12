@@ -39,27 +39,13 @@ namespace CygSoft.Qik.QikConsole
             {
                 try
                 {
-                    EnterExecutionLoop(filePath);
+                    GenerateOutputFiles(filePath);
                 }
                 catch (Exception ex)
                 {
                     logger.Error(ex, "ooops and exception occurred.");
                     DisplayConsoleError(ex);
                 }
-            }
-        }
-
-        private void EnterExecutionLoop(string filePath)
-        {
-            Console.WriteLine("Please enter your choice:");
-            string choice = Console.ReadLine();
-            GenerateOutputFiles(filePath);
-
-            while (choice.ToLower() != "q")
-            {
-                Console.WriteLine("Please enter your choice:");
-                choice = Console.ReadLine();
-                GenerateOutputFiles(filePath);
             }
         }
 

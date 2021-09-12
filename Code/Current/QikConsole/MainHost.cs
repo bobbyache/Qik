@@ -3,6 +3,7 @@ using System;
 using System.IO;
 using System.Collections.Generic;
 using System.Text;
+using CygSoft.Qik.Functions;
 
 namespace CygSoft.Qik.QikConsole
 {
@@ -20,6 +21,7 @@ namespace CygSoft.Qik.QikConsole
 
         public void Generate(string path)
         {
+            fragmentsDictionary = new Dictionary<string, string>();
             var project = projectFile.Read(path);
             
             GenerateFragments(path, project);
@@ -28,17 +30,22 @@ namespace CygSoft.Qik.QikConsole
 
         public void GenerateFragments(string path, Project project)
         {
-            var service = new TerminalService(fileFunctions, path, project);
-
+            var scriptPath = Path.Combine(Path.GetDirectoryName(path), project.ScriptPath);
+            var script = fileFunctions.ReadTextFile(scriptPath);
+            var interpreter = new Interpreter();
+            var symbolTerminal = interpreter.Interpret(new FunctionFactory(), script);
+            var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
+            
             foreach (var frag in project.Fragments)
             {
                 var fullPath = Path.Combine(Path.GetDirectoryName(path), frag.Path);
                 var templateText = fileFunctions.ReadTextFile(fullPath);
 
-                foreach (var processorId in frag.Processors)
+                foreach (var placeholder in terminal.Placeholders)
                 {
-                    templateText = service.Execute(processorId, templateText);
+                    templateText = templateText.Replace(placeholder, terminal.GetValue(placeholder));
                 }
+
                 fragmentsDictionary.Add(frag.Id, templateText);
             }
         }
@@ -58,7 +65,11 @@ namespace CygSoft.Qik.QikConsole
                 
                 foreach (var outputPath in document.OutputFilePaths)
                 {
-                    fileFunctions.WriteTextFile(fileFunctions.GetRootedFilePath(path, outputPath), builder.ToString());
+                    var filePath = fileFunctions.GetRootedFilePath(path, outputPath);
+
+                    if (fileFunctions.FileExists(filePath)) fileFunctions.DeleteFile(filePath);
+                    
+                    fileFunctions.WriteTextFile(filePath, builder.ToString());
                 }
             }
         }
