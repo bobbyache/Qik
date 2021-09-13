@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
@@ -10,37 +11,38 @@ namespace CygSoft.Qik.QikConsole
 {
     using static System.Console;
 
-    public class GenerateCommand
+    public class GenerateSimpleCommand : BaseCommand
     {
-        private readonly NLog.ILogger logger;
-        private readonly IProjectFile projectFile;
-        private readonly IFileFunctions fileFunctions;
-
         private Dictionary<string, string> fragmentsDictionary = new Dictionary<string, string>();
 
-        public GenerateCommand(IProjectFile projectFile, IFileFunctions fileFunctions, NLog.ILogger logger)
-        {
-            this.logger = logger ?? throw new ArgumentNullException($"{nameof(logger)} cannot be null.");
-            this.projectFile = projectFile ?? throw new ArgumentNullException($"{nameof(projectFile)} cannot be null.");
-            this.fileFunctions = fileFunctions ?? throw new ArgumentNullException($"{nameof(fileFunctions)} cannot be null.");
-        }
+        public GenerateSimpleCommand(IProjectFile projectFile, IFileFunctions fileFunctions, NLog.ILogger logger): base (projectFile, fileFunctions, logger){}
 
-        public Command Configure()
+        public override Command Configure()
         {
-            var cmd = new Command("gen", "Generates from a project file.")
+            var fileOption = new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.");
+            fileOption.IsRequired = true;
+            fileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+
+            var inputsOption =  new Option<string>(new[] { "--inputs", "-i" }, "Assign inputs to any input variables.");
+            inputsOption.IsRequired = false;
+            inputsOption.Argument.Arity = ArgumentArity.ExactlyOne; 
+
+
+            var cmd = new Command("simple", "Generates from a single input set.")
             {
-                new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.")
+                fileOption,
+                inputsOption
             };
 
-            cmd.Handler = CommandHandler.Create<string>((Action<string>)((file) =>
+            cmd.Handler = CommandHandler.Create<string, string>((Action<string, string>)((file, inputs) =>
             {
-                Generate(file);
+                ExcecuteAll(file, inputs);
             }));
 
             return cmd;
         }
 
-        private void Generate(string filePath)
+        private void ExcecuteAll(string filePath, string inputs)
         {
             DisplayWelcomeHeader();
 
@@ -52,17 +54,8 @@ namespace CygSoft.Qik.QikConsole
             {
                 try
                 {
-                    WriteLine("Generating output files...");
-
-                    fragmentsDictionary = new Dictionary<string, string>();
-                    var project = projectFile.Read(filePath);
-                    
-                    GenerateFragments(filePath, project);
-                    GenerateDocuments(filePath, project);
-
-                    ForegroundColor = ConsoleColor.Green;
-                    WriteLine("...Success!");
-                    ForegroundColor = ConsoleColor.White;
+                    var inputList = inputs is not null ? SetInputs(inputs) : new Input[0];
+                    Generate(filePath, inputList);
                 }
                 catch (Exception ex)
                 {
@@ -72,7 +65,39 @@ namespace CygSoft.Qik.QikConsole
             }
         }
 
-        public void GenerateFragments(string path, Project project)
+        private Input[] SetInputs(string inputs)
+        {
+            var keyValues = inputs.Split(";")
+                .Select(a =>
+                {
+                    var parts = a.Split('=');
+                    return new Input()
+                    {
+                        Symbol = "@" + parts[0],
+                        Value = parts[1]   //maybe you need to check something here
+                    };
+                });
+
+            return keyValues.ToArray();
+        }
+
+
+        private void Generate(string filePath, Input[] inputs)
+        {
+            WriteLine("Generating output files...");
+
+            fragmentsDictionary = new Dictionary<string, string>();
+            var project = projectFile.Read(filePath);
+            
+            GenerateFragments(filePath, inputs, project);
+            GenerateDocuments(filePath, project);
+
+            ForegroundColor = ConsoleColor.Green;
+            WriteLine("...Success!");
+            ForegroundColor = ConsoleColor.White;
+        }
+
+        private void GenerateFragments(string path, Input[] inputs, Project project)
         {
             var scriptPath = Path.Combine(Path.GetDirectoryName(path), project.ScriptPath);
             var script = fileFunctions.ReadTextFile(scriptPath);
@@ -80,7 +105,7 @@ namespace CygSoft.Qik.QikConsole
             var symbolTerminal = interpreter.Interpret(new FunctionFactory(), script);
             var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
 
-            foreach (var input in project.Inputs)
+            foreach(var input in inputs)
             {
                 terminal.SetSymbolValue(input.Symbol, input.Value);
             }
@@ -99,7 +124,7 @@ namespace CygSoft.Qik.QikConsole
             }
         }
 
-        public void GenerateDocuments(string path, Project project)
+        private void GenerateDocuments(string path, Project project)
         {
             foreach (var document in project.Documents)
             {
@@ -121,22 +146,6 @@ namespace CygSoft.Qik.QikConsole
                     fileFunctions.WriteTextFile(filePath, builder.ToString());
                 }
             }
-        }
-
-        private static void DisplayWelcomeHeader()
-        {
-            ForegroundColor = ConsoleColor.Blue;
-            WriteLine(new Resources().GetWelcomeHeader());
-            ForegroundColor = ConsoleColor.White;
-        }
-
-        private static void DisplayConsoleError(Exception ex)
-        {
-            ForegroundColor = ConsoleColor.Red;
-            WriteLine("An error occurred!");
-            WriteLine($"\t{ex.Message}");
-            WriteLine("Please check the error logs");
-            ForegroundColor = ConsoleColor.White;
         }
     }
 }

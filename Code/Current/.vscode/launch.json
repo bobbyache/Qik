@@ -16,25 +16,35 @@
                 // Prompt to Generate from project
                 // ****************************************
                 "gen",
+                "simple",
                 "-f",
                 "C:\\Users\\RobB\\Desktop\\Qik\\project.json"
 
-                // "sym",
+                // "gen",
+                // "simple",
                 // "-f",
                 // "C:\\Users\\RobB\\Desktop\\Qik\\project.json",
-                // "-k",
-                // "input1",
-                // "-v",
-                // "--------------------------------------"
+                // "-i",
+                // "Input1=release 1.2.3;Input2=vapex and some heating and everything here double-breath"
 
-                // "sym",
+                // "gen",
+                // "matrix",
                 // "-f",
                 // "C:\\Users\\RobB\\Desktop\\Qik\\project.json",
-                // "-k",
-                // "input2",
-                // "-v",
-                // "--------------------------------------"
+                // "-i",
+                // "Input1=1;Input2=2",
+                // "-m",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\matrix_data.csv"
 
+                // "gen",
+                // "matrix",
+                // "-f",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\project.json",
+                // "-i",
+                // "Input1=1;Input2=2",
+                // "-m",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\matrix_data.csv",
+                // "-h"
             ],
             "cwd": "${workspaceFolder}/QikConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console

@@ -2,7 +2,6 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using CygSoft.Qik;
 using CygSoft.Qik.QikConsole;
 
@@ -46,9 +45,12 @@ class Program
             commandFactory = serviceProvider.GetService<ICommandFactory>();
 
             var rootCommand = new RootCommand("Qik Console Application");
+            var generateCommand = new Command("gen", "Generate output.");
 
-            rootCommand.Add(commandFactory.Create(CommandType.Generate));
-            rootCommand.Add(commandFactory.Create(CommandType.SymbolUpdate));
+            rootCommand.Add(generateCommand);
+
+            generateCommand.Add(commandFactory.Create(CommandType.GenerateSimple));
+            generateCommand.Add(commandFactory.Create(CommandType.GenerateMatrix));
 
             //
             // Parse the incoming args and invoke the handler

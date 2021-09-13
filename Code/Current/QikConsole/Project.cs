@@ -5,7 +5,6 @@ namespace CygSoft.Qik.QikConsole
     public class Project
     {
         public string ScriptPath { get; set; }
-        public List<Input> Inputs { get; set; } = new List<Input>();
         public List<Fragment> Fragments { get; set; } = new List<Fragment>();
         public List<Document> Documents { get; set; } = new List<Document>();
     }
