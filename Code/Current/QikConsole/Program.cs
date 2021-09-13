@@ -2,9 +2,8 @@
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using System.CommandLine;
-using System.CommandLine.Invocation;
 using CygSoft.Qik;
-using CygSoft.Qik.Console;
+using CygSoft.Qik.QikConsole;
 
 using NLog;
 using NLog.Extensions.Logging;
@@ -20,52 +19,9 @@ class Program
 {
         public static int Main(string[] args)
         {
-            IAppHost appHost = null;
-            NLog.ILogger logger = null;
+            ICommandFactory commandFactory = null;
             // FileSettings settings = null;
             ServiceProvider serviceProvider = null;
-
-            var rootCommand = new RootCommand
-            {
-                new Option<string>( new[] { "--path", "-p" } , "The path to a Qik project configuration file.")
-            };
-
-            rootCommand.Description = "Qik Console Application";
-
-            //
-            // Parameters of the handler method are matched according to the names of the options.
-            rootCommand.Handler = CommandHandler.Create<string>((Action<string>)((path) =>
-            {
-                Console.ForegroundColor = ConsoleColor.Blue;
-                Console.WriteLine(new Resources().GetWelcomeHeader());
-                Console.ForegroundColor = ConsoleColor.White;
-
-                if (string.IsNullOrWhiteSpace(path))
-                {
-                    Console.WriteLine("Please specify a path. See --help for more information.");
-                }
-
-                if (!string.IsNullOrWhiteSpace(path))
-                {
-                    try
-                    {
-                        Console.WriteLine("Generating output files...");
-                        appHost.Generate(path);
-                        Console.ForegroundColor = ConsoleColor.Green;
-                        Console.WriteLine("...Success!");
-                        Console.ForegroundColor = ConsoleColor.White;
-                    }
-                    catch (Exception ex)
-                    {
-                        logger.Error(ex, "ooops and exception occurred.");
-                        LogConsoleError(ex);
-                    }
-                }
-                else
-                {
-                    Console.WriteLine("Invalid input. Please see --help for information.");
-                }
-            }));
 
             var config = new ConfigurationBuilder()
                 .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
@@ -76,33 +32,28 @@ class Program
             // settings = config.GetSection(nameof(FileSettings)).Get<FileSettings>();
 
             LogManager.Configuration = new NLogLoggingConfiguration(config.GetSection("NLog"));
-
-            logger = LogManager.Setup()
-                                .LoadConfigurationFromSection(config)
-                                .GetCurrentClassLogger();
             
             var services = new ServiceCollection()
                 .AddSingleton<IInterpreter, Interpreter>()
+                .AddSingleton<ILogger>(logger => LogManager.Setup().LoadConfigurationFromSection(config).GetCurrentClassLogger())
                 .AddSingleton<IFileFunctions>(ah => new FileFunctions())
                 .AddSingleton<IProjectFile, ProjectFile>()
-                .AddSingleton<IAppHost, MainHost>()
+                .AddSingleton<ICommandFactory, CommandFactory>()
             ;
 
             serviceProvider = services.BuildServiceProvider();
+            commandFactory = serviceProvider.GetService<ICommandFactory>();
 
-            appHost = serviceProvider.GetService<IAppHost>();
+            var rootCommand = new RootCommand("Qik Console Application");
+            var generateCommand = new Command("gen", "Generate output.");
+
+            rootCommand.Add(generateCommand);
+
+            generateCommand.Add(commandFactory.Create(CommandType.GenerateSimple));
+            generateCommand.Add(commandFactory.Create(CommandType.GenerateMatrix));
 
             //
             // Parse the incoming args and invoke the handler
             return rootCommand.InvokeAsync(args).Result;
-        }
-
-        private static void LogConsoleError(Exception ex)
-        {
-            Console.ForegroundColor = ConsoleColor.Red;
-            Console.WriteLine("An error occurred!");
-            Console.WriteLine($"\t{ex.Message}");
-            Console.WriteLine("Please check the error logs");
-            Console.ForegroundColor = ConsoleColor.White;
         }
 }

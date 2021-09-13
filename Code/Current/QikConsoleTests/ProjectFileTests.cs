@@ -1,4 +1,4 @@
-using CygSoft.Qik.Console;
+using CygSoft.Qik.QikConsole;
 using NUnit.Framework;
 using System.Linq;
 using Moq;
@@ -13,11 +13,10 @@ namespace QikConsoleTests
         {
             var project = new Project();
             
-            project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt", Processors = new string [2] {"simple_processor", "matrix_processor"} });
-            project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt", Processors = new string [0] });
+            project.ScriptPath = "kv_script_file.qik";
 
-            project.Processors.Add(new Processor { Id = "simple_processor", ScriptFile = "kv_script_file.qik" });
-            project.Processors.Add(new Processor { Id = "matrix_processor", ScriptFile = "csv_script_file.qik" });
+            project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt"});
+            project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt" });
 
             project.Documents.Add(new Document 
             { 
@@ -39,6 +38,7 @@ namespace QikConsoleTests
             FileHelpers.DeleteFile("project.json");
 
             Assert.IsNotNull(writtenProject);
+
             Assert.IsTrue(writtenProject.Fragments.Count() == 2, "Unexpected number of fragments read from project file");
 
             var fragmentA = project.Fragments[0];
@@ -50,25 +50,7 @@ namespace QikConsoleTests
             Assert.IsTrue(fragmentA.Path == "C:\\Users\\RobB\\Desktop\\fragment_A.txt", "Unexpected fragment path read from project file");
             Assert.IsTrue(fragmentB.Path == "C:\\Users\\RobB\\Desktop\\fragment_B.txt", "Unexpected fragment path read from project file");
 
-
-            Assert.IsTrue(fragmentA.Processors.Count() == 2, "Unexpected processor count read from project file");
-            Assert.IsTrue(fragmentB.Processors.Count() == 0, "Unexpected processor count read from project file");
-
-            Assert.IsTrue(fragmentA.Processors[0] == "simple_processor", "Unexpected processor id read from project file");
-            Assert.IsTrue(fragmentA.Processors[1] == "matrix_processor", "Unexpected processor id read from project file");
-
-            Assert.IsTrue(writtenProject.Processors.Count() == 2);
-
-            var processorA = writtenProject.Processors[0];
-
-            Assert.IsTrue(processorA.Id == "simple_processor", "Unexpected processor id read from project file");
-            Assert.IsTrue(processorA.ScriptFile == "kv_script_file.qik", "Unexpected processor script file read from project file");
-
-            var processorB = writtenProject.Processors[1];
-
-            Assert.IsTrue(processorB.Id == "matrix_processor", "Unexpected processor id read from project file");
-            Assert.IsTrue(processorB.ScriptFile == "csv_script_file.qik", "Unexpected processor script file read from project file");
-
+            Assert.IsTrue(project.ScriptPath == "kv_script_file.qik", "Unexpected processor script path read from project file");
 
             Assert.IsTrue(writtenProject.Documents.Count() == 2);
 

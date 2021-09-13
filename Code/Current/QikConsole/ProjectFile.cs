@@ -2,7 +2,7 @@ using System.Text;
 using System.Text.Json;
 using System.IO;
 
-namespace CygSoft.Qik.Console
+namespace CygSoft.Qik.QikConsole
 {
     public interface IProjectFile
     {
@@ -34,7 +34,7 @@ namespace CygSoft.Qik.Console
         {
             string contents = null;
             
-            using (var file = new FileStream(filePath, FileMode.OpenOrCreate, FileAccess.Read))
+            using (var file = new FileStream(filePath, FileMode.Open, FileAccess.Read))
             {
                 using (StreamReader sr = new StreamReader(file))
                 {

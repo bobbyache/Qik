@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace CygSoft.Qik.Console {
+namespace CygSoft.Qik.QikConsole {
     using System;
     
     
