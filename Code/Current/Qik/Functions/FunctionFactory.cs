@@ -67,6 +67,14 @@ namespace CygSoft.Qik.Functions
                     func = new HtmlDecodeFunction(name, functionArguments);
                     break;
 
+                case "urlEncode":
+                    func = new UrlEncodeFunction(name, functionArguments);
+                    break;
+
+                case "urlDecode":
+                    func = new UrlDecodeFunction(name, functionArguments);
+                    break;
+
                 case "guid":
                     var guidFunction = new GuidFunction(name, functionArguments);
                     func = guidFunction;
