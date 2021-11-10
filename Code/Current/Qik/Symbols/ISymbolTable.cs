@@ -8,6 +8,8 @@ namespace CygSoft.Qik
         void AddSymbol(ISymbol symbol);      
     }
 
+    //
+    // TODO (Rob) This must come out into its own file.
     public interface ISymbolTerminal
     {
         string[] Symbols { get; }
