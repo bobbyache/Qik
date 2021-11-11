@@ -4,6 +4,7 @@ using System.Linq;
 
 namespace CygSoft.Qik.Functions
 {
+    [QikFunction("underscoreSurround")]
     public class UnderScoreSurroundFunction : BaseFunction
     {
         public UnderScoreSurroundFunction(string name, List<IFunction> functionArguments) : base(name, functionArguments)

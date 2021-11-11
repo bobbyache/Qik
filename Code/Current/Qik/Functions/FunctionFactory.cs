@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace CygSoft.Qik.Functions
 {
@@ -10,6 +12,52 @@ namespace CygSoft.Qik.Functions
 
     public class FunctionFactory : IFunctionFactory
     {
+        // private string pluginFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""); 
+        // string[] files = Directory.GetFiles(addinFolder, "*.dll", SearchOption.TopDirectoryOnly);
+        Dictionary<string, System.Type> functionTypes = new Dictionary<string, Type>();
+        
+        public FunctionFactory()
+        {
+            GetFunctionPlugins();
+        }
+        private void GetFunctionPlugins()
+        {
+            var pluginFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"); 
+
+            if (!Directory.Exists(pluginFolder))
+                return;
+
+            var assembly = Assembly.LoadFile(Path.Combine(pluginFolder, "QikFunnyFunctions.dll"));
+            // var assembly =  Assembly.GetExecutingAssembly();           
+
+            foreach (var type in assembly.GetTypes())
+            {
+                if (type.BaseType == typeof(BaseFunction))
+                {
+                    var attrs = System.Attribute.GetCustomAttributes(type);
+                    foreach (var attr in attrs)
+                    {
+                        if (attr is QikFunctionAttribute)
+                        {
+                            var functionAttribute = (QikFunctionAttribute)attr;
+                            functionTypes.Add(functionAttribute.Symbol, type);
+                        }
+                    }
+                }
+            }
+        }
+
+        private IFunction GetPluginFunction(string name, List<IFunction> functionArguments)
+        {
+            var success = functionTypes.TryGetValue(name, out Type functionType);
+            if (success)
+            {
+                var function = (IFunction)Activator.CreateInstance(functionType, new object[] { name, functionArguments });
+                return function;
+            }
+            return null;
+        }
+
         public IFunction GetFunction(string name, List<IFunction> functionArguments)
         {
             if (name is null) throw new ArgumentNullException($"{nameof(name)} cannot be null.");
@@ -90,7 +138,7 @@ namespace CygSoft.Qik.Functions
                     break;
 
                 default:
-                    func = null;
+                    func = GetPluginFunction(name, functionArguments);
                     break;
             }
 
