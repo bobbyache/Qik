@@ -14,7 +14,7 @@ namespace QikConsoleTests
             //
             // Have a look at the csproj file to understand how the QikFunnyFunctions dll is compiled and copied into the Plugins folder.
             var interpreter = new Interpreter();
-            var symbolTerminal = interpreter.Interpret(new FunctionFactory(), "@InputVar => underscoreSurround(\"Hello World\");");
+            var symbolTerminal = interpreter.Interpret(new FunctionFactory(new PluginLoader()), "@InputVar => underscoreSurround(\"Hello World\");");
             var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
 
             Assert.AreEqual("__Hello World__", terminal.GetPlaceholderValue("@{InputVar}"));

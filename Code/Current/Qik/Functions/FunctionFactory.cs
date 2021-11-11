@@ -12,52 +12,13 @@ namespace CygSoft.Qik.Functions
 
     public class FunctionFactory : IFunctionFactory
     {
+        private readonly IPluginLoader pluginLoader;
         Dictionary<string, System.Type> functionTypes = new Dictionary<string, Type>();
         
-        public FunctionFactory()
+        public FunctionFactory(IPluginLoader pluginLoader)
         {
-            GetFunctionPlugins();
-        }
-        private void GetFunctionPlugins()
-        {
-            var pluginFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Plugins"); 
-
-            if (!Directory.Exists(pluginFolder))
-                return;
-
-            string[] files = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly);
-
-            foreach (var file in files)
-            {
-                var assembly = Assembly.LoadFile(file);      
-
-                foreach (var type in assembly.GetTypes())
-                {
-                    if (type.BaseType == typeof(BaseFunction))
-                    {
-                        var attrs = System.Attribute.GetCustomAttributes(type);
-                        foreach (var attr in attrs)
-                        {
-                            if (attr is QikFunctionAttribute)
-                            {
-                                var functionAttribute = (QikFunctionAttribute)attr;
-                                functionTypes.Add(functionAttribute.Symbol, type);
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        private IFunction GetPluginFunction(string name, List<IFunction> functionArguments)
-        {
-            var success = functionTypes.TryGetValue(name, out Type functionType);
-            if (success)
-            {
-                var function = (IFunction)Activator.CreateInstance(functionType, new object[] { name, functionArguments });
-                return function;
-            }
-            return null;
+            this.pluginLoader = pluginLoader;
+            this.pluginLoader.Load();
         }
 
         public IFunction GetFunction(string name, List<IFunction> functionArguments)
@@ -140,7 +101,7 @@ namespace CygSoft.Qik.Functions
                     break;
 
                 default:
-                    func = GetPluginFunction(name, functionArguments);
+                    func = pluginLoader.GetFunction(name, functionArguments);
                     break;
             }
 

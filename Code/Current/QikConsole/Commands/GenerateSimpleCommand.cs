@@ -102,7 +102,7 @@ namespace CygSoft.Qik.QikConsole
             var scriptPath = Path.Combine(Path.GetDirectoryName(path), project.ScriptPath);
             var script = fileFunctions.ReadTextFile(scriptPath);
             var interpreter = new Interpreter();
-            var symbolTerminal = interpreter.Interpret(new FunctionFactory(), script);
+            var symbolTerminal = interpreter.Interpret(new FunctionFactory(new PluginLoader()), script);
             var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
 
             foreach(var input in inputs)
