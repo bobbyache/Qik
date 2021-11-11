@@ -12,8 +12,6 @@ namespace CygSoft.Qik.Functions
 
     public class FunctionFactory : IFunctionFactory
     {
-        // private string pluginFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, ""); 
-        // string[] files = Directory.GetFiles(addinFolder, "*.dll", SearchOption.TopDirectoryOnly);
         Dictionary<string, System.Type> functionTypes = new Dictionary<string, Type>();
         
         public FunctionFactory()
@@ -27,20 +25,24 @@ namespace CygSoft.Qik.Functions
             if (!Directory.Exists(pluginFolder))
                 return;
 
-            var assembly = Assembly.LoadFile(Path.Combine(pluginFolder, "QikFunnyFunctions.dll"));
-            // var assembly =  Assembly.GetExecutingAssembly();           
+            string[] files = Directory.GetFiles(pluginFolder, "*.dll", SearchOption.TopDirectoryOnly);
 
-            foreach (var type in assembly.GetTypes())
+            foreach (var file in files)
             {
-                if (type.BaseType == typeof(BaseFunction))
+                var assembly = Assembly.LoadFile(file);      
+
+                foreach (var type in assembly.GetTypes())
                 {
-                    var attrs = System.Attribute.GetCustomAttributes(type);
-                    foreach (var attr in attrs)
+                    if (type.BaseType == typeof(BaseFunction))
                     {
-                        if (attr is QikFunctionAttribute)
+                        var attrs = System.Attribute.GetCustomAttributes(type);
+                        foreach (var attr in attrs)
                         {
-                            var functionAttribute = (QikFunctionAttribute)attr;
-                            functionTypes.Add(functionAttribute.Symbol, type);
+                            if (attr is QikFunctionAttribute)
+                            {
+                                var functionAttribute = (QikFunctionAttribute)attr;
+                                functionTypes.Add(functionAttribute.Symbol, type);
+                            }
                         }
                     }
                 }
