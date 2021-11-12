@@ -10,7 +10,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\QikAntlr\QikAntlr.csproj" />
-    <ProjectReference Include="..\QikFunctionPlugins\QikFunctionPlugins.csproj" />
   </ItemGroup>
 
 <!-- 
