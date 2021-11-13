@@ -12,7 +12,7 @@ namespace QikTests
         public void Should_Create_An_Input_Variable_With_Provided_Text()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), "@InputVar => \"Hello World\";");
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), "@InputVar => \"Hello World\";");
             var value = terminal.GetValue("@InputVar");
 
             Assert.AreEqual("Hello World", value);
@@ -25,7 +25,7 @@ namespace QikTests
             // White space should not matter when interpreting.
             IInterpreter interpreter = new Interpreter();
 
-            var terminal = interpreter.Interpret(new FunctionFactory(), "@InputVar=>\"Hello World\";");
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), "@InputVar=>\"Hello World\";");
             var value = terminal.GetValue("@InputVar");
 
             Assert.AreEqual("Hello World", value);

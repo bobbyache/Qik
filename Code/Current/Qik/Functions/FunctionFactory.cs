@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Reflection;
 
 namespace CygSoft.Qik.Functions
 {
@@ -10,6 +12,15 @@ namespace CygSoft.Qik.Functions
 
     public class FunctionFactory : IFunctionFactory
     {
+        private readonly IPluginLoader pluginLoader;
+        Dictionary<string, System.Type> functionTypes = new Dictionary<string, Type>();
+        
+        public FunctionFactory(IPluginLoader pluginLoader)
+        {
+            this.pluginLoader = pluginLoader;
+            this.pluginLoader.Load();
+        }
+
         public IFunction GetFunction(string name, List<IFunction> functionArguments)
         {
             if (name is null) throw new ArgumentNullException($"{nameof(name)} cannot be null.");
@@ -90,7 +101,7 @@ namespace CygSoft.Qik.Functions
                     break;
 
                 default:
-                    func = null;
+                    func = pluginLoader.GetFunction(name, functionArguments);
                     break;
             }
 
