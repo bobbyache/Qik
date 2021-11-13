@@ -86,6 +86,14 @@ namespace CygSoft.Qik.Functions
                     func = new UrlDecodeFunction(name, functionArguments);
                     break;
 
+                case "base64Encode":
+                    func = new Base64EncodeFunction(name, functionArguments);
+                    break;
+
+                case "base64Decode":
+                    func = new Base64DecodeFunction(name, functionArguments);
+                    break;
+
                 case "guid":
                     var guidFunction = new GuidFunction(name, functionArguments);
                     func = guidFunction;
