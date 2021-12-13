@@ -8,7 +8,8 @@ namespace CygSoft.Qik.QikConsole
     public enum CommandType
     {
         GenerateSimple,
-        GenerateMatrix
+        GenerateMatrix,
+        InteractiveTerminal
     }
 
     public interface ICommandFactory
@@ -38,6 +39,9 @@ namespace CygSoft.Qik.QikConsole
 
                 case CommandType.GenerateMatrix:
                     return new GenerateMatrixCommand(projectFile, fileFunctions, logger).Configure();
+
+                case CommandType.InteractiveTerminal:
+                    return new InteractiveTerminalCommand(projectFile, fileFunctions, logger).Configure();
                 
                 default:
                     throw new NotImplementedException();

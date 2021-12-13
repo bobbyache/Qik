@@ -48,9 +48,11 @@ class Program
             var generateCommand = new Command("gen", "Generate output.");
 
             rootCommand.Add(generateCommand);
+            rootCommand.Add(commandFactory.Create(CommandType.InteractiveTerminal));
 
             generateCommand.Add(commandFactory.Create(CommandType.GenerateSimple));
             generateCommand.Add(commandFactory.Create(CommandType.GenerateMatrix));
+            generateCommand.Add(commandFactory.Create(CommandType.InteractiveTerminal));
 
             //
             // Parse the incoming args and invoke the handler

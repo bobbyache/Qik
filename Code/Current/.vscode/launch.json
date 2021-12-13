@@ -15,10 +15,12 @@
                 // ****************************************
                 // Prompt to Generate from project
                 // ****************************************
-                "gen",
-                "simple",
-                "-f",
-                "C:\\Users\\RobB\\Desktop\\Qik\\project.json"
+                // "gen",
+                // "simple",
+                // "-f",
+                // "C:\\Users\\RobB\\Desktop\\Qik\\project.json"
+
+                "terminal",
 
                 // "gen",
                 // "simple",
@@ -49,6 +51,7 @@
             "cwd": "${workspaceFolder}/QikConsole",
             // For more information about the 'console' field, see https://aka.ms/VSCode-CS-LaunchJson-Console
             "console": "externalTerminal",
+            //"console": "internalConsole",
             "stopAtEntry": false
         },
         {
