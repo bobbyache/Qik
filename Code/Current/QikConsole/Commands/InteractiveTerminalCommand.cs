@@ -19,34 +19,36 @@ namespace CygSoft.Qik.QikConsole
 
         public override Command Configure()
         {
-            var fileOption = new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.");
-            fileOption.IsRequired = false;
-            fileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            var cmd = new Command("terminal", "Interactive Terminal.");
 
-            var inputsOption =  new Option<string>(new[] { "--terminal", "-t" }, "Assign inputs to any input variables.");
-            inputsOption.IsRequired = false;
-            inputsOption.Argument.Arity = ArgumentArity.ExactlyOne; 
-
-
-            var cmd = new Command("terminal", "Interactive Terminal.")
+            cmd.Handler = CommandHandler.Create(() =>
             {
-                fileOption,
-                inputsOption
-            };
-
-            cmd.Handler = CommandHandler.Create<string, string>((Action<string, string>)((file, inputs) =>
-            {
+                DisplayWelcomeHeader();
                 Display();
-            }));
+                MainMenu();
+                
+            });
 
             return cmd;
         }
 
-        public void Display()
+        private void Display()
         {
-            DisplayWelcomeHeader();
+            // DisplayWelcomeHeader();
+            Console.WriteLine($"Current Library folder is: {Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Library")}");
             Console.WriteLine("Welcome to the terminal!");
+        }
+
+        private void MainMenu()
+        {
+            Console.WriteLine();
+            Console.WriteLine(" X.\tView Projects");
+            Console.WriteLine(" X.\tOpen Project");
+            Console.WriteLine(" X.\tCreate Project");
+            Console.WriteLine();
             Console.ReadLine();
         }
+
+
     }
 }

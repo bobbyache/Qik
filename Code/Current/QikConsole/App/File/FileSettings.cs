@@ -1,9 +1,12 @@
+using System.IO;
+
 namespace CygSoft.Qik.QikConsole
 {
     //
     // Don't remove just yet... may need to hook up configuration settings again so have left the skeleton behind.
     public class FileSettings
     {
+        // public string Library { get; set; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "Library");
         // public string CommaDelimitedBlueprintExtensions { get; set; }
 
         // public string[] BlueprintExtensions => CommaDelimitedBlueprintExtensions.Split(",");
