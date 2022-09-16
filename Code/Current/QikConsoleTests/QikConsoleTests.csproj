@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
+    <TargetFramework>net6.0</TargetFramework>
 
     <IsPackable>false</IsPackable>
   </PropertyGroup>
@@ -11,7 +11,7 @@
     -->
     <Target Name="BuildAndCopyTestPlugin" BeforeTargets="BeforeBuild">
         <Exec Command="dotnet build $(ProjectDir)..\QikFunnyFunctions\QikFunnyFunctions.csproj" />
-        <Copy SourceFiles="$(ProjectDir)..\QikFunnyFunctions\bin\debug\net5.0\QikFunnyFunctions.dll" DestinationFolder="$(OutDir)\Plugins" />
+        <Copy SourceFiles="$(ProjectDir)..\QikFunnyFunctions\bin\debug\net6.0\QikFunnyFunctions.dll" DestinationFolder="$(OutDir)\Plugins" />
     </Target>
 
   <ItemGroup>
