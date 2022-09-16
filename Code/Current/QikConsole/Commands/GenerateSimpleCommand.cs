@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using CygSoft.Qik.Functions;
+using System.CommandLine.NamingConventionBinder;
 
 namespace CygSoft.Qik.QikConsole
 {
@@ -21,11 +22,11 @@ namespace CygSoft.Qik.QikConsole
         {
             var fileOption = new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.");
             fileOption.IsRequired = true;
-            fileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            fileOption.Arity = ArgumentArity.ExactlyOne;
 
             var inputsOption =  new Option<string>(new[] { "--inputs", "-i" }, "Assign inputs to any input variables.");
             inputsOption.IsRequired = false;
-            inputsOption.Argument.Arity = ArgumentArity.ExactlyOne; 
+            inputsOption.Arity = ArgumentArity.ExactlyOne; 
 
 
             var cmd = new Command("simple", "Generates from a single input set.")

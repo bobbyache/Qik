@@ -10,7 +10,7 @@
             "request": "launch",
             "preLaunchTask": "build",
             // If you have changed target frameworks, make sure to update the program path.
-            "program": "${workspaceFolder}/QikConsole/bin/Debug/net5.0/QikConsole.dll",
+            "program": "${workspaceFolder}/QikConsole/bin/Debug/net6.0/QikConsole.dll",
             "args": [
                 // ****************************************
                 // Prompt to Generate from project
