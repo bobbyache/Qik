@@ -15,6 +15,12 @@ namespace QikConsoleTests
             
             project.ScriptPath = "kv_script_file.qik";
 
+            project.PreExecutionScripts.Add("C:\\Users\\RobB\\Desktop\\pre_script_a.ps1");
+            project.PreExecutionScripts.Add("C:\\Users\\RobB\\Desktop\\pre_script_b.ps1");
+
+            project.PostExecutionScripts.Add("C:\\Users\\RobB\\Desktop\\post_script_a.ps1");
+            project.PostExecutionScripts.Add("C:\\Users\\RobB\\Desktop\\post_script_b.ps1");
+
             project.Fragments.Add(new Fragment { Id = "fragment_A", Path = "C:\\Users\\RobB\\Desktop\\fragment_A.txt"});
             project.Fragments.Add(new Fragment { Id = "fragment_B", Path = "C:\\Users\\RobB\\Desktop\\fragment_B.txt" });
 
@@ -66,6 +72,18 @@ namespace QikConsoleTests
             Assert.IsTrue(documentB.OutputFilePaths[0] == "/documents/document2.txt", "Unexpected document output file read from project file");
             Assert.IsTrue(documentB.Structure[0] == "fragment_A", "Unexpected structure id read from project file");
             Assert.IsTrue(documentB.Structure[1] == "fragment_B", "Unexpected structure id read from project file");
+
+            var preScriptA = project.PreExecutionScripts[0];
+            var preScriptB = project.PreExecutionScripts[1];
+
+            var postcriptA = project.PostExecutionScripts[0];
+            var postcriptB = project.PostExecutionScripts[1];
+
+            Assert.IsTrue(preScriptA == "C:\\Users\\RobB\\Desktop\\pre_script_a.ps1", "Unexpected script read from project file");
+            Assert.IsTrue(preScriptB == "C:\\Users\\RobB\\Desktop\\pre_script_b.ps1", "Unexpected script path read from project file");
+
+            Assert.IsTrue(postcriptA == "C:\\Users\\RobB\\Desktop\\post_script_a.ps1", "Unexpected script read from project file");
+            Assert.IsTrue(postcriptB == "C:\\Users\\RobB\\Desktop\\post_script_b.ps1", "Unexpected script read from project file");
         }   
     }
 }
