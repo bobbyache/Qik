@@ -16,26 +16,29 @@ namespace CygSoft.Qik.Antlr
 
         public override string VisitInputDecl([NotNull] QikTemplateParser.InputDeclContext context)
         {
-            var widget = new UiWidget(context.VARIABLE().GetText());            
-
-            foreach (var dude in context.uiWidget().uiWidgetProperty())
+            if (context.uiWidget() is not null)
             {
-                var key = dude.uiWidgetKey().GetText();
-                var val = dude.STRING().GetText().StripOuterQuotes();
+                var widget = new UiWidget(context.VARIABLE().GetText());
 
-                switch (key)
+                foreach (var pair in context.uiWidget().uiWidgetProperty())
                 {
-                    case "title":
-                        widget.Title = val;
-                        break;
-                    case "type":
-                        widget.Type = val;
-                        break;
-                    default:
-                        throw new ArgumentException($"UI Widget property ({key}) is not supported");
+                    var key = pair.uiWidgetKey().GetText();
+                    var val = pair.STRING().GetText().StripOuterQuotes();
+
+                    switch (key)
+                    {
+                        case "title":
+                            widget.Title = val;
+                            break;
+                        case "type":
+                            widget.Type = val;
+                            break;
+                        default:
+                            throw new ArgumentException($"UI Widget property ({key}) is not supported");
+                    }
                 }
+                widgets.Add(widget);
             }
-            widgets.Add(widget);
 
             return base.VisitInputDecl(context);
         }

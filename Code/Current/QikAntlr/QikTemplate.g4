@@ -13,10 +13,8 @@ template
 Control Declarations
 ----------------------------------------------------------------------- */
 
-
-
 inputDecl
-    : (uiWidget) VARIABLE '=>' STRING ';'
+    :  (uiWidget VARIABLE '=>' STRING ';'|VARIABLE '=>' STRING ';')
     ;
 
  uiWidget
