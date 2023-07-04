@@ -11,18 +11,35 @@ template
 
 /* -----------------------------------------------------------------------
 Control Declarations
------------------------------------------------------------------------ */ 
+----------------------------------------------------------------------- */
+
+
+
 inputDecl
-    : VARIABLE '=>' STRING ';'
+    : (uiWidget) VARIABLE '=>' STRING ';'
     ;
 
-funcDecl
-    : VARIABLE '=>' (stat|switchExpr|ifExpr) ';'
+ uiWidget
+    : '[' uiWidgetProperty (',' uiWidgetProperty)* ']'
+    ;
+
+uiWidgetProperty
+    : uiWidgetKey '=' STRING
+    ;
+
+uiWidgetKey
+    : 'title'
+    | 'type'
     ;
 
 /* -----------------------------------------------------------------------
 Expressions and Functions
 ----------------------------------------------------------------------- */ 
+
+funcDecl
+    : VARIABLE '=>' (stat|switchExpr|ifExpr) ';'
+    ;
+
 stat
     : (expr|iffExpr|concatExpr)
     ;
