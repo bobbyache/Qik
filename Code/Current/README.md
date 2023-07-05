@@ -1,33 +1,94 @@
 
-## Get up and Running
+# Get up and Running
 
 ### Run the Console
 To run the console application only the `dotnet run` command is necessary unless running for the first time.
 
-```
+```bash
 dotnet clean
 dotnet restore
 dotnet run --project QikConsole/QikConsole.csproj
 ```
 
-### Run the tests
+To enure a clean restart when restoring the cache (or if you run into dependency issues), you an try: `dotnet restore --no-cache`.
 
+
+### Environment Variables
+
+To check where (or if) Qik's path is in your environment variables you can run this PowerShell statement:
+
+```PowerShell
+$env:Path -split ';' | Where-Object { $_ -like '*Qik*' }
 ```
+Once this path is known, you can use `release.sh` or `release.ps1` to publish to it.
+
+dotnet publish -c release
+rm -rf /C/Programs/MyConsole/*
+cp -rf MyConsole/bin/Release/net7.0/publish/* /C/Programs/MyConsole/
+
+
+# Tests
+
+To run the tests simply run the following commands.
+```bash
 dotnet test
 ```
 
-```
+```bash
 dotnet test ./qiktests/qiktests.csproj
 ```
+
+### Build the Plugins for Testing
+
+In order to prepare the plugin that is used to test that the plugin system works, the below section in `QikConsoleTests.csproj` builds the `QikFunnyFunctions` and then copies the binaries to the plugins folder, so that the tests can run successfully. 
+
+```xml
+    <!-- Compile Test Plugin Assembly (QikFunnyFunctions) and copy it into output Plugins folder. -->
+    <Target Name="BuildAndCopyTestPlugin" BeforeTargets="BeforeBuild">
+        <Exec Command="dotnet build $(ProjectDir)..\QikFunnyFunctions\QikFunnyFunctions.csproj" />
+        <Copy SourceFiles="$(ProjectDir)..\QikFunnyFunctions\bin\debug\net6.0\QikFunnyFunctions.dll" DestinationFolder="$(OutDir)\Plugins" />
+    </Target>
+```
+
+> **Take note** that when you increment the version (from say net6.0 to net7.0), you'll have to modify the `Copy` command.
+
+### Internals Visible
+
+Adding `InternalsVisibleTo` for tests.
+```xml
+  <ItemGroup>
+    <InternalsVisibleTo Include="QikTests" /> <!-- [assembly: InternalsVisibleTo("CustomTest1")] -->
+  </ItemGroup>
+```
+
+# Maintenance
+
+To see the current status of your installed SDKs and whether there are patches or updates available run `dotnet sdk check`. 
+
+### Version Management
+
+To target an SDK (or SDK range), `global.json` is used:
+
+```json
+{
+    "sdk": {
+        "version": "7.0.203",
+        "rollForward": "latestFeature"
+    }
+}
+```
+This specifies that the the latest installed "7.0.*" can be used.
+
+When a major version is changed (eg. net6 to net7), the following should be checked and modified:
+
+- `release.sh` needs to target the correct folder.
+- `launch.json` must be modified in all places where the new build folders are specified.
+- `QikConsoleTests.csproj` must be modified where `BuildAndCopyTestPlugin` is described.
 
 ## Tips and Tricks
 
 ### Deep Testing
 
-Adding `InternalsVisibleTo` for tests.
-```
-<InternalsVisibleTo Include="CustomTest1" /> <!-- [assembly: InternalsVisibleTo("CustomTest1")] -->
-```
 
 ### Console Project Creation
 The initial steps to create the project are as follows. Later, more projects were added using commands similar to those below.
