@@ -6,6 +6,8 @@ using System.Collections.Generic;
 using System.CommandLine;
 using System.CommandLine.Invocation;
 using CygSoft.Qik.Functions;
+using System.CommandLine.NamingConventionBinder;
+using PowershellShowcase;
 
 namespace CygSoft.Qik.QikConsole
 {
@@ -21,11 +23,11 @@ namespace CygSoft.Qik.QikConsole
         {
             var fileOption = new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.");
             fileOption.IsRequired = true;
-            fileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            fileOption.Arity = ArgumentArity.ExactlyOne;
 
             var inputsOption =  new Option<string>(new[] { "--inputs", "-i" }, "Assign inputs to any input variables.");
             inputsOption.IsRequired = false;
-            inputsOption.Argument.Arity = ArgumentArity.ExactlyOne; 
+            inputsOption.Arity = ArgumentArity.ExactlyOne; 
 
 
             var cmd = new Command("simple", "Generates from a single input set.")
@@ -88,13 +90,49 @@ namespace CygSoft.Qik.QikConsole
 
             fragmentsDictionary = new Dictionary<string, string>();
             var project = projectFile.Read(filePath);
+
+            if (project.PreExecutionScripts.Count > 0)
+                RunPreExecutionScripts(filePath, project);
             
             GenerateFragments(filePath, inputs, project);
             GenerateDocuments(filePath, project);
 
+            if (project.PostExecutionScripts.Count > 0)
+                RunPostExecutionScripts(filePath, project);
+
             ForegroundColor = ConsoleColor.Green;
             WriteLine("...Success!");
             ForegroundColor = ConsoleColor.White;
+        }
+
+        private void RunPreExecutionScripts(string path, Project project)
+        {
+            foreach (var script in project.PreExecutionScripts)
+            {
+                var scriptPath = fileFunctions.GetRootedFilePath(path, script);
+
+                if (fileFunctions.FileExists(scriptPath))
+                {
+                    var scriptText = fileFunctions.ReadTextFile(scriptPath);
+                    var consoleText = PowerShellHandler.Command(scriptText);
+                    Write(consoleText);
+                }
+            }
+        }
+
+        private void RunPostExecutionScripts(string path, Project project)
+        {
+            foreach (var script in project.PostExecutionScripts)
+            {
+                var scriptPath = fileFunctions.GetRootedFilePath(path, script);
+
+                if (fileFunctions.FileExists(scriptPath))
+                {
+                    var scriptText = fileFunctions.ReadTextFile(scriptPath);
+                    var consoleText = PowerShellHandler.Command(scriptText);
+                    Write(consoleText);
+                }
+            }
         }
 
         private void GenerateFragments(string path, Input[] inputs, Project project)
@@ -102,7 +140,7 @@ namespace CygSoft.Qik.QikConsole
             var scriptPath = Path.Combine(Path.GetDirectoryName(path), project.ScriptPath);
             var script = fileFunctions.ReadTextFile(scriptPath);
             var interpreter = new Interpreter();
-            var symbolTerminal = interpreter.Interpret(new FunctionFactory(), script);
+            var symbolTerminal = interpreter.Interpret(new FunctionFactory(new PluginLoader()), script);
             var terminal = new PlaceholderTerminal(symbolTerminal, "@{", "}");
 
             foreach(var input in inputs)

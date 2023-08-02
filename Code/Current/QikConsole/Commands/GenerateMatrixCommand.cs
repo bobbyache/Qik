@@ -1,6 +1,7 @@
 using System;
 using System.CommandLine;
 using System.CommandLine.Invocation;
+using System.CommandLine.NamingConventionBinder;
 using System.IO;
 using System.Linq;
 
@@ -16,21 +17,21 @@ namespace CygSoft.Qik.QikConsole
         {
             var fileOption = new Option<string>( new[] { "--file", "-f" }, "The path to a Qik project configuration file.");
             fileOption.IsRequired = true;
-            fileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            fileOption.Arity = ArgumentArity.ExactlyOne;
 
             // Support File Columns
             // Input1=1;Input2=2
             var inputsOption =  new Option<string>(new[] { "--inputs", "-i" }, "Assign inputs to any input variables.");
             inputsOption.IsRequired = true;
-            inputsOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            inputsOption.Arity = ArgumentArity.ExactlyOne;
 
             var matrixFileOption = new Option<string>( new[] { "--matrix-file", "-m" }, "The path to a Qik project configuration file.");
             matrixFileOption.IsRequired = true;
-            matrixFileOption.Argument.Arity = ArgumentArity.ExactlyOne;
+            matrixFileOption.Arity = ArgumentArity.ExactlyOne;
 
             var ignoreHeaders  = new Option<bool>( new[] { "--headers", "-h" }, "Ignore the first header line.");
             ignoreHeaders.IsRequired = false;
-            ignoreHeaders.Argument.Arity = ArgumentArity.ZeroOrOne;
+            ignoreHeaders.Arity = ArgumentArity.ZeroOrOne;
 
             var cmd = new Command("matrix", "Modifies a symbol value.")
             {

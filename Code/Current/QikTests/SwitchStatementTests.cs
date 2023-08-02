@@ -12,7 +12,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Simple_Text_Comparison_Case_Check()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @testVal => ""Green"";
                     @result =>
@@ -32,7 +32,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Simple_Text_Comparison_Else_Check()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @testVal => ""Blue"";
                     @result =>
@@ -52,7 +52,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Simple_Text_Comparison_Else_Check_After_SetValue()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @testVal => ""Blue"";
                     @result =>
@@ -74,7 +74,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Case_Ternary_Check()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @val_1 => ""Blue"";
                     @val_2 => ""GRAVY"";
@@ -96,7 +96,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Switch_Function_Check()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @val_1 => ""Blue"";
                     @val_2 => ""GRAVY"";
@@ -118,7 +118,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_For_Switch_And_Else_Function_Check()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @val_1 => ""red"";
                     @val_2 => ""GRAVY"";
@@ -140,7 +140,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_When_Matches_Case_Using_Concatenation()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @val_1 => ""Blue"";
 
@@ -160,7 +160,7 @@ namespace QikTests
         public void Should_Be_Expected_Value_When_Matches_Else_Using_Concatenation()
         {
             var interpreter = new Interpreter();
-            var terminal = interpreter.Interpret(new FunctionFactory(), 
+            var terminal = interpreter.Interpret(new FunctionFactory(TestHelpers.StubPluginLoader), 
                 @"
                     @val_1 => ""Orange"";
 
