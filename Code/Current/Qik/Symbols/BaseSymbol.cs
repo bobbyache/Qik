@@ -6,9 +6,6 @@
 
         public abstract string Value { get; }
 
-        public BaseSymbol(string symbol)
-        {
-            Symbol = symbol;
-        }
+        public BaseSymbol(string symbol) => Symbol = symbol;
     }
 }

@@ -1,4 +1,6 @@
-﻿using CygSoft.Qik.Functions;
+﻿using System.Collections.Generic;
+using CygSoft.Qik.Functions;
+using Qik.UiWidgets;
 
 namespace CygSoft.Qik
 {
