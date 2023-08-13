@@ -5,7 +5,5 @@ ________  .__ __
 /   \_/.  \  |    < 
 \_____\ \_/__|__|_ \
        \__>       \/ Generator
-              v1.0.0
+              v{0}
  by Rob Blake
- Welcome! 
- Let's save some time!
