@@ -1,6 +1,8 @@
 
 # Operational Information
 
+### Simple Operation
+
 To set up a project file for testing do the following:
 
 ```bash
@@ -49,6 +51,62 @@ Add the path to your `QikConsole` to the PATH environment variable and run the f
 ```PowerShell
 qikconsole gen simple -f .\project.json
 ```
+
+### Using inputs
+
+To set up a project file for testing do the following:
+
+```bash
+mkdir TestDir
+cd TestDir
+
+touch ./script.qik
+touch ./input.qikt
+touch ./project.json
+```
+
+Your `project.json` file should end up looking like this.
+
+```json
+{
+    "scriptPath": ".\\script.qik",
+    "fragments": [
+        {
+            "id": "input",
+            "path": "input.qikt"
+        }
+    ],
+    "documents": [
+        {
+            "outputFilePaths": ["output.md"],
+            "structure": ["input" ]
+        }
+    ]
+}
+```
+
+Your `script.qik` file should end up looking like this.
+
+```
+[title="Variable 1", type="text"] @Variable1 => "default value 1";
+[title="Variable 2", type="text"] @Variable1 => "default value 2";
+```
+
+Your `input.qikt` file should end up looking like this.
+
+```
+@{Variable1}
+@{Variable2}
+```
+
+Add the path to your `QikConsole` to the PATH environment variable and run the following command:
+
+```PowerShell
+qikconsole gen simple -f .\TestDir\project.json -i "Variable1=An Elephant;Variable2=A Rhino"
+```
+
+You should see `An elephant` and `A Rhino` in the output document. Using `qikconsole gen simple -f .\TestDir\project.json` will generate with the default values.
+
 
 # Get up and Running
 
