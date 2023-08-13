@@ -1,4 +1,55 @@
 
+# Operational Information
+
+To set up a project file for testing do the following:
+
+```bash
+mkdir TestDir
+cd TestDir
+
+touch ./script.qik
+touch ./input.qikt
+touch ./project.json
+```
+
+Your `project.json` file should end up looking like this.
+
+```json
+{
+    "scriptPath": ".\\script.qik",
+    "fragments": [
+        {
+            "id": "input",
+            "path": "input.qikt"
+        }
+    ],
+    "documents": [
+        {
+            "outputFilePaths": ["output.md"],
+            "structure": ["input" ]
+        }
+    ]
+}
+```
+
+Your `script.qik` file should end up looking like this.
+
+```
+@Variable => "my variable text here...";
+```
+
+Your `input.qikt` file should end up looking like this.
+
+```
+@{Variable}
+```
+
+Add the path to your `QikConsole` to the PATH environment variable and run the following command:
+
+```PowerShell
+qikconsole gen simple -f .\project.json
+```
+
 # Get up and Running
 
 ### Run the Console
