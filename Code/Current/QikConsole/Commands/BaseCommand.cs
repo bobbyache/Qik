@@ -1,5 +1,6 @@
 using System;
 using System.CommandLine;
+using System.Reflection;
 
 namespace CygSoft.Qik.QikConsole
 {
@@ -23,7 +24,7 @@ namespace CygSoft.Qik.QikConsole
         protected void DisplayWelcomeHeader()
         {
             ForegroundColor = ConsoleColor.Blue;
-            WriteLine(new Resources().GetWelcomeHeader());
+            WriteLine(new Resources().GetWelcomeHeader(Assembly.GetEntryAssembly().GetName().Version.ToString()));
             ForegroundColor = ConsoleColor.White;
         }
 
