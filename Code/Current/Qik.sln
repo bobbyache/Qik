@@ -3,19 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Qik", "Qik\Qik.csproj", "{E1FB5C5C-B81B-4B8D-BD9C-1EC43523892C}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikConsole", "QikConsole\QikConsole.csproj", "{DDE29CCE-5AE8-4A99-9D4E-1419267802B2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikTests", "QikTests\QikTests.csproj", "{9BCF85D1-E39A-44BF-A5A9-7376EA687ADC}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikAntlr", "QikAntlr\QikAntlr.csproj", "{B2C00AAD-C76A-4A74-9818-C30182EE2506}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikConsoleTests", "QikConsoleTests\QikConsoleTests.csproj", "{24968C27-2EBC-4DDA-9665-4AC7E24DA08C}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikFunnyFunctions", "QikFunnyFunctions\QikFunnyFunctions.csproj", "{3ABE735D-4B39-4A71-A471-042DAD6C6B28}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QikWebApi", "QikWebApi\QikWebApi.csproj", "{E8E4D936-E8DB-4637-86FD-1716863DDDD2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
