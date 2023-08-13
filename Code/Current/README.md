@@ -38,26 +38,12 @@ dotnet test
 dotnet test ./qiktests/qiktests.csproj
 ```
 
-### Build the Plugins for Testing
-
-In order to prepare the plugin that is used to test that the plugin system works, the below section in `QikConsoleTests.csproj` builds the `QikFunnyFunctions` and then copies the binaries to the plugins folder, so that the tests can run successfully. 
-
-```xml
-    <!-- Compile Test Plugin Assembly (QikFunnyFunctions) and copy it into output Plugins folder. -->
-    <Target Name="BuildAndCopyTestPlugin" BeforeTargets="BeforeBuild">
-        <Exec Command="dotnet build $(ProjectDir)..\QikFunnyFunctions\QikFunnyFunctions.csproj" />
-        <Copy SourceFiles="$(ProjectDir)..\QikFunnyFunctions\bin\debug\net6.0\QikFunnyFunctions.dll" DestinationFolder="$(OutDir)\Plugins" />
-    </Target>
-```
-
-> **Take note** that when you increment the version (from say net6.0 to net7.0), you'll have to modify the `Copy` command.
-
 ### Internals Visible
 
 Adding `InternalsVisibleTo` for tests.
 ```xml
   <ItemGroup>
-    <InternalsVisibleTo Include="QikTests" /> <!-- [assembly: InternalsVisibleTo("CustomTest1")] -->
+    <InternalsVisibleTo Include="QikTests" /> <!-- [assembly: InternalsVisibleTo("QikConsoleTests")] -->
   </ItemGroup>
 ```
 
@@ -92,88 +78,6 @@ When a major version is changed (eg. net6 to net7), the following should be chec
 - `release.sh` needs to target the correct folder.
 - `launch.json` must be modified in all places where the new build folders are specified.
 - `QikConsoleTests.csproj` must be modified where `BuildAndCopyTestPlugin` is described.
-
-# The Genesis
-
-The initial steps to create the project are as follows. Later, more projects were added using commands similar to those below.
-
-```
-dotnet new sln -n Qik
-dotnet new classlib -o Qik
-dotnet sln add Qik/Qik.csproj
-dotnet build
-dotnet new console QikConsole
-dotnet new console -o QikConsole
-dotnet sln add QikConsole/QikConsole.csproj
-dotnet add QikConsole/QikConsole.csproj reference Qik/Qik.csproj
-```
-### Install and create NUnit tests
-
-Install the template
-```
-dotnet new -i NUnit3.DotNetNew.Template
-```
-Create the unit tests
-```
-dotnet new nunit -n QikConsoleTests
-dotnet add QikConsoleTests/QikConsoleTests.csproj reference QikConsole/QikConsole.csproj
-dotnet sln add QikConsoleTests/QikConsoleTests.csproj
-
-cd ./QikConsoleTests/
-dotnet add package FluentAssertions --version 5.10.3
-dotnet add package Moq --version 4.15.1
-
-cd ..
-
-dotnet test
-```
-
-### Install Packages
-Here is an example of how to install a package to a project at the commandline. You need to navigate into the project folder so that the `csproj` file is in the same directory.
-```
-dotnet add package Newtonsoft.Json
-dotnet add package Newtonsoft.Json --version 12.0.1
-```
-
-# Antlr
-
-### ANTLR4 grammar syntax support VS Code Plugin
-
-The extension for ANTLR4 support in Visual Studio code. Provides Code Completion + Symbol Information, Grammar Validations, and Visualizations.
-
-- ANTLR4 grammar syntax support [MarketPlace](https://marketplace.visualstudio.com/items?itemName=mike-lischke.vscode-antlr4&ssr=false#qna)
-- ANTLR4 grammar syntax support [Github](https://github.com/mike-lischke/vscode-antlr4)
-
-### Usage
-
-Important that the settings are set up correctly or the grammar file will not generate into C# source code. The mode must be external in order to use the CSharp option and it is important to set the output directory and namespace using the item keys below:
-
- Item | Value |
-| --- | :--- |
-| mode | external  |
-| language | CSharp  |
-| listeners | true  |
-| visitors | true  |
-| outputDir | _antlr  |
-| package | CygSoft.Qik.Antlr  |
-
-When everything is working the files in the `./QikAntlr/_antlr` folder will generate every time a change is made to the `QikTemplate.g4` file. If your files aren't generating it is usually because of one of the reasons below:
-
-- Ensuring that you've added the correcdt settings above for both user and workspace.
-- It is possible that there is a problem with your `*.g4` template file.
-
-### Plugin Workspace Settings
-```
-{
-    "antlr4.generation": {
-        "mode": "external",
-        "language": "CSharp",
-        "visitors": true,
-        "outputDir": "_antlr",
-        "package": "CygSoft.Qik.Antlr"
-    }
-}
-```
 
 # Console Application
 
